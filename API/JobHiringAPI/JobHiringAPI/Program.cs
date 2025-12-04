@@ -1,4 +1,7 @@
 
+using JobHiringAPI.Persistence;
+using Microsoft.EntityFrameworkCore;
+
 namespace JobHiringAPI
 {
     public class Program
@@ -8,8 +11,9 @@ namespace JobHiringAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            
-            // builder.Services.
+
+            builder.Services.AddDbContextPool<JobDatabaseContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Connect")));
+            // builder.Services.AddTransient <model> ();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -26,6 +30,8 @@ namespace JobHiringAPI
             }
 
             app.UseHttpsRedirection();
+
+            // cookie auth later app.UseAuthentication();
 
             app.UseAuthorization();
 

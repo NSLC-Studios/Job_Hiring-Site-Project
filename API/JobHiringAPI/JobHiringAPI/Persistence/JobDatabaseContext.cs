@@ -1,15 +1,26 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.PortableExecutable;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobHiringAPI.Persistence
 {
-    public class JobDatabaseContext // ADD POSTGRES HERE // : base off of whatever database handler we'll use in the end
+    public class JobDatabaseContext : DbContext
     {
-
+        public DbSet<User> Users { get; set; }
+        public DbSet<CV> CVs { get; set; }
+        public DbSet<Area> Areas { get; set; }
+        public DbSet<Education> Educations { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Branch> Branches { get; set; }
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<Rating> Rating { get; set; }
+        public DbSet<PreviuosEmployment> PreviuosEmployments { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public JobDatabaseContext(DbContextOptions<JobDatabaseContext> options) : base(options) { }
     }
 
-    [Index(nameof(UserName), IsUnique = true]
+    [Index(nameof(UserName), IsUnique = true)]
     public class User
     {
         [Key]
@@ -27,6 +38,10 @@ namespace JobHiringAPI.Persistence
         public string Password { get; set; }
         [Required]
         public string Role { get; set; }
+        public List<CV> CV { get; set; }
+        public List<Education> Education { get; set; }
+        public List<Request> Request { get; set; }
+        public List<PreviuosEmployment> PreviuosEmployment { get; set; }
     }
 
     public class CV
@@ -87,6 +102,8 @@ namespace JobHiringAPI.Persistence
         public User User { get; set; }
         public int AreaID { get; set; }
         public Area Area { get; set; }
+        public List<Rating> Ratings { get; set; }
+        public List<Branch> Branch { get; set; }
     }
 
     public class Branch
@@ -104,6 +121,7 @@ namespace JobHiringAPI.Persistence
         public Area Area { get; set; }
         public int CompanyID { get; set; }
         public Company Company { get; set; }
+        public List<Job> Job { get; set; }
     }
 
     public class Job
@@ -118,6 +136,7 @@ namespace JobHiringAPI.Persistence
         public Branch Branch { get; set; }
         public int AreaID { get; set; }
         public Area Area { get; set; }
+        public List<Request> Request { get; set; }
     }
 
     public class Rating
