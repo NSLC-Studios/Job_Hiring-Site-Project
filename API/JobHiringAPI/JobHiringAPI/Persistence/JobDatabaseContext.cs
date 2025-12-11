@@ -49,7 +49,7 @@ namespace JobHiringAPI.Persistence
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CVID { get; set; }
-        public string Qualification { get; set; }
+        public string Summary { get; set; }
         public int UserID { get; set; }
         public User User { get; set; }
         public int AreaID { get; set; }
