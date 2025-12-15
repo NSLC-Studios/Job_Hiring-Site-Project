@@ -53,8 +53,9 @@ namespace JobHiringAPI.Model
             else
             {
                 using var trx = _context.Database.BeginTransaction();
-                // _context.Areas.Add(new Area { Address = dto.addres, City = dto.fdgd });
-                currentCV.ExecuteUpdate(x => x.SetProperty(x => x.Area, new Area { Country = dto.Country, County = dto.County, City = dto.City, PostalCode = dto.PostalCode, Address = dto.Address }));
+                _context.Areas.Add(new Area { Address = dto.Address, City = dto.City, Country = dto.Country, County = dto.County, PostalCode = dto.PostalCode });
+                int id =  _context.Areas.Last().AreaID;
+                currentCV.ExecuteUpdate(x => x.SetProperty(x => x.AreaID , id ));
                 _context.SaveChanges();
                 trx.Commit();
             }

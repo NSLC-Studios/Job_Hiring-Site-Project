@@ -167,7 +167,7 @@ namespace JobHiringAPI.Persistence
     public class Request
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RequestID { get; set; }
         public string Status { get; set; }
         public string Comment { get; set; }
