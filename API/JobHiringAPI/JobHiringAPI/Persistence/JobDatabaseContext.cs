@@ -17,6 +17,7 @@ namespace JobHiringAPI.Persistence
         public DbSet<Rating> Rating { get; set; }
         public DbSet<PreviuosEmployment> PreviuosEmployments { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<AreaCollection> AreaCollections { get; set; }
         public JobDatabaseContext(DbContextOptions<JobDatabaseContext> options) : base(options) { }
     }
 
@@ -42,6 +43,7 @@ namespace JobHiringAPI.Persistence
         public List<Education> Education { get; set; }
         public List<Request> Request { get; set; }
         public List<PreviuosEmployment> PreviuosEmployment { get; set; }
+        public List<AreaCollection> AreaCollection { get; set; }
     }
 
     public class CV
@@ -104,6 +106,7 @@ namespace JobHiringAPI.Persistence
         public Area Area { get; set; }
         public List<Rating> Ratings { get; set; }
         public List<Branch> Branch { get; set; }
+        public List<AreaCollection> AreaCollection { get; set; }
     }
 
     public class Branch
@@ -122,6 +125,7 @@ namespace JobHiringAPI.Persistence
         public int CompanyID { get; set; }
         public Company Company { get; set; }
         public List<Job> Job { get; set; }
+        public List<AreaCollection> AreaCollection { get; set; }
     }
 
     public class Job
@@ -180,5 +184,13 @@ namespace JobHiringAPI.Persistence
         //public int CVIDID { get; set;
         //public int CVIDIDID { get;set; }
         //public int CVIDIDIDID { get; set; }
+    }
+
+    public class AreaCollection
+    {
+        public int HolderID { get; set; }
+        public string HolderType { get; set; }
+        public int AreaID { get; set; }
+        public Area Area { get; set; }
     }
 }
