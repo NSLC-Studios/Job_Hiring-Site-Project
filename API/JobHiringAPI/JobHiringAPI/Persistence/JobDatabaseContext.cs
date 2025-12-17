@@ -44,6 +44,8 @@ namespace JobHiringAPI.Persistence
         public List<Request> Request { get; set; }
         public List<PreviuosEmployment> PreviuosEmployment { get; set; }
         public List<AreaCollection> AreaCollection { get; set; }
+        public List<Company> Company { get; set; }
+        public List<Branch> Branch { get; set; }
     }
 
     public class CV
