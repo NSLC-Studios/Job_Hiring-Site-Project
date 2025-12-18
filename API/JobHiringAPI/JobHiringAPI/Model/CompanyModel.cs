@@ -26,39 +26,40 @@ namespace JobHiringAPI.Model
         //public void UpdateCompanyArea(int companyId, string companyName, int userId,CompanyArealUpdate areaDto)
         public void UpdateCompanyArea(CompanyArealUpdate areaDto)
         {
-            using var trx = _context.Database.BeginTransaction();
+            
 
-            var Company = _context.Companies.Where(x => x.CompanyID == areaDto.CompanyId);
-            var CurrentCompanyInspected = _context.Companies.Where(x =>x.CompanyName == Company.First().CompanyName && x.OwnerID == areaDto.UserId);
+            var company = _context.Companies.Where(x => x.CompanyID == areaDto.CompanyId);
+            var currentCompanyInspected = _context.Companies.Where(x =>x.CompanyName == company.First().CompanyName && x.OwnerID == areaDto.UserId);
 
-            if (CurrentCompanyInspected.Any())
+            if (currentCompanyInspected.Any())
             {
-                CurrentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.Area.Country, areaDto.Country).SetProperty(x => x.Area.County, areaDto.County).SetProperty(x => x.Area.City, areaDto.City).SetProperty(x => x.Area.PostalCode, areaDto.PostalCode).SetProperty(x => x.Area.Address, areaDto.Address));
+                using var trx = _context.Database.BeginTransaction();
+                currentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.Area.Country, areaDto.Country).SetProperty(x => x.Area.County, areaDto.County).SetProperty(x => x.Area.City, areaDto.City).SetProperty(x => x.Area.PostalCode, areaDto.PostalCode).SetProperty(x => x.Area.Address, areaDto.Address));
                 _context.SaveChanges();
+                trx.Commit();
             }
             else 
             {
-                CurrentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.Area, new Area { Country = areaDto.Country, County = areaDto.County, City = areaDto.City, PostalCode = areaDto.PostalCode, Address = areaDto.Address }));
+                using var trx = _context.Database.BeginTransaction();
+                currentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.Area, new Area { Country = areaDto.Country, County = areaDto.County, City = areaDto.City, PostalCode = areaDto.PostalCode, Address = areaDto.Address }));
                 _context.SaveChanges();
+              
+                trx.Commit();
             }
-            trx.Commit();
+            
         }
         public void UodateCompanyContacts(UpdateCompanyContactsDto contactsDto)
         {
             using var trx = _context.Database.BeginTransaction();
 
-            var Company = _context.Companies.Where(x => x.CompanyID == contactsDto.CompanyId).First();
-            var CurrentCompanyInspected = _context.Companies.Where(x => x.OwnerID == contactsDto.OwnerId);
-            if (CurrentCompanyInspected.Any())
-            {
-                CurrentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.CompanyPhone, contactsDto.Phone).SetProperty(x => x.CompanyEmail, contactsDto.Email));
-                _context.SaveChanges();
-            }
-            else
-            {
-                CurrentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.CompanyEmail, contactsDto.Email).SetProperty(x => x.CompanyPhone, contactsDto.Phone));
-                _context.SaveChanges();
-            }
+            var company = _context.Companies.Where(x => x.CompanyID == contactsDto.CompanyId).First();
+            var currentCompanyInspected = _context.Companies.Where(x => x.OwnerID == contactsDto.OwnerId);
+             
+             
+            currentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.CompanyPhone, contactsDto.Phone).SetProperty(x => x.CompanyEmail, contactsDto.Email));
+            _context.SaveChanges();
+            
+
             trx.Commit();
         }
 
@@ -66,6 +67,8 @@ namespace JobHiringAPI.Model
         {
             var trx =_context.Database.BeginTransaction();
             _context.Companies.Where(x => x.CompanyID == companyId).ExecuteDelete();
+            //Delete Brenches and jobs here
+            _context.SaveChanges();
             trx.Commit();
         }
 
