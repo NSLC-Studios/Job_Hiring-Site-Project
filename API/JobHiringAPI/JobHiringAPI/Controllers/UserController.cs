@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Formats.Tar;
 using System.Security.Claims;
 
 namespace JobHiringAPI.Controllers
@@ -51,6 +52,51 @@ namespace JobHiringAPI.Controllers
             {
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("/register")]
+        public async Task<ActionResult> Register([FromQuery] string username, [FromQuery] string password)
+        {
+            try
+            {
+                _model.Registration(new UserRegistrationDto { Password = password, Username = username });
+                return Ok();
+            }
+            catch (InvalidOperationException e)
+            {
+                return Conflict(e.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("/deleteuser")]
+        public async Task<ActionResult> DeleteUser([FromQuery] int id)
+        {
+            try
+            {
+                _model.DeleteUser(id);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("/checkuser")]
+        public async Task<ActionResult<bool>> CheckUserAvailability([FromQuery] string username)
+        {
+            try
+            {
+                return Ok(_model.AvailableNames(username));
             }
             catch (Exception e)
             {
