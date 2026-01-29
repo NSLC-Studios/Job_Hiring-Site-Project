@@ -1,2 +1,2 @@
 # Job_Hiring-Site-Project
-This is a final year school project based on an existing CV handling automated job hiring website originating from Estonia that the most well-known brands and companies use on a daily business, even in different nations. This project is our take on that inspiring concept.
+This is a final year school project based on an existing automated CV handinling and job hiring website originating from Estonia, which is used by some of the most well-known brands and companies on the daily, even used by other foreign countries. This project is our take on that inspiring concept.
