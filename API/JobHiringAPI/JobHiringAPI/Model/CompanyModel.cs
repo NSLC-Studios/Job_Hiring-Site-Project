@@ -13,66 +13,72 @@ namespace JobHiringAPI.Model
         { 
            _context = _dbContext;
         }
+
         /*Company needs discription */
 
         public void NewCompany(string name,int userId) 
         {
             using var trx = _context.Database.BeginTransaction();
-            _context.Companies.Add(new Company { CompanyName = name ,OwnerID = userId});
-            _context.SaveChanges();
-            trx.Commit();
+            {
+                _context.Companies.Add(new Company { CompanyName = name, OwnerID = userId });
+                _context.SaveChanges();
+                trx.Commit();
+            }
         }
+
         //string phone,string country,string couty,string city,string postalcode,string adress  UpdateCompanyContactsDto contactsDto,
         //public void UpdateCompanyArea(int companyId, string companyName, int userId,CompanyArealUpdate areaDto)
+
         public void UpdateCompanyArea(CompanyArealUpdate areaDto)
         {
-            
-
             var company = _context.Companies.Where(x => x.CompanyID == areaDto.CompanyId);
             var currentCompanyInspected = _context.Companies.Where(x =>x.CompanyName == company.First().CompanyName && x.OwnerID == areaDto.UserId);
 
             if (currentCompanyInspected.Any())
             {
                 using var trx = _context.Database.BeginTransaction();
-                currentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.Area.Country, areaDto.Country).SetProperty(x => x.Area.County, areaDto.County).SetProperty(x => x.Area.City, areaDto.City).SetProperty(x => x.Area.PostalCode, areaDto.PostalCode).SetProperty(x => x.Area.Address, areaDto.Address));
-                _context.SaveChanges();
-                trx.Commit();
-            }
-            else 
+                {
+                    currentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.Area.Country, areaDto.Country).SetProperty(x => x.Area.County, areaDto.County).SetProperty(x => x.Area.City, areaDto.City).SetProperty(x => x.Area.PostalCode, areaDto.PostalCode).SetProperty(x => x.Area.Address, areaDto.Address));
+                    _context.SaveChanges();
+                    trx.Commit();
+                }
+            } else 
             {
                 using var trx = _context.Database.BeginTransaction();
-                currentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.Area, new Area { Country = areaDto.Country, County = areaDto.County, City = areaDto.City, PostalCode = areaDto.PostalCode, Address = areaDto.Address }));
-                _context.SaveChanges();
-              
-                trx.Commit();
+                {
+                    currentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.Area, new Area { Country = areaDto.Country, County = areaDto.County, City = areaDto.City, PostalCode = areaDto.PostalCode, Address = areaDto.Address }));
+                    _context.SaveChanges();
+
+                    trx.Commit();
+                }
             }
-            
         }
+
         public void UodateCompanyContacts(UpdateCompanyContactsDto contactsDto)
         {
             using var trx = _context.Database.BeginTransaction();
+            {
+                var company = _context.Companies.Where(x => x.CompanyID == contactsDto.CompanyId).First();
+                var currentCompanyInspected = _context.Companies.Where(x => x.OwnerID == contactsDto.OwnerId);
 
-            var company = _context.Companies.Where(x => x.CompanyID == contactsDto.CompanyId).First();
-            var currentCompanyInspected = _context.Companies.Where(x => x.OwnerID == contactsDto.OwnerId);
-             
-             
-            currentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.CompanyPhone, contactsDto.Phone).SetProperty(x => x.CompanyEmail, contactsDto.Email));
-            _context.SaveChanges();
-            
 
-            trx.Commit();
+                currentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.CompanyPhone, contactsDto.Phone).SetProperty(x => x.CompanyEmail, contactsDto.Email));
+                _context.SaveChanges();
+
+
+                trx.Commit();
+            }
         }
 
         public void DeleteCompany(int companyId)
         {
-            var trx =_context.Database.BeginTransaction();
-            _context.Companies.Where(x => x.CompanyID == companyId).ExecuteDelete();
-            //Delete Brenches and jobs here
-            _context.SaveChanges();
-            trx.Commit();
+            using var trx = _context.Database.BeginTransaction();
+            {
+                _context.Companies.Where(x => x.CompanyID == companyId).ExecuteDelete();
+                //Delete Brenches and jobs here
+                _context.SaveChanges();
+                trx.Commit();
+            }
         }
-
-
-       
     }
 }
