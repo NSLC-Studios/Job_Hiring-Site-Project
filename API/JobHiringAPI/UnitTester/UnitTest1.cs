@@ -1,19 +1,22 @@
+using System.Runtime.InteropServices;
+using JobHiringAPI.Model;
+using JobHiringAPI.Persistence;
+using Microsoft.AspNetCore.Http.HttpResults;
+
 namespace UnitTester
 {
     public class UnitTest1
     {
-        [Fact]
-        public void FundemantalTest()
+
+        private readonly AdminModel _adminmodel;
+        private readonly JobDatabaseContext _context;
+
+        public UnitTest1()
         {
-            switch(1 + 1 == 2)
-            {
-                case true :
-                    Assert.True(1 + 1 == 2);
-                    break;
-                case false :
-                    throw new ThreadStateException();
-                    //break;
-            }
+            _context = DbContextFactory.Create();
+            //_context = Create()
+
+            _adminmodel = new AdminModel(_context);
         }
     }
 }
