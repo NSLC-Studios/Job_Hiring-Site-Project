@@ -36,7 +36,7 @@ namespace JobHiringAPI.Persistence
         [Required]
         public string Password { get; set; }
         [Required]
-        public string Role { get; set; }
+        public string Role { get; set; } = "User";
         public List<CV> CV { get; set; }
         public List<Education> Education { get; set; }
         public List<Request> Request { get; set; }
@@ -193,6 +193,15 @@ namespace JobHiringAPI.Persistence
         //public int CVIDID { get; set;
         //public int CVIDIDID { get;set; }
         //public int CVIDIDIDID { get; set; }
+        /*  Fox This           
+        *[~>         <~]
+        *[  >-=====-<  ]
+        *[ <         > ]
+        *[<« O ___ O »>]
+        *<«~~«< T >»~~»>
+        * <« <     > »> 
+        *  <« <   > »>> 
+        */
     }
 
     public class AreaCollection
