@@ -2,11 +2,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace AvaloniaAdminInterface;
+namespace Avalonia_Admin_Interface;
 
-public partial class UserControl1 : UserControl
+public partial class MainView : Window
 {
-    public UserControl1()
+    public MainView()
     {
         InitializeComponent();
     }

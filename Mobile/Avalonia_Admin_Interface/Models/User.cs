@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AvaloniaAdminInterface.ViewModels
+namespace Avalonia_Admin_Interface.Models
 {
     public class User
-    {   public enum TheRoles { Admin, DefaultUser, Company }
+    {
+        public enum TheRoles { Admin, DefaultUser, Company }
 
-        public int UserId {  get; set; }
+        public int UserId { get; set; }
         public string UserName { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
@@ -25,7 +26,7 @@ namespace AvaloniaAdminInterface.ViewModels
              string email,
              string phone,
              string pass,
-             TheRoles  role
+             TheRoles role
             )
         {
             UserId = id;
@@ -36,7 +37,7 @@ namespace AvaloniaAdminInterface.ViewModels
             PhoneNumber = phone;
             Password = pass;
             Role = role;
-        
+
         }
 
     }
