@@ -17,7 +17,7 @@ namespace JobHiringAPI.Persistence
         //public DbSet<Rating> Rating { get; set; }
         //public DbSet<PreviuosEmployment> PreviuosEmployments { get; set; }
         public DbSet<Request> Requests { get; set; }
-        public DbSet<AreaCollection> AreaCollections { get; set; }
+        //public DbSet<AreaCollection> AreaCollections { get; set; }
         public JobDatabaseContext(DbContextOptions<JobDatabaseContext> options) : base(options) { }
     }
 
@@ -41,9 +41,11 @@ namespace JobHiringAPI.Persistence
         //public List<Education> Education { get; set; }
         public List<Request> Request { get; set; }
         //public List<PreviuosEmployment> PreviuosEmployment { get; set; }
-        public List<AreaCollection> AreaCollection { get; set; }
-        public int AreaCollectionId { get; set; }
+        //public List<AreaCollection> AreaCollection { get; set; }
+        // public int AreaCollectionId { get; set; }
         public List<Company> Company { get; set; }
+        public List<Area> Area { get; set; }
+
         //public List<Branch> Branch { get; set; }
     }
 
@@ -64,6 +66,10 @@ namespace JobHiringAPI.Persistence
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AreaID { get; set; }
+        [Required]
+        public int HolderID { get; set; }
+        [Required]
+        public string HolderType { get; set; }
         [Required]
         public string Country { get; set; }
         [Required]
@@ -106,14 +112,16 @@ namespace JobHiringAPI.Persistence
         public string CompanyName { get; set; }
         public string ?CompanyEmail { get; set; }
         public string ?CompanyPhone { get; set; }
+        public string Description { get; set; }
+        [Required]
         public int OwnerID { get { return User.UserID; } set { value = User.UserID; } }
         public User User { get; set; }
         public int AreaID { get; set; }
-        public Area Area { get; set; }
+        public List<Area> Area { get; set; }
         //public List<Rating> Ratings { get; set; }
         //public List<Branch> Branch { get; set; }
-        public List<AreaCollection> AreaCollection { get; set; }
-        public int AreaCollectionId { get; set; }
+        //public List<AreaCollection> AreaCollection { get; set; }
+        // public int AreaCollectionId { get; set; }
     }
 
     /*
@@ -214,6 +222,7 @@ namespace JobHiringAPI.Persistence
         */
     }
 
+    /*
     public class AreaCollection
     {
         [Key]
@@ -224,4 +233,5 @@ namespace JobHiringAPI.Persistence
         public int AreaID { get; set; }
         public Area Area { get; set; }
     }
+    */
 }

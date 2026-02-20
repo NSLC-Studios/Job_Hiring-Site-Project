@@ -9,6 +9,7 @@ namespace JobHiringAPI.Model
     public class UserModel
     {
         private readonly JobDatabaseContext _context;
+        private readonly CompanyModel _company;
 
         public UserModel(JobDatabaseContext context)
         {
@@ -58,8 +59,18 @@ namespace JobHiringAPI.Model
                 //});
                 // REWRITE IN AREA MODEL _context.AreaCollections.Where(x => x.HolderType == "User" && x.HolderID == id).ExecuteDelete();
 
+                _company.DeleteCompany(_context.Companies.Where(x=> x.OwnerID == id).First().CompanyID);
 
-                _context.Users.Remove(_context.Users.Where(x => x.UserID == id).First());
+                _context.Requests.Where(x => x.UserID == id).ExecuteDelete();
+                _context.SaveChanges();
+
+                _context.Areas.Where(x => x.HolderType == "User" && x.HolderID == id).ExecuteDelete();
+                _context.SaveChanges();
+
+                _context.CVs.Where(x => x.UserID == id).ExecuteDelete();
+                _context.SaveChanges();
+
+                _context.Users.Where(x => x.UserID == id).ExecuteDelete();
                 _context.SaveChanges();
                 trx.Commit();
             }

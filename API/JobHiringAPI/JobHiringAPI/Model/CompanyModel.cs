@@ -14,21 +14,38 @@ namespace JobHiringAPI.Model
            _context = _dbContext;
         }
 
-        /*Company needs discription */
-
-        public void NewCompany(string name,int userId) 
+        public void CreateCompany(CreateCompanyDto dto) 
         {
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.Companies.Add(new Company { CompanyName = name, OwnerID = userId });
+                _context.Companies.Add(new Company { CompanyName = dto.CompanyName, OwnerID = dto.OwnerID });
                 _context.SaveChanges();
                 trx.Commit();
             }
         }
 
-        //string phone,string country,string couty,string city,string postalcode,string adress  UpdateCompanyContactsDto contactsDto,
-        //public void UpdateCompanyArea(int companyId, string companyName, int userId,CompanyArealUpdate areaDto)
+        public void UpdateCompanyDescription(UpdateCompanyDescriptionDto dto)
+        {
+            using var trx = _context.Database.BeginTransaction();
+            {
+                _context.Companies.Where(x => x.CompanyID == dto.ID).ExecuteUpdate(setters => setters.SetProperty(x => x.Description, dto.Description));
+                _context.SaveChanges();
+                trx.Commit();
+            }
+        }
 
+        public void UpdateCompanyArea(UpdateCompanyAreaDto dto)
+        {
+            using var trx = _context.Database.BeginTransaction();
+            {
+                _context.Companies.Where(x => x.CompanyID == dto.ID).ExecuteUpdate(setters => setters.SetProperty(x => x.AreaID, dto.AreaID));
+                _context.SaveChanges();
+                trx.Commit();
+            }
+        }
+        
+        /*
+        // Relic
         public void UpdateCompanyArea(CompanyArealUpdate areaDto)
         {
             var company = _context.Companies.Where(x => x.CompanyID == areaDto.CompanyId);
@@ -53,30 +70,48 @@ namespace JobHiringAPI.Model
                 }
             }
         }
+        */
 
-        public void UodateCompanyContacts(UpdateCompanyContactsDto contactsDto)
+        public void UpdateCompanyContacts(UpdateCompanyContactsDto dto)
         {
             using var trx = _context.Database.BeginTransaction();
             {
-                var company = _context.Companies.Where(x => x.CompanyID == contactsDto.CompanyId).First();
-                var currentCompanyInspected = _context.Companies.Where(x => x.OwnerID == contactsDto.OwnerId);
-
-
-                currentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.CompanyPhone, contactsDto.Phone).SetProperty(x => x.CompanyEmail, contactsDto.Email));
+                _context.Companies.Where(x => x.CompanyID == dto.ID).ExecuteUpdate(x => x.SetProperty(x => x.CompanyPhone, dto.Phone).SetProperty(x => x.CompanyEmail, dto.Email));
                 _context.SaveChanges();
-
-
                 trx.Commit();
             }
         }
 
-        public void DeleteCompany(int companyId)
+        public void UpdateCompanyName(UpdateCompanyNameDto dto)
         {
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.Companies.Where(x => x.CompanyID == companyId).ExecuteDelete();
-                //Delete Brenches and jobs here
+                _context.Companies.Where(x => x.CompanyID == dto.ID).ExecuteUpdate(x => x.SetProperty(x => x.CompanyName, dto.Name));
                 _context.SaveChanges();
+                trx.Commit();
+            }
+        }
+
+        public void DeleteCompany(int id, bool deleteUser = false)
+        {
+            using var trx = _context.Database.BeginTransaction();
+            {
+                _context.Jobs.Where(x => x.CompanyID == id).ForEachAsync(x => _context.Requests.Where(y => y.JobID == x.JobID).ExecuteDelete());
+                _context.SaveChanges();
+
+                _context.Jobs.Where(x => x.CompanyID == id).ExecuteDelete();
+                _context.SaveChanges();
+
+                _context.Areas.Where(x => x.HolderType == "Company" && x.HolderID == id).ExecuteDelete();
+                _context.SaveChanges();
+
+                // To be Depracated
+
+                if (deleteUser) _context.Users.Where(x => x.UserID == _context.Companies.Where(x => x.CompanyID == id).First().OwnerID);
+
+                _context.Companies.Where(x => x.CompanyID == id).ExecuteDelete();
+                _context.SaveChanges();
+
                 trx.Commit();
             }
         }
