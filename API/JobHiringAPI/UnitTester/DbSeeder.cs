@@ -22,7 +22,11 @@ namespace UnitTester
             // ignore if database present
             if (_context.Users.Any()) return;
 
-            _context.Areas.AddRange(new Area { Country = "Mania", County = "Lancer", City = "Sult", PostalCode = "ad834", Address = "Freelance Street 7" }, new Area { Country = "Untmaly", County = "Tanger", City = "Rasby", PostalCode = "719TH", Address = "Unli street 16" });
+            Area mania = new Area { Country = "Mania", County = "Lancer", City = "Sult", PostalCode = "ad834", Address = "Freelance Street 7" };
+
+            Area untmaly = new Area { Country = "Untmaly", County = "Tanger", City = "Rasby", PostalCode = "719TH", Address = "Unli street 16" };
+
+            _context.Areas.AddRange(mania, untmaly);
             _context.SaveChanges();
 
             // ------------------ USERS ------------------
@@ -36,7 +40,7 @@ namespace UnitTester
                 Role = "Admin"
             };
 
-            var employer = new User
+            var bin = new User
             {
                 UserName = "Bin",
                 FirstName = "Bin",
@@ -46,9 +50,9 @@ namespace UnitTester
                 Role = "User"
             };
 
-            var applicant = new User
+            var joley = new User
             {
-                UserName = "applicant",
+                UserName = "Joley",
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "john@email.com",
@@ -56,7 +60,7 @@ namespace UnitTester
                 Role = "User"
             };
 
-            _context.Users.AddRange(admin, employer, applicant);
+            _context.Users.AddRange(admin, bin, joley);
             _context.SaveChanges();
 
             // ------------------ COMPANY ------------------
@@ -65,35 +69,35 @@ namespace UnitTester
                 CompanyName = "Future Tech Ltd.",
                 CompanyEmail = "info@futuretech.com",
                 CompanyPhone = "789",
-                OwnerID = employer.UserID,
-                AreaID = budapest.AreaID
+                OwnerID = bin.UserID,
+                AreaID = mania.AreaID
             };
 
             _context.Companies.Add(company);
             _context.SaveChanges();
 
             // ------------------ BRANCH ------------------
-            var branch = new Branch
-            {
-                BranchName = "Future Tech HQ",
-                BranchEmail = "hq@futuretech.com",
-                BranchPhone = "+11111",
-                ManagerID = employer.UserID,
-                AreaID = previous handler class here.AreaID,
-                CompanyID = company.CompanyID
-            };
+            //var branch = new Branch
+            //{
+                //BranchName = "Future Tech HQ",
+                //BranchEmail = "hq@futuretech.com",
+                //BranchPhone = "+11111",
+                //ManagerID = employer.UserID,
+                //AreaID = previous handler class here.AreaID,
+                //CompanyID = company.CompanyID
+            //};
 
-            _context.Branches.Add(branch);
-            _context.SaveChanges();
+            //_context.Branches.Add(branch);
+            //_context.SaveChanges();
 
             // ------------------ JOB ------------------
             var job = new Job
             {
-                Pay = 800000,
-                WorkHours = "Full-time",
-                Language = "English",
-                BranchID = branch.BranchID,
-                AreaID = previous handler class here.AreaID
+                Pay = 8000,
+                WorkHours = "8-17",
+                Language = "English, German",
+                CompanyID = company.CompanyID,
+                AreaID = mania.AreaID
             };
 
             _context.Jobs.Add(job);
@@ -103,14 +107,15 @@ namespace UnitTester
             var cv = new CV
             {
                 Summary = "Junior .NET Developer with 2 years experience.",
-                UserID = applicant.UserID,
-                AreaID = previous handler class here.AreaID
+                UserID = joley.UserID,
+                AreaID = untmaly.AreaID
             };
 
             _context.CVs.Add(cv);
             _context.SaveChanges();
 
             // ------------------ EDUCATION ------------------
+            /*
             var education = new Education
             {
                 Institute = "University of previous city here",
@@ -123,8 +128,10 @@ namespace UnitTester
 
             _context.Educations.Add(education);
             _context.SaveChanges();
+            */
 
             // ------------------ PREVIOUS EMPLOYMENT ------------------
+            /*
             var previousEmployment = new PreviuosEmployment
             {
                 Provider = "Old Tech Ltd.",
@@ -139,8 +146,10 @@ namespace UnitTester
 
             _context.PreviuosEmployments.Add(previousEmployment);
             _context.SaveChanges();
+            */
 
             // ------------------ RATING ------------------
+            /*
             var rating = new Rating
             {
                 FRating = 5,
@@ -152,6 +161,7 @@ namespace UnitTester
 
             _context.Rating.Add(rating);
             _context.SaveChanges();
+            */
 
             // ------------------ REQUEST ------------------
             var request = new Request
@@ -159,7 +169,7 @@ namespace UnitTester
                 Status = "Pending",
                 Comment = "I am very interested in this opportunity.",
                 JobID = job.JobID,
-                UserID = applicant.UserID,
+                UserID = joley.UserID,
                 CVID = cv.CVID
             };
 
@@ -169,9 +179,9 @@ namespace UnitTester
             // ------------------ AREA COLLECTION ------------------
             var areaCollection = new AreaCollection
             {
-                HolderID = applicant.UserID,
+                HolderID = joley.UserID,
                 HolderType = "User",
-                AreaID = previous handler class here.AreaID
+                AreaID = untmaly.AreaID
             };
 
             _context.AreaCollections.Add(areaCollection);
