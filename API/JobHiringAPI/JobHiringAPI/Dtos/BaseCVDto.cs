@@ -1,8 +1,8 @@
 ﻿namespace JobHiringAPI.Dtos
 {
-    public class CVSummaryDto
+    public class BaseCVDto
     {
-        public int CVID { get; set; }
+        public int ID { get; set; }
         public string Summary { get; set; }
     }
 }

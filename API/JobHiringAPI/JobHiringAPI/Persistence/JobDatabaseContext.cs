@@ -55,10 +55,10 @@ namespace JobHiringAPI.Persistence
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CVID { get; set; }
         public string ?Summary { get; set; }
-        public int UserID { get; set; }
         public User User { get; set; }
-        public int ?AreaID { get; set; }
+        public int UserID { get; set; }
         public Area Area { get; set; }
+        public int? AreaID { get; set; }
     }
 
     public class Area

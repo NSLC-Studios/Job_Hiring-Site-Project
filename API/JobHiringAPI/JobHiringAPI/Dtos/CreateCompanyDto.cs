@@ -1,7 +1,4 @@
-﻿using JobHiringAPI.Persistence;
-using System.ComponentModel.DataAnnotations;
-
-namespace JobHiringAPI.Dtos
+﻿namespace JobHiringAPI.Dtos
 {
     public class CreateCompanyDto
     {
