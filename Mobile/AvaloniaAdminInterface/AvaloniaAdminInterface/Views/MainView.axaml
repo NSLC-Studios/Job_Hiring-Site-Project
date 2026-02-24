@@ -1,0 +1,37 @@
+
+
+ <UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaloniaAdminInterface.ViewModels"
+             xmlns:Views="clr-namespace:AvaloniaAdminInterface.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaAdminInterface.Views.MainView"
+             x:DataType="vm:MainViewModel">
+
+<Grid>
+	<Grid.RowDefinitions>
+		<RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="2*"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+	    <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+	<TextBox Text="{Binding RemoveByUserId}" Watermark="User ID" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="40" />
+    <Button Command="{Binding DeleteUser}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Delete User" FontSize="40"/>
+
+    <ScrollViewer Grid.Column="0" Grid.Row="1">
+        <StackPanel>
+            <ItemsControl ItemsSource="{Binding Users}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Views:UserControl1/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+  </Grid>
+</UserControl>

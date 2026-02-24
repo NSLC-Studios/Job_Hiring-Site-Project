@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Avalonia_Admin_Interface.Models
+namespace AvaloniaAdminInterface.ViewModels
 {
     public class User
     {
