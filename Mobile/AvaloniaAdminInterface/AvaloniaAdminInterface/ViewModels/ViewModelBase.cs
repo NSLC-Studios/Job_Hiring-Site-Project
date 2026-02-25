@@ -4,7 +4,7 @@ using ReactiveUI;
 
 namespace AvaloniaAdminInterface.ViewModels;
 
-public class ViewModelBase : ReactiveObject
+public class ViewModelBase : ReactiveObject, INotifyPropertyChanged
 {
     protected ViewModelBase() { }
     public event PropertyChangedEventHandler? PropertyChanged;
