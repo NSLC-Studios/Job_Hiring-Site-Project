@@ -1,6 +1,6 @@
 ﻿namespace JobHiringAPI.Dtos
 {
-    public class UsersDto // DEPRECATED
+    public class BaseUserDto
     {
         public int ID { get; set; }
         public string UserName { get; set; }

@@ -44,7 +44,7 @@ namespace JobHiringAPI.Model
             trx.Commit();
         }*/
 
-        public void DeleteUser(int id)
+        public async Task DeleteUser(int id)
         {
             var trx = _context.Database.BeginTransaction();
             {
@@ -73,6 +73,8 @@ namespace JobHiringAPI.Model
                 _context.Users.Where(x => x.UserID == id).ExecuteDelete();
                 _context.SaveChanges();
                 trx.Commit();
+
+                await Task.CompletedTask;
             }
         }
 
@@ -92,6 +94,16 @@ namespace JobHiringAPI.Model
             //byte[] bytes = Encoding.UTF8.GetBytes(password);
             //byte[] hash = sha.ComputeHash(bytes);
             return Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(password)));
+        }
+
+        public async Task<IEnumerable<BaseAdminsDto>> GetAdmins(int skip = 0, int take = 3)
+        {
+            return _context.Users.Where(x => x.Role == "Admin").Skip(skip).Take(take).Select(x => new BaseAdminsDto { ID = x.UserID, Name = x.FirstName, UserName = x.UserName, Email = x.Email });
+        }
+        
+        public async Task<DetailedUserDto> GetUser(int id)
+        {
+            return _context.Users.Where(x => x.UserID == id).Select(x => new DetailedUserDto { ID = x.UserID, UserName = x.UserName, FirstName = x.FirstName, LastName = x.LastName, Email = x.Email, Phone = x.Phone, Role = x.Role == "Admin" ? "Registered Administrator at JobHiringSite." : "Regular JobHiringSite User." }).First();
         }
     }
 }

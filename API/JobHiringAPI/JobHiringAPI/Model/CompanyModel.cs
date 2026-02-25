@@ -2,6 +2,7 @@
 using JobHiringAPI.Dtos;
 using JobHiringAPI.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace JobHiringAPI.Model
 {
@@ -22,6 +23,19 @@ namespace JobHiringAPI.Model
                 _context.SaveChanges();
                 trx.Commit();
             }
+        }
+
+        public async Task<IEnumerable<BaseCompanyDto>> GetCompanies(int skip = 0, int take = 24)
+        {
+            return _context.Companies.Skip(skip).Take(take).Include(x => x.Area).Select(x => new BaseCompanyDto { ID = x.CompanyID, CompanyName = x.CompanyName, Description = x.Description.Length > 25 ? $"{x.Description.Take(50).ToString()}...\n{x.Area.City}, {x.Area.City}" : $"{x.Description}\n{x.Area.City}, {x.Area.City}" });
+        }
+
+        public async Task<DetailedCompanyDto> GetDetailedCompany(int id)
+        {
+            var area = _context.Areas.Where(x => x.AreaID == _context.Companies.Where(x => x.CompanyID == id).First().AreaID).First();
+            var user = _context.Users.Where(x => x.UserID == _context.Companies.Where(x => x.CompanyID == id).First().OwnerID).First();
+
+            return _context.Companies.Where(x => x.CompanyID == id).Select(x => new DetailedCompanyDto { OwnerID = x.OwnerID, ID = x.CompanyID, Name = x.CompanyName, Email = x.CompanyEmail, Phone = x.CompanyPhone, Description = x.Description, Owner = user.UserName, Country = area.Country, County = area.County, Postal = area.PostalCode, City = area.City, Address = area.Address }).First();
         }
 
         public void UpdateCompanyDescription(UpdateCompanyDescriptionDto dto)
@@ -92,7 +106,7 @@ namespace JobHiringAPI.Model
             }
         }
 
-        public void DeleteCompany(int id, bool deleteUser = false)
+        public void DeleteCompany(int id) // , bool deleteUser = false
         {
             using var trx = _context.Database.BeginTransaction();
             {
@@ -107,7 +121,7 @@ namespace JobHiringAPI.Model
 
                 // To be Depracated
 
-                if (deleteUser) _context.Users.Where(x => x.UserID == _context.Companies.Where(x => x.CompanyID == id).First().OwnerID);
+                // if (deleteUser) _context.Users.Where(x => x.UserID == _context.Companies.Where(x => x.CompanyID == id).First().OwnerID);
 
                 _context.Companies.Where(x => x.CompanyID == id).ExecuteDelete();
                 _context.SaveChanges();

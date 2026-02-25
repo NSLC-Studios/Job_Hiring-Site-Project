@@ -117,7 +117,8 @@ namespace JobHiringAPI.Persistence
         public int OwnerID { get { return User.UserID; } set { value = User.UserID; } }
         public User User { get; set; }
         public int AreaID { get; set; }
-        public List<Area> Area { get; set; }
+        public Area Area { get; set; }
+        public List<Area> Areas { get; set; }
         //public List<Rating> Ratings { get; set; }
         //public List<Branch> Branch { get; set; }
         //public List<AreaCollection> AreaCollection { get; set; }
@@ -151,10 +152,11 @@ namespace JobHiringAPI.Persistence
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int JobID { get; set; }
         public int ?Pay { get; set; }
-        public string? WorkHours { get; set; }
-        public string ?Language { get; set; }
+        public string? WorkTime { get; set; }
+        public string? Description { get; set; }
+        public string? Language { get; set; }
         public int CompanyID { get; set; }
-        //public Branch Branch { get; set; }
+        public Company Company { get; set; }
         public int ?AreaID { get; set; }
         public Area Area { get; set; }
         public List<Request> Request { get; set; }

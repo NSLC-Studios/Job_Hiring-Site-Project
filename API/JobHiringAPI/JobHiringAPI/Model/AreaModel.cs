@@ -13,6 +13,11 @@ namespace JobHiringAPI.Model
             _context = context;
         }
 
+        public async Task<IEnumerable<BaseAreaDto>> GetAreas(int id)
+        {
+
+        }
+
         public void CreateNewArea(CreateAreaDto dto)
         {
             using var trx = _context.Database.BeginTransaction();
