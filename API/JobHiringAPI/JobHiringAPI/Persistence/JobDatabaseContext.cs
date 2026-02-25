@@ -10,13 +10,14 @@ namespace JobHiringAPI.Persistence
         public DbSet<User> Users { get; set; }
         public DbSet<CV> CVs { get; set; }
         public DbSet<Area> Areas { get; set; }
-        public DbSet<Education> Educations { get; set; }
+        //public DbSet<Education> Educations { get; set; }
         public DbSet<Company> Companies { get; set; }
-        public DbSet<Branch> Branches { get; set; }
+        //public DbSet<Branch> Branches { get; set; }
         public DbSet<Job> Jobs { get; set; }
-        public DbSet<Rating> Rating { get; set; }
-        public DbSet<PreviuosEmployment> PreviuosEmployments { get; set; }
+        //public DbSet<Rating> Rating { get; set; }
+        //public DbSet<PreviuosEmployment> PreviuosEmployments { get; set; }
         public DbSet<Request> Requests { get; set; }
+        //public DbSet<AreaCollection> AreaCollections { get; set; }
         public JobDatabaseContext(DbContextOptions<JobDatabaseContext> options) : base(options) { }
     }
 
@@ -28,10 +29,8 @@ namespace JobHiringAPI.Persistence
         public int UserID { get; set; }
         [Required]
         public string UserName { get; set; }
-        [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
+        public string ?FirstName { get; set; }
+        public string ?LastName { get; set; }
         public string ?Email { get; set; }
         public string ?Phone { get; set; }
         [Required]
@@ -39,9 +38,15 @@ namespace JobHiringAPI.Persistence
         [Required]
         public string Role { get; set; } = "User";
         public List<CV> CV { get; set; }
-        public List<Education> Education { get; set; }
+        //public List<Education> Education { get; set; }
         public List<Request> Request { get; set; }
-        public List<PreviuosEmployment> PreviuosEmployment { get; set; }
+        //public List<PreviuosEmployment> PreviuosEmployment { get; set; }
+        //public List<AreaCollection> AreaCollection { get; set; }
+        // public int AreaCollectionId { get; set; }
+        public List<Company> Company { get; set; }
+        public List<Area> Area { get; set; }
+
+        //public List<Branch> Branch { get; set; }
     }
 
     public class CV
@@ -49,11 +54,11 @@ namespace JobHiringAPI.Persistence
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CVID { get; set; }
-        public string Summary { get; set; }
-        public int UserID { get; set; }
+        public string ?Summary { get; set; }
         public User User { get; set; }
-        public int AreaID { get; set; }
+        public int UserID { get; set; }
         public Area Area { get; set; }
+        public int? AreaID { get; set; }
     }
 
     public class Area
@@ -61,6 +66,10 @@ namespace JobHiringAPI.Persistence
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AreaID { get; set; }
+        [Required]
+        public int HolderID { get; set; }
+        [Required]
+        public string HolderType { get; set; }
         [Required]
         public string Country { get; set; }
         [Required]
@@ -73,8 +82,12 @@ namespace JobHiringAPI.Persistence
         public string Address { get; set; }
     }
 
+    /*
     public class Education
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int EducationID {  get; set; }
         [Required]
         public string Institute { get; set; }
         [Required]
@@ -88,6 +101,7 @@ namespace JobHiringAPI.Persistence
         public int AreaID { get; set; }
         public Area Area { get; set; }
     }
+    */
 
     public class Company
     {
@@ -98,14 +112,19 @@ namespace JobHiringAPI.Persistence
         public string CompanyName { get; set; }
         public string ?CompanyEmail { get; set; }
         public string ?CompanyPhone { get; set; }
+        public string Description { get; set; }
+        [Required]
         public int OwnerID { get { return User.UserID; } set { value = User.UserID; } }
         public User User { get; set; }
         public int AreaID { get; set; }
-        public Area Area { get; set; }
-        public List<Rating> Ratings { get; set; }
-        public List<Branch> Branch { get; set; }
+        public List<Area> Area { get; set; }
+        //public List<Rating> Ratings { get; set; }
+        //public List<Branch> Branch { get; set; }
+        //public List<AreaCollection> AreaCollection { get; set; }
+        // public int AreaCollectionId { get; set; }
     }
 
+    /*
     public class Branch
     {
         [Key]
@@ -122,25 +141,31 @@ namespace JobHiringAPI.Persistence
         public int CompanyID { get; set; }
         public Company Company { get; set; }
         public List<Job> Job { get; set; }
+        public List<AreaCollection> AreaCollection { get; set; }
     }
+    */
 
     public class Job
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int JobID { get; set; }
-        public int Pay { get; set; }
-        public string WorkHours { get; set; }
-        public string Language { get; set; }
-        public int BranchID { get; set; }
-        public Branch Branch { get; set; }
-        public int AreaID { get; set; }
+        public int ?Pay { get; set; }
+        public string? WorkHours { get; set; }
+        public string ?Language { get; set; }
+        public int CompanyID { get; set; }
+        //public Branch Branch { get; set; }
+        public int ?AreaID { get; set; }
         public Area Area { get; set; }
         public List<Request> Request { get; set; }
     }
 
+    /*
     public class Rating
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int RatingID { get; set; }
         public int FRating { get; set; }
         public string Feedback { get; set; }
         public bool Anonymous { get; set; }
@@ -149,9 +174,14 @@ namespace JobHiringAPI.Persistence
         public int FeedbackUserID { get { return User.UserID; } set { value = User.UserID; } }
         public User User { get; set; }
     }
+    */
 
+    /*
     public class PreviuosEmployment
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int PrevEmploymentID { get; set; }
         public string Provider { get; set; }
         public string Description { get; set; }
         public string Position { get; set; }
@@ -163,6 +193,7 @@ namespace JobHiringAPI.Persistence
         public int UserID { get; set; }
         public User User { get; set; }
     }
+    */
 
     public class Request
     {
@@ -170,7 +201,7 @@ namespace JobHiringAPI.Persistence
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RequestID { get; set; }
         public string Status { get; set; }
-        public string Comment { get; set; }
+        public string ?Comment { get; set; }
         public int JobID { get; set; }
         public Job Job { set; get; }
         public int UserID { get; set; }
@@ -190,4 +221,17 @@ namespace JobHiringAPI.Persistence
         *  <« <   > »>> 
         */
     }
+
+    /*
+    public class AreaCollection
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int AreaCollectionId { get; set; }
+        public int HolderID { get; set; }
+        public string HolderType { get; set; } // = "User";
+        public int AreaID { get; set; }
+        public Area Area { get; set; }
+    }
+    */
 }

@@ -1,13 +1,8 @@
-﻿using JobHiringAPI.Persistence;
-using System.ComponentModel.DataAnnotations;
-
-namespace JobHiringAPI.Dtos
+﻿namespace JobHiringAPI.Dtos
 {
     public class CreateCompanyDto
     {
+        public int OwnerID { get; set; }
         public string CompanyName { get; set; }
-        public string? CompanyEmail { get; set; }
-        public string? CompanyPhone { get; set; }
-        public string OwnerName { get; set; }
     }
 }
