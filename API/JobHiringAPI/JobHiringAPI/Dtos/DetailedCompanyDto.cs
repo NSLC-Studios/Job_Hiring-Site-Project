@@ -2,8 +2,8 @@
 {
     public class DetailedCompanyDto
     {
-        public int OwnerID { get; set; }
         public int ID { get; set; }
+        public int OwnerID { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }

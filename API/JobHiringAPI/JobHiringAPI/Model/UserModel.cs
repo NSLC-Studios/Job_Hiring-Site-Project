@@ -1,6 +1,7 @@
 ﻿using JobHiringAPI.Dtos;
 using JobHiringAPI.Persistence;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
 
@@ -10,10 +11,13 @@ namespace JobHiringAPI.Model
     {
         private readonly JobDatabaseContext _context;
         private readonly CompanyModel _company;
+        private Random _random;
 
         public UserModel(JobDatabaseContext context)
         {
             _context = context;
+            _company = new CompanyModel(_context);
+            _random = new Random();
         }
 
         public void Registration(UserRegistrationDto dto)
@@ -29,6 +33,53 @@ namespace JobHiringAPI.Model
                 _context.SaveChanges();
                 trx.Commit();
             }
+        }
+
+        private string GeneratePassword(int length = 12)
+        {
+            return new char[length].Select(x => _random.Next(0, 1) == 1 ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,./:".ToLower()[_random.Next(0, 40)] : "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,./:"[_random.Next(0, 40)]).ToString();
+        }
+
+        public async Task<bool> AvailableNames(string name)
+        {
+            return !_context.Users.Any(x => x.UserName == name);
+        }
+
+        public UserLoginDto? ValidateUser(LoginDetailsDto dto)
+        {
+            return _context.Users.Where(x => x.UserName == dto.UserName).Where(x => x.Password == HashPassword(dto.Password)).Select(x => new UserLoginDto { Role = x.Role, UserName = x.UserName, UserID = x.UserID }).FirstOrDefault();
+        }
+
+        private string HashPassword(string password)
+        {
+            using System.Security.Cryptography.SHA256 sha = System.Security.Cryptography.SHA256.Create();
+            //byte[] bytes = Encoding.UTF8.GetBytes(password);
+            //byte[] hash = sha.ComputeHash(bytes);
+            return Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(password)));
+        }
+
+        public async Task ResetPassword(int id, int secure = 12)
+        {
+            using var trx = _context.Database.BeginTransaction();
+            {
+                _context.Users.Where(x => x.UserID == id).ExecuteUpdate(setters => setters.SetProperty(x => x.Password, HashPassword(GeneratePassword(secure))));
+                _context.SaveChanges();
+                trx.Commit();
+            }
+
+            await Task.CompletedTask;
+        }
+        
+        public async Task UpdatePassword(UpdateUserPasswordDto dto)
+        {
+            using var trx = _context.Database.BeginTransaction();
+            {
+                _context.Users.Where(x => x.UserID == dto.ID).ExecuteUpdate(setters => setters.SetProperty(x => x.Password, HashPassword(dto.Password)));
+                _context.SaveChanges();
+                trx.Commit();
+            }
+
+            await Task.CompletedTask;
         }
 
         /*public void DeleteUser(int userid)
@@ -59,7 +110,7 @@ namespace JobHiringAPI.Model
                 //});
                 // REWRITE IN AREA MODEL _context.AreaCollections.Where(x => x.HolderType == "User" && x.HolderID == id).ExecuteDelete();
 
-                _company.DeleteCompany(_context.Companies.Where(x=> x.OwnerID == id).First().CompanyID);
+                await _company.DeleteCompany(_context.Companies.Where(x=> x.OwnerID == id).First().CompanyID);
 
                 _context.Requests.Where(x => x.UserID == id).ExecuteDelete();
                 _context.SaveChanges();
@@ -73,27 +124,9 @@ namespace JobHiringAPI.Model
                 _context.Users.Where(x => x.UserID == id).ExecuteDelete();
                 _context.SaveChanges();
                 trx.Commit();
-
-                await Task.CompletedTask;
             }
-        }
 
-        public bool AvailableNames(string name)
-        {
-            return !_context.Users.Any(x => x.UserName == name);
-        }
-
-        public UserLoginDto? ValidateUser(LoginDetailsDto dto)
-        {
-            return _context.Users.Where(x => x.UserName == dto.UserName).Where(x => x.Password == HashPassword(dto.Password)).Select(x => new UserLoginDto { Role = x.Role, UserName = x.UserName, UserID = x.UserID }).FirstOrDefault();
-        }
-
-        private string HashPassword(string password)
-        {
-            using System.Security.Cryptography.SHA256 sha = System.Security.Cryptography.SHA256.Create();
-            //byte[] bytes = Encoding.UTF8.GetBytes(password);
-            //byte[] hash = sha.ComputeHash(bytes);
-            return Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(password)));
+            await Task.CompletedTask;
         }
 
         public async Task<IEnumerable<BaseAdminsDto>> GetAdmins(int skip = 0, int take = 3)
@@ -103,7 +136,7 @@ namespace JobHiringAPI.Model
         
         public async Task<DetailedUserDto> GetUser(int id)
         {
-            return _context.Users.Where(x => x.UserID == id).Select(x => new DetailedUserDto { ID = x.UserID, UserName = x.UserName, FirstName = x.FirstName, LastName = x.LastName, Email = x.Email, Phone = x.Phone, Role = x.Role == "Admin" ? "Registered Administrator at JobHiringSite." : "Regular JobHiringSite User." }).First();
+            return _context.Users.Where(x => x.UserID == id).Select(x => new DetailedUserDto { ID = x.UserID, UserName = x.UserName, FirstName = x.FirstName, LastName = x.LastName, Email = x.Email, Phone = x.Phone, Company = _context.Companies.Any(x => x.OwnerID == id), Role = x.Role == "Admin" ? "Registered Administrator at JobHiringSite." : "Regular JobHiringSite User." }).First();
         }
     }
 }

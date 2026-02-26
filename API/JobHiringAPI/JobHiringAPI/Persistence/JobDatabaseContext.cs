@@ -28,13 +28,13 @@ namespace JobHiringAPI.Persistence
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserID { get; set; }
         [Required]
-        public string UserName { get; set; }
+        public required string UserName { get; set; }
         public string ?FirstName { get; set; }
         public string ?LastName { get; set; }
         public string ?Email { get; set; }
         public string ?Phone { get; set; }
         [Required]
-        public string Password { get; set; }
+        public required string Password { get; set; }
         [Required]
         public string Role { get; set; } = "User";
         public List<CV> CV { get; set; }
@@ -69,17 +69,17 @@ namespace JobHiringAPI.Persistence
         [Required]
         public int HolderID { get; set; }
         [Required]
-        public string HolderType { get; set; }
+        public required string HolderType { get; set; }
         [Required]
-        public string Country { get; set; }
+        public required string Country { get; set; }
         [Required]
-        public string County { get; set; }
+        public required string County { get; set; }
         [Required]
-        public string City { get; set; }
+        public required string City { get; set; }
         [Required]
-        public string PostalCode { get; set; }
+        public required string PostalCode { get; set; }
         [Required]
-        public string Address { get; set; }
+        public required string Address { get; set; }
     }
 
     /*
@@ -109,12 +109,13 @@ namespace JobHiringAPI.Persistence
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CompanyID { get; set; }
         [Required]
-        public string CompanyName { get; set; }
+        public required string CompanyName { get; set; }
         public string ?CompanyEmail { get; set; }
         public string ?CompanyPhone { get; set; }
-        public string Description { get; set; }
+        public string ?Description { get; set; }
         [Required]
-        public int OwnerID { get { return User.UserID; } set { value = User.UserID; } }
+        public int OwnerID { get; set; }
+        [ForeignKey(nameof(OwnerID))]
         public User User { get; set; }
         public int AreaID { get; set; }
         public Area Area { get; set; }
@@ -202,8 +203,11 @@ namespace JobHiringAPI.Persistence
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RequestID { get; set; }
-        public string Status { get; set; }
+        [Required]
+        public required string Status { get; set; }
         public string ?Comment { get; set; }
+        [Required]
+        public required string Response { get; set; } = "No response yet! Check back later!";
         public int JobID { get; set; }
         public Job Job { set; get; }
         public int UserID { get; set; }

@@ -87,9 +87,9 @@ namespace JobHiringAPI.Model
             await Task.CompletedTask;
         }
 
-        public async Task<IEnumerable<BaseJobDto>> GetCompanyJobs(int id, int skip = 0, int take = 12)
-        {
-            return _context.Jobs.Include(x => x.Area).Where(x => x.CompanyID == id).Skip(skip).Take(take).Select(x => new BaseJobDto { ID = x.JobID, CompanyID = x.CompanyID, CompanyName = _context.Companies.Where(x => x.CompanyID == id).First().CompanyName, Pay = x.Pay, Country = x.Area.Country, County = x.Area.County, City = x.Area.City, Language = x.Language, WorkTime = x.WorkTime, Description = x.Description.Length > 25 ? $"{x.Description.Take(25).ToString()}..." : x.Description });
+        public async Task<IEnumerable<BaseJobDto>> GetCompanyJobs(int id) // , int skip = 0, int take = 12
+        { // .Skip(skip).Take(take)
+            return _context.Jobs.Include(x => x.Area).Where(x => x.CompanyID == id).Select(x => new BaseJobDto { ID = x.JobID, CompanyID = x.CompanyID, CompanyName = _context.Companies.Where(x => x.CompanyID == id).First().CompanyName, Pay = x.Pay, Country = x.Area.Country, County = x.Area.County, City = x.Area.City, Language = x.Language, WorkTime = x.WorkTime, Description = x.Description.Length > 25 ? $"{x.Description.Take(25).ToString()}..." : x.Description });
         }
         
         public async Task<IEnumerable<BaseJobDto>> GetJobs(int skip = 0, int take = 12)
@@ -131,6 +131,8 @@ namespace JobHiringAPI.Model
                 _context.SaveChanges();
                 trx.Commit();
             }
+
+            await Task.CompletedTask;
         }
     }
 }

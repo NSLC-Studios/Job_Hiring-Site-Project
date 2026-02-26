@@ -13,24 +13,26 @@ namespace JobHiringAPI.Model
             _context = context;
         }
 
-        public async Task<IEnumerable<BaseAreaDto>> GetAreas(int id)
+        public async Task<IEnumerable<BaseAreaDto>> GetAreas(int id, string holder)
         {
-
+            return _context.Areas.Where(x => x.HolderType == holder && x.HolderID == id).Select(x => new BaseAreaDto { ID = x.AreaID, Address = $"{x.Country}, {x.County}, {x.PostalCode}, {x.City}, " + (x.Address.Length > 15 ? $"{x.Address.Take(15)}..." : x.Address) });
         }
 
-        public void CreateNewArea(CreateAreaDto dto)
+        public async Task CreateNewArea(CreateAreaDto dto)
         {
             using var trx = _context.Database.BeginTransaction();
             {
                 //var currentCompany = _context.Companies.Where(x => x.CompanyID == dto.InitiatorID);
+                // int id = _context.Areas.Last().AreaID;
                 _context.Areas.Add(new Area { Address = dto.Address, City = dto.City, Country = dto.Country, County = dto.County, PostalCode = dto.PostalCode, HolderID = dto.InitiatorID, HolderType = dto.HolderType });
-                    int id = _context.Areas.Last().AreaID;
                 _context.SaveChanges();
                 trx.Commit();
             }
+
+            await Task.CompletedTask;
         }
 
-        public void DeleteArea(int id)
+        public async Task DeleteArea(int id)
         {
             using var trx = _context.Database.BeginTransaction();
             {
@@ -38,9 +40,11 @@ namespace JobHiringAPI.Model
                 _context.SaveChanges();
                 trx.Commit();
             }
+
+            await Task.CompletedTask;
         }
 
-        public void UpdateArea(UpdateAreaDto dto)
+        public async Task UpdateArea(UpdateAreaDto dto)
         {
             using var trx = _context.Database.BeginTransaction();
             {
@@ -48,6 +52,8 @@ namespace JobHiringAPI.Model
                 _context.SaveChanges();
                 trx.Commit();
             }
+
+            await Task.CompletedTask;
         }
     }
 }

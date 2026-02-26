@@ -1,5 +1,6 @@
 ﻿using JobHiringAPI.Dtos;
 using JobHiringAPI.Persistence;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Expressions.Internal;
 
 namespace JobHiringAPI.Model
@@ -19,7 +20,7 @@ namespace JobHiringAPI.Model
             _job = new JobModel(_context);
         }
 
-        public string GetUserName(int id)
+        public async Task<string> GetUserName(int id)
         {
             return _context.Users.Where(x => x.UserID == id).First().UserName;
         }
@@ -29,12 +30,16 @@ namespace JobHiringAPI.Model
             return _context.Users.Select(x => new BaseUserDto { ID = x.UserID, UserName = x.UserName, Role = x.Role });
         }
         
-        public async Task<IEnumerable<AdminCompanyDto>> GetCompanies(int id)
+        public async Task<IEnumerable<AdminCompanyDto>> GetOwnedCompanies(int id)
         {
-            return _context.Companies.Where(x => x.OwnerID == id).Select(x => new AdminCompanyDto { ID = x.CompanyID, OwnerID = x.OwnerID, Name = x.CompanyName });
+            return _company.GetOwnedCompanies(id).Result.Select(x => new AdminCompanyDto { ID = x.ID, OwnerID = x.OwnerID, Name = x.CompanyName });
         }
 
-        //user  deletepassword ResetPass(user id){}
+        public async Task ResetPassword(int id)
+        {
+            await _user.ResetPassword(id);
+            await Task.CompletedTask;
+        }
         
         public async Task DeleteUser(int id)
         {
@@ -44,26 +49,25 @@ namespace JobHiringAPI.Model
 
         public async Task DeleteCompany(int id)
         {
-            _company.DeleteCompany(id);
+            await _company.DeleteCompany(id);
             await Task.CompletedTask;
         }
 
         public async Task DeleteJob(int id)
         {
-            _job.DeleteJob(id);
+            await _job.DeleteJob(id);
             await Task.CompletedTask;
         }
 
-        // Job                 GetJobByCompany(company)
-        // Job                 GetJobByuser(User id)
-
-
+        public async Task<IEnumerable<BaseJobDto>> GetJobs(int id)
+        {
+            return await _job.GetCompanyJobs(id);
+        }
 
         // user job request    UnderReview() //block from aplying
 
         //user Job request     GetJobReqByAdverts (){}
         //user Job request     GetJobReqByUser (){}
         //user Job request     GetJobReqByCompany (){}
-
     }
 }
