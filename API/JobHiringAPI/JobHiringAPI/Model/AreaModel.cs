@@ -13,9 +13,9 @@ namespace JobHiringAPI.Model
             _context = context;
         }
 
-        public async Task<IEnumerable<BaseAreaDto>> GetAreas(int id, string holder)
+        public async Task<IEnumerable<BaseAreaDto>> GetAreas(int id)
         {
-            return _context.Areas.Where(x => x.HolderType == holder && x.HolderID == id).Select(x => new BaseAreaDto { ID = x.AreaID, Address = $"{x.Country}, {x.County}, {x.PostalCode}, {x.City}, " + (x.Address.Length > 15 ? $"{x.Address.Take(15)}..." : x.Address) });
+            return _context.Areas.Where(x => x.UserID == id).Select(x => new BaseAreaDto { ID = x.AreaID, Address = $"{x.Country}, {x.County}, {x.PostalCode}, {x.City}, " + (x.Address.Length > 15 ? $"{x.Address.Take(15)}..." : x.Address) });
         }
 
         public async Task CreateNewArea(CreateAreaDto dto)
@@ -24,7 +24,7 @@ namespace JobHiringAPI.Model
             {
                 //var currentCompany = _context.Companies.Where(x => x.CompanyID == dto.InitiatorID);
                 // int id = _context.Areas.Last().AreaID;
-                _context.Areas.Add(new Area { Address = dto.Address, City = dto.City, Country = dto.Country, County = dto.County, PostalCode = dto.PostalCode, HolderID = dto.InitiatorID, HolderType = dto.HolderType });
+                _context.Areas.Add(new Area { Address = dto.Address, City = dto.City, Country = dto.Country, County = dto.County, PostalCode = dto.PostalCode, UserID = dto.UserID });
                 _context.SaveChanges();
                 trx.Commit();
             }

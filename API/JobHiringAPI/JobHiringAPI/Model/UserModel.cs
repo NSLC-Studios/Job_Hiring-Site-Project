@@ -115,7 +115,7 @@ namespace JobHiringAPI.Model
                 _context.Requests.Where(x => x.UserID == id).ExecuteDelete();
                 _context.SaveChanges();
 
-                _context.Areas.Where(x => x.HolderType == "User" && x.HolderID == id).ExecuteDelete();
+                _context.Areas.Where(x => x.UserID == id).ExecuteDelete();
                 _context.SaveChanges();
 
                 _context.CVs.Where(x => x.UserID == id).ExecuteDelete();

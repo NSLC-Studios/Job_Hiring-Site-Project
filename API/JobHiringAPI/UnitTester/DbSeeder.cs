@@ -94,7 +94,7 @@ namespace UnitTester
             var job = new Job
             {
                 Pay = 8000,
-                WorkHours = "8-17",
+                WorkTime = "8-17",
                 Language = "English, German",
                 CompanyID = company.CompanyID,
                 AreaID = mania.AreaID

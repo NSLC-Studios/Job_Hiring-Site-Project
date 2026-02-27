@@ -67,9 +67,10 @@ namespace JobHiringAPI.Persistence
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AreaID { get; set; }
         [Required]
-        public int HolderID { get; set; }
-        [Required]
-        public required string HolderType { get; set; }
+        //public int HolderID { get; set; }
+        public int UserID { get; set; }
+        //[Required]
+        //public required string HolderType { get; set; }
         [Required]
         public required string Country { get; set; }
         [Required]

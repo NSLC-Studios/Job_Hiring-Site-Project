@@ -132,7 +132,7 @@ namespace JobHiringAPI.Model
                 _context.Jobs.Where(x => x.CompanyID == id).ExecuteDelete();
                 _context.SaveChanges();
 
-                _context.Areas.Where(x => x.HolderType == "Company" && x.HolderID == id).ExecuteDelete();
+                _context.Areas.Where(x => x.UserID == _context.Companies.Where(x => x.CompanyID == id).First().OwnerID).ExecuteDelete();
                 _context.SaveChanges();
 
                 // To be Depracated
