@@ -1,6 +1,7 @@
 ﻿using JobHiringAPI.Dtos;
 using JobHiringAPI.Persistence;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Expressions.Internal;
 
 namespace JobHiringAPI.Model
@@ -11,6 +12,7 @@ namespace JobHiringAPI.Model
         private readonly UserModel _user;
         private readonly CompanyModel _company;
         private readonly JobModel _job;
+        private readonly RequestModel _request;
 
         public AdminModel(JobDatabaseContext _dbContext)
         {
@@ -18,6 +20,7 @@ namespace JobHiringAPI.Model
             _user = new UserModel(_context);
             _company = new CompanyModel(_context);
             _job = new JobModel(_context);
+            _request = new RequestModel(_context);
         }
 
         public async Task<string> GetUserName(int id)
@@ -64,10 +67,33 @@ namespace JobHiringAPI.Model
             return await _job.GetCompanyJobs(id);
         }
 
-        // user job request    UnderReview() //block from aplying
+        public async Task UpdateStatus(AdminUpdateRequestStatusDto dto)
+        {
+            using var trx = _context.Database.BeginTransaction();
+            {
+                _context.Requests.Where(x => x.RequestID == dto.ID).ExecuteUpdate(setters => setters.SetProperty(x => x.Status, dto.Status));
+                _context.SaveChanges();
+                trx.Commit();
+            }
+        }
 
         //user Job request     GetJobReqByAdverts (){}
         //user Job request     GetJobReqByUser (){}
         //user Job request     GetJobReqByCompany (){}
+
+        public async Task<IEnumerable<BaseReceivedRequestDto>> GetJobRequests(int id)
+        {
+            return await _request.GetEnquires(id);
+        }
+        
+        public async Task<IEnumerable<BaseRequestDto>> GetUserRequests(int id)
+        {
+            return await _request.GetRequests(id);
+        }
+        
+        public async Task<IEnumerable<BaseReceivedCompanyRequestDto>> GetCompanyRequests(int id)
+        {
+            return await _request.GetCompanyEnquires(id);
+        }
     }
 }

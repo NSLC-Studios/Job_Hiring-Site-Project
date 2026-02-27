@@ -58,7 +58,7 @@ namespace JobHiringAPI.Persistence
         public User User { get; set; }
         public int UserID { get; set; }
         public Area Area { get; set; }
-        public int? AreaID { get; set; }
+        public int AreaID { get; set; }
     }
 
     public class Area
@@ -152,13 +152,13 @@ namespace JobHiringAPI.Persistence
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int JobID { get; set; }
-        public int ?Pay { get; set; }
+        public int Pay { get; set; }
         public string? WorkTime { get; set; }
         public string? Description { get; set; }
         public string? Language { get; set; }
         public int CompanyID { get; set; }
         public Company Company { get; set; }
-        public int ?AreaID { get; set; }
+        public int AreaID { get; set; }
         public Area Area { get; set; }
         public List<Request> Request { get; set; }
     }
@@ -206,13 +206,15 @@ namespace JobHiringAPI.Persistence
         [Required]
         public required string Status { get; set; }
         public string ?Comment { get; set; }
+        public string Response { get; set; } = "No response yet! Check back later!";
         [Required]
-        public required string Response { get; set; } = "No response yet! Check back later!";
-        public int JobID { get; set; }
+        public required int JobID { get; set; }
         public Job Job { set; get; }
-        public int UserID { get; set; }
+        [Required]
+        public required int UserID { get; set; }
         public User User { get; set; }
-        public int CVID { get; set; }
+        [Required]
+        public  required int CVID { get; set; }
         public CV CV { get; set; }
         //public int CVIDID { get; set;
         //public int CVIDIDID { get;set; }

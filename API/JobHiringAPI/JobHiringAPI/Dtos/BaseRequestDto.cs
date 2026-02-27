@@ -7,5 +7,6 @@
         public string Response { get; set; }
         public string Description { get; set; }
         public string CompanyName { get; set; }
+        public int JobID { get; set; }
     }
 }
