@@ -47,9 +47,10 @@ namespace JobHiringAPI.Model
 
         public async Task<DetailedCVDto> GetDetailedCV(int id)
         {
-            var user = _context.Users.Where(x => x.UserID == _context.CVs.Where(x => x.CVID == id).First().UserID).First();
-            var area = _context.Areas.Where(x => x.AreaID == _context.CVs.Where(x => x.CVID == id).First().AreaID).First();
-            return _context.CVs.Where(x => x.CVID == id).Select(x => new DetailedCVDto { ID = x.CVID, UserID = x.UserID, Summary = x.Summary, Phone = user.Phone, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, UserName = user.UserName, Role = user.Role == "Admin" ? "Administrator of JobHiringSite." : "Regular user of JobHiringSite.", Country = area.Country, County = area.County, Postal = area.PostalCode, City = area.City, Address = area.Address, Companies = _context.Companies.Where(y => y.OwnerID == x.UserID).Any() ? _context.Companies.Where(y => y.OwnerID == x.UserID).Select(x => x.CompanyName).ToString() : "None"}).First();
+            //var user = _context.Users.Where(x => x.UserID == _context.CVs.Where(x => x.CVID == id).First().UserID).First();
+            //var area = _context.Areas.Where(x => x.AreaID == _context.CVs.Where(x => x.CVID == id).First().AreaID).First();
+
+            return _context.CVs.Include(x => x.User).Include(x => x.Area).Where(x => x.CVID == id).Select(x => new DetailedCVDto { ID = x.CVID, UserID = x.UserID, Summary = x.Summary, Phone = x.User.Phone, Email = x.User.Email, FirstName = x.User.FirstName, LastName = x.User.LastName, UserName = x.User.UserName, Role = x.User.Role == "Admin" ? "Administrator of JobHiringSite." : "Regular user of JobHiringSite.", Country = x.Area.Country, County = x.Area.County, Postal = x.Area.PostalCode, City = x.Area.City, Address = x.Area.Address, Companies = _context.Companies.Where(y => y.OwnerID == x.UserID).Any() ? _context.Companies.Where(y => y.OwnerID == x.UserID).Select(x => x.CompanyName).ToString() : "None"}).First();
         }
 
         public async Task UpdateSummary(UpdateCVSummaryDto dto)

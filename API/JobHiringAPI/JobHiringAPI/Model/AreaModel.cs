@@ -17,6 +17,11 @@ namespace JobHiringAPI.Model
         {
             return _context.Areas.Where(x => x.UserID == id).Select(x => new BaseAreaDto { ID = x.AreaID, Address = $"{x.Country}, {x.County}, {x.PostalCode}, {x.City}, " + (x.Address.Length > 15 ? $"{x.Address.Take(15)}..." : x.Address) });
         }
+        
+        public async Task<IEnumerable<DetailedAreaDto>> GetArea(int id)
+        {
+            return _context.Areas.Where(x => x.AreaID == id).Select(x => new DetailedAreaDto { ID = x.AreaID, UserID = x.UserID, Country = x.Country, County = x.County, Postal = x.PostalCode, City = x.City, Address = x.Address });
+        }
 
         public async Task CreateNewArea(CreateAreaDto dto)
         {

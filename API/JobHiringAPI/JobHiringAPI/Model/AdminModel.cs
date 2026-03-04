@@ -23,9 +23,35 @@ namespace JobHiringAPI.Model
             _request = new RequestModel(_context);
         }
 
-        public async Task<string> GetUserName(int id)
+        public async Task Promote(int id)
         {
-            return _context.Users.Where(x => x.UserID == id).First().UserName;
+            if (_context.Users.Any(x => x.UserID == id && x.Role == "Admin")) throw new UnauthorizedAccessException("User is already an Admin");
+            using var trx = _context.Database.BeginTransaction();
+            {
+                _context.Users.Where(x => x.UserID == id).ExecuteUpdate(setters => setters.SetProperty(x => x.Role, "Admin"));
+                _context.SaveChanges();
+                trx.Commit();
+            }
+
+            await Task.CompletedTask;
+        }
+        
+        public async Task Demote(int id)
+        {
+            if (_context.Users.Any(x => x.UserID == id && x.Role == "User")) throw new UnauthorizedAccessException("User is already a User");
+            using var trx = _context.Database.BeginTransaction();
+            {
+                _context.Users.Where(x => x.UserID == id).ExecuteUpdate(setters => setters.SetProperty(x => x.Role, "User"));
+                _context.SaveChanges();
+                trx.Commit();
+            }
+
+            await Task.CompletedTask;
+        }
+
+        public async Task<BaseUsernameDto> GetUserName(int id)
+        {
+            return _context.Users.Where(x => x.UserID == id).Select(x => new BaseUsernameDto { ID = x.UserID, UserName = x.UserName }).First();
         }
 
         public async Task<IEnumerable<BaseUserDto>> GetUsers()
@@ -33,15 +59,14 @@ namespace JobHiringAPI.Model
             return _context.Users.Select(x => new BaseUserDto { ID = x.UserID, UserName = x.UserName, Role = x.Role });
         }
         
-        public async Task<IEnumerable<AdminCompanyDto>> GetOwnedCompanies(int id)
+        public async Task<IEnumerable<AdminCompanyDto>> GetCompanies(int id)
         {
             return _company.GetOwnedCompanies(id).Result.Select(x => new AdminCompanyDto { ID = x.ID, OwnerID = x.OwnerID, Name = x.CompanyName });
         }
 
-        public async Task ResetPassword(int id)
+        public async Task<string> ResetPassword(int id)
         {
-            await _user.ResetPassword(id);
-            await Task.CompletedTask;
+            return await _user.ResetPassword(id);
         }
         
         public async Task DeleteUser(int id)
@@ -75,11 +100,9 @@ namespace JobHiringAPI.Model
                 _context.SaveChanges();
                 trx.Commit();
             }
-        }
 
-        //user Job request     GetJobReqByAdverts (){}
-        //user Job request     GetJobReqByUser (){}
-        //user Job request     GetJobReqByCompany (){}
+            await Task.CompletedTask;
+        }
 
         public async Task<IEnumerable<BaseReceivedRequestDto>> GetJobRequests(int id)
         {

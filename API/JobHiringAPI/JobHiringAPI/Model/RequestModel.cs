@@ -15,6 +15,7 @@ namespace JobHiringAPI.Model
 
         public async Task CreateRequest(CreateRequestDto dto)
         {
+            if (_context.Requests.Any(x => x.UserID == dto.UserID && x.JobID == dto.ID)) throw new UnauthorizedAccessException("You have sent a request to this job already.");
             using var trx = _context.Database.BeginTransaction();
             {
                 _context.Requests.Add(new Request { Status = "Processing", JobID = dto.ID, CVID = dto.CVID, UserID = dto.UserID, Comment = dto.Comment });

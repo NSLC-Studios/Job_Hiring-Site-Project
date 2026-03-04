@@ -1,5 +1,6 @@
 ﻿using JobHiringAPI.Dtos;
 using JobHiringAPI.Persistence;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
@@ -58,16 +59,18 @@ namespace JobHiringAPI.Model
             return Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(password)));
         }
 
-        public async Task ResetPassword(int id, int secure = 12)
+        public async Task<string> ResetPassword(int id, int secure = 12)
         {
+            string newpass = GeneratePassword(secure);
+
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.Users.Where(x => x.UserID == id).ExecuteUpdate(setters => setters.SetProperty(x => x.Password, HashPassword(GeneratePassword(secure))));
+                _context.Users.Where(x => x.UserID == id).ExecuteUpdate(setters => setters.SetProperty(x => x.Password, HashPassword(newpass)));
                 _context.SaveChanges();
                 trx.Commit();
             }
 
-            await Task.CompletedTask;
+            return newpass;
         }
         
         public async Task UpdatePassword(UpdateUserPasswordDto dto)
