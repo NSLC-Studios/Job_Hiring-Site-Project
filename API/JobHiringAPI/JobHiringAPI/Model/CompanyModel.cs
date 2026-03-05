@@ -18,6 +18,8 @@ namespace JobHiringAPI.Model
 
         public async Task CreateCompany(CreateCompanyDto dto) 
         {
+            if (_context.Companies.Any(x => x.CompanyName == dto.CompanyName)) throw new UnauthorizedAccessException();
+
             using var trx = _context.Database.BeginTransaction();
             {
                 _context.Companies.Add(new Company { CompanyName = dto.CompanyName, OwnerID = dto.OwnerID });
