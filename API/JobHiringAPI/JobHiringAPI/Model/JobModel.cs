@@ -89,7 +89,7 @@ namespace JobHiringAPI.Model
 
         public async Task<IEnumerable<BaseJobDto>> GetCompanyJobs(int id) // , int skip = 0, int take = 12
         { // .Skip(skip).Take(take)
-            return _context.Jobs.Include(x => x.Area).Where(x => x.CompanyID == id).Select(x => new BaseJobDto { ID = x.JobID, CompanyID = x.CompanyID, CompanyName = _context.Companies.Where(x => x.CompanyID == id).First().CompanyName, Pay = x.Pay, Country = x.Area.Country, County = x.Area.County, City = x.Area.City, Language = x.Language, WorkTime = x.WorkTime, Description = x.Description.Length > 25 ? $"{x.Description.Take(25).ToString()}..." : x.Description });
+            return _context.Jobs.Include(x => x.Area).Include(x => x.Company).Where(x => x.CompanyID == id).Select(x => new BaseJobDto { ID = x.JobID, CompanyID = x.CompanyID, CompanyName = x.Company.CompanyName, Pay = x.Pay, Country = x.Area.Country, County = x.Area.County, City = x.Area.City, Language = x.Language, WorkTime = x.WorkTime, Description = x.Description.Length > 25 ? $"{x.Description.Take(25).ToString()}..." : x.Description });
         }
         
         public async Task<IEnumerable<BaseJobDto>> GetJobs(int skip = 0, int take = 12)
@@ -110,9 +110,14 @@ namespace JobHiringAPI.Model
             return true;
         }
 
+        public async Task<IEnumerable<BaseJobDto>> GetSearchedJobs(string description, int skip = 0, int take = 12)
+        {
+            return _context.Jobs.Where(x => x.Description.ToLower().Contains(description.ToLower())).Skip(skip).Take(take).Select(x => new BaseJobDto { ID = x.JobID, CompanyID = x.CompanyID, CompanyName = x.Company.CompanyName, Pay = x.Pay, Country = x.Area.Country, County = x.Area.County, City = x.Area.City, Language = x.Language, WorkTime = x.WorkTime, Description = x.Description.Length > 25 ? $"{x.Description.Take(25).ToString()}..." : x.Description });
+        }
+
         public async Task<IEnumerable<BaseJobDto>> GetFilteredJobs(int pay = 0, string language = "", string country = "", string county = "", string city = "", string work = "", string company = "", string description = "", int skip = 0, int take = 12)
         {
-            return _context.Jobs.Include(x => x.Area).Include(x => x.Company).Where(x => x.Pay >= pay && /*x.Language.ToLower().Contains(language.ToLower())*/ LanguageHandling(x.Language, language) && x.Area.Country.ToLower().Contains(country.ToLower()) && x.Area.County.ToLower().Contains(county.ToLower()) && x.Area.City.ToLower().Contains(city.ToLower()) && x.WorkTime.ToLower().Contains(work.ToLower()) && x.Company.CompanyName.ToLower().Contains(company.ToLower()) && x.Description.ToLower().Contains(description.ToLower())).OrderByDescending(x => x.CompanyID).Skip(skip).Take(take).Select(x => new BaseJobDto { ID = x.JobID, CompanyID = x.CompanyID, CompanyName = _context.Companies.Where(y => y.CompanyID == x.CompanyID).First().CompanyName, Pay = x.Pay, Country = x.Area.Country, County = x.Area.County, City = x.Area.City, Language = x.Language, WorkTime = x.WorkTime, Description = x.Description.Length > 25 ? $"{x.Description.Take(25).ToString()}..." : x.Description });
+            return _context.Jobs.Include(x => x.Area).Include(x => x.Company).Where(x => x.Pay >= pay && /*x.Language.ToLower().Contains(language.ToLower())*/ LanguageHandling(x.Language, language) && x.Area.Country.ToLower().Contains(country.ToLower()) && x.Area.County.ToLower().Contains(county.ToLower()) && x.Area.City.ToLower().Contains(city.ToLower()) && x.WorkTime.ToLower().Contains(work.ToLower()) && x.Company.CompanyName.ToLower().Contains(company.ToLower()) && x.Description.ToLower().Contains(description.ToLower())).OrderByDescending(x => x.CompanyID).Skip(skip).Take(take).Select(x => new BaseJobDto { ID = x.JobID, CompanyID = x.CompanyID, CompanyName = x.Company.CompanyName, Pay = x.Pay, Country = x.Area.Country, County = x.Area.County, City = x.Area.City, Language = x.Language, WorkTime = x.WorkTime, Description = x.Description.Length > 25 ? $"{x.Description.Take(25).ToString()}..." : x.Description });
         }
 
         public async Task<DetailedJobDto> GetDetailedJob(int id)
