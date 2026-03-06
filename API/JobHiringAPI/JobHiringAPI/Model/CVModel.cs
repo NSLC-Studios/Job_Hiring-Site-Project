@@ -42,7 +42,18 @@ namespace JobHiringAPI.Model
 
         public async Task<IEnumerable<BaseCVDto>> GetCVs(int id)
         {
-            return _context.CVs.Where(x => x.UserID == id).Select(x => new BaseCVDto { ID = x.CVID, Summary = x.Summary.Length < 50 ? $"{x.Summary}" : $"{x.Summary.Take(50).ToString()}..." + $" City: {_context.Areas.Where(y => x.AreaID == y.AreaID).First().City}" });
+            if (!_context.CVs.Any(x => x.UserID == id)) throw new IndexOutOfRangeException("No CVs Found!");
+
+            return _context.CVs.Include(x => x.Area).Where(x => x.UserID == id).Select(x => new BaseCVDto { ID = x.CVID, 
+                Summary = x.Summary == null 
+                ? "Empty CV!" 
+                    : x.Summary.Length < 50 
+                        ? $"{x.Summary}" + x.Area.City == null 
+                            ? "No Location Set!"
+                            : x.Area.City
+                        : $"{x.Summary.Take(50).ToString()}..." + x.Area.City == null 
+                            ? "No Location Set!" 
+                            : $" City: {x.Area.City}" });
         }
 
         public async Task<DetailedCVDto> GetDetailedCV(int id)

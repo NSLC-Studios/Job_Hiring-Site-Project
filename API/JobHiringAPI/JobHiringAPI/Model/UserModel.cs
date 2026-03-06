@@ -113,20 +113,26 @@ namespace JobHiringAPI.Model
                 //});
                 // REWRITE IN AREA MODEL _context.AreaCollections.Where(x => x.HolderType == "User" && x.HolderID == id).ExecuteDelete();
 
-                await _company.DeleteCompany(_context.Companies.Where(x=> x.OwnerID == id).First().CompanyID);
+                //   await _company.DeleteCompany(_context.Companies.Where(x=> x.OwnerID == id).First().CompanyID);
+                //await _context.SaveChangesAsync();
+                //await trx.CommitAsync();
 
-                _context.Requests.Where(x => x.UserID == id).ExecuteDelete();
-                _context.SaveChanges();
+                await _context.Requests.Where(x => x.UserID == id).ExecuteDeleteAsync();
+                //await _context.SaveChangesAsync();
+                //await trx.CommitAsync();
 
-                _context.Areas.Where(x => x.UserID == id).ExecuteDelete();
-                _context.SaveChanges();
+                await _context.Areas.Where(x => x.UserID == id).ExecuteDeleteAsync();
+                //await _context.SaveChangesAsync();
+                //await trx.CommitAsync();
 
-                _context.CVs.Where(x => x.UserID == id).ExecuteDelete();
-                _context.SaveChanges();
+                await _context.CVs.Where(x => x.UserID == id).ExecuteDeleteAsync();
+                //await _context.SaveChangesAsync();
+                //await trx.CommitAsync();
 
-                _context.Users.Where(x => x.UserID == id).ExecuteDelete();
-                _context.SaveChanges();
-                trx.Commit();
+                await _context.Users.Where(x => x.UserID == id).ExecuteDeleteAsync();
+                //await _context.SaveChangesAsync();
+                await trx.CommitAsync();
+                //trx.Commit();
             }
 
             await Task.CompletedTask;

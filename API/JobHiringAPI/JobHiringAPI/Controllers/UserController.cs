@@ -82,7 +82,7 @@ namespace JobHiringAPI.Controllers
         {
             try
             {
-                _model.DeleteUser(id);
+                await _model.DeleteUser(id);
                 return Ok();
             }
             catch (Exception e)
@@ -96,7 +96,7 @@ namespace JobHiringAPI.Controllers
         {
             try
             {
-                return Ok(_model.AvailableNames(username));
+                return Ok(await _model.AvailableNames(username));
             }
             catch (Exception e)
             {

@@ -23,6 +23,10 @@ namespace JobHiringAPI.Controllers
             {
                 return Ok(await _model.GetCVs(id));
             }
+            catch (IndexOutOfRangeException e)
+            {
+                return NotFound(e.Message);
+            }
             catch
             {
                 return BadRequest();

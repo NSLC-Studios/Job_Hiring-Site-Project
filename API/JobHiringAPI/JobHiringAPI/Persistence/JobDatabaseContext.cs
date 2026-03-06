@@ -58,7 +58,7 @@ namespace JobHiringAPI.Persistence
         public User User { get; set; }
         public int UserID { get; set; }
         public Area Area { get; set; }
-        public int AreaID { get; set; }
+        public int ?AreaID { get; set; }
     }
 
     public class Area
