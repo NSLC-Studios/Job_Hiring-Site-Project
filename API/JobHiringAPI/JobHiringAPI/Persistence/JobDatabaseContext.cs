@@ -119,8 +119,8 @@ namespace JobHiringAPI.Persistence
         [ForeignKey(nameof(OwnerID))]
         public User User { get; set; }
         public int AreaID { get; set; }
-        public Area Area { get; set; }
-        public List<Area> Areas { get; set; }
+        public Area ?Area { get; set; }
+        //public List<Area> Areas { get; set; }
         //public List<Rating> Ratings { get; set; }
         //public List<Branch> Branch { get; set; }
         //public List<AreaCollection> AreaCollection { get; set; }

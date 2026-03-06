@@ -21,6 +21,7 @@ namespace JobHiringAPI
             builder.Services.AddTransient<AreaModel>();
             builder.Services.AddTransient<JobModel>();
             builder.Services.AddTransient<RequestModel>();
+            builder.Services.AddTransient<CompanyModel>();
 
             // builder.Services.AddTransient <model> ();
 

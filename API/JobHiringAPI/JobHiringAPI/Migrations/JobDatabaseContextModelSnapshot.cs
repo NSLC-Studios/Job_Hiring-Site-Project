@@ -37,9 +37,6 @@ namespace JobHiringAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("CompanyID")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("text");
@@ -56,8 +53,6 @@ namespace JobHiringAPI.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("AreaID");
-
-                    b.HasIndex("CompanyID");
 
                     b.HasIndex("UserID");
 
@@ -242,10 +237,6 @@ namespace JobHiringAPI.Migrations
 
             modelBuilder.Entity("JobHiringAPI.Persistence.Area", b =>
                 {
-                    b.HasOne("JobHiringAPI.Persistence.Company", null)
-                        .WithMany("Areas")
-                        .HasForeignKey("CompanyID");
-
                     b.HasOne("JobHiringAPI.Persistence.User", null)
                         .WithMany("Area")
                         .HasForeignKey("UserID")
@@ -333,11 +324,6 @@ namespace JobHiringAPI.Migrations
                     b.Navigation("Job");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("JobHiringAPI.Persistence.Company", b =>
-                {
-                    b.Navigation("Areas");
                 });
 
             modelBuilder.Entity("JobHiringAPI.Persistence.Job", b =>

@@ -48,12 +48,12 @@ namespace JobHiringAPI.Model
                 Summary = x.Summary == null 
                 ? "Empty CV!" 
                     : x.Summary.Length < 50 
-                        ? $"{x.Summary}" + x.Area.City == null 
-                            ? "No Location Set!"
-                            : x.Area.City
-                        : $"{x.Summary.Take(50).ToString()}..." + x.Area.City == null 
-                            ? "No Location Set!" 
-                            : $" City: {x.Area.City}" });
+                        ? x.Area.City == null 
+                            ? $"{x.Summary} No Location Set!"
+                            : $"{x.Summary} City: {x.Area.City}"
+                        : x.Area.City == null 
+                            ? $"{x.Summary.Substring(0, 50)}... No Location Set!" 
+                            : $"{new string (x.Summary.Take(50).ToArray())}... City: {x.Area.City}" });
         }
 
         public async Task<DetailedCVDto> GetDetailedCV(int id)
