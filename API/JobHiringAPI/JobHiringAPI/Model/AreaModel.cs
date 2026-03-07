@@ -13,19 +13,31 @@ namespace JobHiringAPI.Model
             _context = context;
         }
 
-        public void CreateNewArea(CreateAreaDto dto)
+        public async Task<IEnumerable<BaseAreaDto>> GetAreas(int id)
+        {
+            return _context.Areas.Where(x => x.UserID == id).Select(x => new BaseAreaDto { ID = x.AreaID, Address = $"{x.Country}, {x.County}, {x.PostalCode}, {x.City}, " + (x.Address.Length > 15 ? $"{x.Address.Take(15)}..." : x.Address) });
+        }
+        
+        public async Task<IEnumerable<DetailedAreaDto>> GetArea(int id)
+        {
+            return _context.Areas.Where(x => x.AreaID == id).Select(x => new DetailedAreaDto { ID = x.AreaID, UserID = x.UserID, Country = x.Country, County = x.County, Postal = x.PostalCode, City = x.City, Address = x.Address });
+        }
+
+        public async Task CreateNewArea(CreateAreaDto dto)
         {
             using var trx = _context.Database.BeginTransaction();
             {
                 //var currentCompany = _context.Companies.Where(x => x.CompanyID == dto.InitiatorID);
-                _context.Areas.Add(new Area { Address = dto.Address, City = dto.City, Country = dto.Country, County = dto.County, PostalCode = dto.PostalCode, HolderID = dto.InitiatorID, HolderType = dto.HolderType });
-                    int id = _context.Areas.Last().AreaID;
+                // int id = _context.Areas.Last().AreaID;
+                _context.Areas.Add(new Area { Address = dto.Address, City = dto.City, Country = dto.Country, County = dto.County, PostalCode = dto.PostalCode, UserID = dto.UserID });
                 _context.SaveChanges();
                 trx.Commit();
             }
+
+            await Task.CompletedTask;
         }
 
-        public void DeleteArea(int id)
+        public async Task DeleteArea(int id)
         {
             using var trx = _context.Database.BeginTransaction();
             {
@@ -33,9 +45,11 @@ namespace JobHiringAPI.Model
                 _context.SaveChanges();
                 trx.Commit();
             }
+
+            await Task.CompletedTask;
         }
 
-        public void UpdateArea(UpdateAreaDto dto)
+        public async Task UpdateArea(UpdateAreaDto dto)
         {
             using var trx = _context.Database.BeginTransaction();
             {
@@ -43,6 +57,8 @@ namespace JobHiringAPI.Model
                 _context.SaveChanges();
                 trx.Commit();
             }
+
+            await Task.CompletedTask;
         }
     }
 }

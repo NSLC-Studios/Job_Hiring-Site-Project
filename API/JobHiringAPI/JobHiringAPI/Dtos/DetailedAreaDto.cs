@@ -1,14 +1,13 @@
 ﻿namespace JobHiringAPI.Dtos
 {
-    public class CreateAreaDto
+    public class DetailedAreaDto
     {
-        //public int InitiatorID { get; set; }
+        public int ID { get; set; }
         public int UserID { get; set; }
-        //public string HolderType { get; set; }
         public string Country { get; set; }
         public string County { get; set; }
+        public string Postal { get; set; }
         public string City { get; set; }
-        public string PostalCode { get; set; }
         public string Address { get; set; }
     }
 }

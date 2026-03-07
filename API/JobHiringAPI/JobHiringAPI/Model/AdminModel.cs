@@ -1,5 +1,7 @@
 ﻿using JobHiringAPI.Dtos;
 using JobHiringAPI.Persistence;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Expressions.Internal;
 
 namespace JobHiringAPI.Model
@@ -7,38 +9,114 @@ namespace JobHiringAPI.Model
     public class AdminModel
     {
         private readonly JobDatabaseContext _context;
+        private readonly UserModel _user;
+        private readonly CompanyModel _company;
+        private readonly JobModel _job;
+        private readonly RequestModel _request;
 
         public AdminModel(JobDatabaseContext _dbContext)
         {
             _context = _dbContext;
+            _user = new UserModel(_context);
+            _company = new CompanyModel(_context);
+            _job = new JobModel(_context);
+            _request = new RequestModel(_context);
         }
 
-        public string GetUserName(int id)
+        public async Task Promote(int id)
         {
-            return _context.Users.Where(x => x.UserID == id).First().UserName;
-        }
+            if (_context.Users.Any(x => x.UserID == id && x.Role == "Admin")) throw new UnauthorizedAccessException("User is already an Admin");
+            using var trx = _context.Database.BeginTransaction();
+            {
+                _context.Users.Where(x => x.UserID == id).ExecuteUpdate(setters => setters.SetProperty(x => x.Role, "Admin"));
+                _context.SaveChanges();
+                trx.Commit();
+            }
 
-        public async Task<IEnumerable<UsersDto>> GetUsers()
-        {
-            return _context.Users.Select(x => new UsersDto { ID = x.UserID, UserName = x.UserName, Role = x.Role });
+            await Task.CompletedTask;
         }
         
-        public async Task<IEnumerable<BaseCompanyDto>> GetCompanies()
+        public async Task Demote(int id)
         {
-            return _context.Companies.Select(x => new BaseCompanyDto { ID = x.CompanyID, OwnerID = x.OwnerID, CompanyName = x.CompanyName, x. }) // company id owner id company name
+            if (_context.Users.Any(x => x.UserID == id && x.Role == "User")) throw new UnauthorizedAccessException("User is already a User");
+            using var trx = _context.Database.BeginTransaction();
+            {
+                _context.Users.Where(x => x.UserID == id).ExecuteUpdate(setters => setters.SetProperty(x => x.Role, "User"));
+                _context.SaveChanges();
+                trx.Commit();
+            }
+
+            await Task.CompletedTask;
         }
-        //user  deletepassword ResetPass(user id){}
-        //user  delete         DeleteUser(user id){}
-        // company             GetCompany(User id)
-        // company             DeleteCompany(company id)
-        // Job                 Delete job(job id)
-        // Job                 GetJobByCompany(company)
-        // Job                 GetJobByuser(User id)
-        // user job request    UnderReview() //block from aplying
 
-        //user Job request     GetJobReqByAdverts (){}
-        //user Job request     GetJobReqByUser (){}
-        //user Job request     GetJobReqByCompany (){}
+        public async Task<BaseUsernameDto> GetUserName(int id)
+        {
+            return _context.Users.Where(x => x.UserID == id).Select(x => new BaseUsernameDto { ID = x.UserID, UserName = x.UserName }).First();
+        }
 
+        public async Task<IEnumerable<BaseUserDto>> GetUsers()
+        {
+            return _context.Users.Select(x => new BaseUserDto { ID = x.UserID, UserName = x.UserName, Role = x.Role });
+        }
+        
+        public async Task<IEnumerable<AdminCompanyDto>> GetCompanies(int id)
+        {
+            return _company.GetOwnedCompanies(id).Result.Select(x => new AdminCompanyDto { ID = x.ID, OwnerID = x.OwnerID, Name = x.CompanyName });
+        }
+
+        public async Task<string> ResetPassword(int id)
+        {
+            return await _user.ResetPassword(id);
+        }
+        
+        public async Task DeleteUser(int id)
+        {
+            await _user.DeleteUser(id);
+            await Task.CompletedTask;
+        }
+
+        public async Task DeleteCompany(int id)
+        {
+            await _company.DeleteCompany(id);
+            await Task.CompletedTask;
+        }
+
+        public async Task DeleteJob(int id)
+        {
+            await _job.DeleteJob(id);
+            await Task.CompletedTask;
+        }
+
+        public async Task<IEnumerable<BaseJobDto>> GetJobs(int id)
+        {
+            return await _job.GetCompanyJobs(id);
+        }
+
+        public async Task UpdateStatus(AdminUpdateRequestStatusDto dto)
+        {
+            using var trx = _context.Database.BeginTransaction();
+            {
+                _context.Requests.Where(x => x.RequestID == dto.ID).ExecuteUpdate(setters => setters.SetProperty(x => x.Status, dto.Status));
+                _context.SaveChanges();
+                trx.Commit();
+            }
+
+            await Task.CompletedTask;
+        }
+
+        public async Task<IEnumerable<BaseReceivedRequestDto>> GetJobRequests(int id)
+        {
+            return await _request.GetEnquires(id);
+        }
+        
+        public async Task<IEnumerable<BaseRequestDto>> GetUserRequests(int id)
+        {
+            return await _request.GetRequests(id);
+        }
+        
+        public async Task<IEnumerable<BaseReceivedCompanyRequestDto>> GetCompanyRequests(int id)
+        {
+            return await _request.GetCompanyEnquires(id);
+        }
     }
 }

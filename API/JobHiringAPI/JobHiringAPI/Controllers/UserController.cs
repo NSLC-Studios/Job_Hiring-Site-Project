@@ -20,8 +20,8 @@ namespace JobHiringAPI.Controllers
             _model = model;
         }
 
-        [HttpPost("/login")]
-        public async Task<ActionResult<UserLoginDto>> Login(string username, string password)
+        [HttpPost("login")]
+        public async Task<ActionResult<UserLoginDto>> Login([FromQuery] string username, [FromQuery] string password)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        [HttpPost("/logout")]
+        [HttpPost("logout")]
         public async Task<ActionResult> Logout()
         {
             try
@@ -59,7 +59,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        [HttpPost("/register")]
+        [HttpPost("register")]
         public async Task<ActionResult> Register([FromQuery] string username, [FromQuery] string password)
         {
             try
@@ -77,7 +77,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        [HttpDelete("/deleteuser")]
+        [HttpDelete("delete")]
         public async Task<ActionResult> DeleteUser([FromQuery] int id)
         {
             try
@@ -91,7 +91,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        [HttpGet("/checkuser")]
+        [HttpGet("checkuser")]
         public async Task<ActionResult<bool>> CheckUserAvailability([FromQuery] string username)
         {
             try
@@ -101,6 +101,46 @@ namespace JobHiringAPI.Controllers
             catch (Exception e)
             {
                 return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut("updatepassword")]
+        public async Task<ActionResult> UpdateUserPassword([FromBody] UpdateUserPasswordDto dto)
+        {
+            try
+            {
+                await _model.UpdatePassword(dto);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("admins")]
+        public async Task<ActionResult<IEnumerable<BaseAdminsDto>>> GetAdmins([FromQuery] int skip, [FromQuery] int take)
+        {
+            try
+            {
+                return Ok(await _model.GetAdmins(skip, take));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet()]
+        public async Task<ActionResult<DetailedUserDto>> GetDetailedUser([FromQuery] int id)
+        {
+            try
+            {
+                return Ok(await _model.GetUser(id));
+            }
+            catch
+            {
+                return BadRequest();
             }
         }
     }

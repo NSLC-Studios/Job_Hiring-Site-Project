@@ -28,13 +28,13 @@ namespace JobHiringAPI.Persistence
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserID { get; set; }
         [Required]
-        public string UserName { get; set; }
+        public required string UserName { get; set; }
         public string ?FirstName { get; set; }
         public string ?LastName { get; set; }
         public string ?Email { get; set; }
         public string ?Phone { get; set; }
         [Required]
-        public string Password { get; set; }
+        public required string Password { get; set; }
         [Required]
         public string Role { get; set; } = "User";
         public List<CV> CV { get; set; }
@@ -58,7 +58,7 @@ namespace JobHiringAPI.Persistence
         public User User { get; set; }
         public int UserID { get; set; }
         public Area Area { get; set; }
-        public int? AreaID { get; set; }
+        public int AreaID { get; set; }
     }
 
     public class Area
@@ -67,19 +67,20 @@ namespace JobHiringAPI.Persistence
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AreaID { get; set; }
         [Required]
-        public int HolderID { get; set; }
+        //public int HolderID { get; set; }
+        public int UserID { get; set; }
+        //[Required]
+        //public required string HolderType { get; set; }
         [Required]
-        public string HolderType { get; set; }
+        public required string Country { get; set; }
         [Required]
-        public string Country { get; set; }
+        public required string County { get; set; }
         [Required]
-        public string County { get; set; }
+        public required string City { get; set; }
         [Required]
-        public string City { get; set; }
+        public required string PostalCode { get; set; }
         [Required]
-        public string PostalCode { get; set; }
-        [Required]
-        public string Address { get; set; }
+        public required string Address { get; set; }
     }
 
     /*
@@ -109,15 +110,17 @@ namespace JobHiringAPI.Persistence
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CompanyID { get; set; }
         [Required]
-        public string CompanyName { get; set; }
+        public required string CompanyName { get; set; }
         public string ?CompanyEmail { get; set; }
         public string ?CompanyPhone { get; set; }
-        public string Description { get; set; }
+        public string ?Description { get; set; }
         [Required]
-        public int OwnerID { get { return User.UserID; } set { value = User.UserID; } }
+        public int OwnerID { get; set; }
+        [ForeignKey(nameof(OwnerID))]
         public User User { get; set; }
         public int AreaID { get; set; }
-        public List<Area> Area { get; set; }
+        public Area Area { get; set; }
+        public List<Area> Areas { get; set; }
         //public List<Rating> Ratings { get; set; }
         //public List<Branch> Branch { get; set; }
         //public List<AreaCollection> AreaCollection { get; set; }
@@ -150,12 +153,13 @@ namespace JobHiringAPI.Persistence
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int JobID { get; set; }
-        public int ?Pay { get; set; }
-        public string? WorkHours { get; set; }
-        public string ?Language { get; set; }
+        public int Pay { get; set; }
+        public string? WorkTime { get; set; }
+        public string? Description { get; set; }
+        public string? Language { get; set; }
         public int CompanyID { get; set; }
-        //public Branch Branch { get; set; }
-        public int ?AreaID { get; set; }
+        public Company Company { get; set; }
+        public int AreaID { get; set; }
         public Area Area { get; set; }
         public List<Request> Request { get; set; }
     }
@@ -200,13 +204,18 @@ namespace JobHiringAPI.Persistence
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RequestID { get; set; }
-        public string Status { get; set; }
+        [Required]
+        public required string Status { get; set; }
         public string ?Comment { get; set; }
-        public int JobID { get; set; }
+        public string Response { get; set; } = "No response yet! Check back later!";
+        [Required]
+        public required int JobID { get; set; }
         public Job Job { set; get; }
-        public int UserID { get; set; }
+        [Required]
+        public required int UserID { get; set; }
         public User User { get; set; }
-        public int CVID { get; set; }
+        [Required]
+        public  required int CVID { get; set; }
         public CV CV { get; set; }
         //public int CVIDID { get; set;
         //public int CVIDIDID { get;set; }

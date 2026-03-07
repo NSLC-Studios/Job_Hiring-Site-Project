@@ -3,7 +3,8 @@
     public class DetailedCVDto
     {
         public int ID { get; set; }
-        public string EndpointSummaryAttribute { get; set; }
+        public int UserID { get; set; }
+        public string Summary { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
         public string FirstName { get; set; }
