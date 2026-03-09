@@ -26,9 +26,13 @@ namespace JobHiringAPI.Model
         public async Task Promote(int id)
         {
             if (_context.Users.Any(x => x.UserID == id && x.Role == "Admin")) throw new UnauthorizedAccessException("User is already an Admin");
+            
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.Users.Where(x => x.UserID == id).ExecuteUpdate(setters => setters.SetProperty(x => x.Role, "Admin"));
+                _context.Users
+                    .Where(x => x.UserID == id)
+                    .ExecuteUpdate(setters => 
+                        setters.SetProperty(x => x.Role, "Admin"));
                 _context.SaveChanges();
                 trx.Commit();
             }
@@ -39,9 +43,13 @@ namespace JobHiringAPI.Model
         public async Task Demote(int id)
         {
             if (_context.Users.Any(x => x.UserID == id && x.Role == "User")) throw new UnauthorizedAccessException("User is already a User");
+
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.Users.Where(x => x.UserID == id).ExecuteUpdate(setters => setters.SetProperty(x => x.Role, "User"));
+                _context.Users
+                    .Where(x => x.UserID == id)
+                    .ExecuteUpdate(setters => 
+                        setters.SetProperty(x => x.Role, "User"));
                 _context.SaveChanges();
                 trx.Commit();
             }
@@ -51,17 +59,35 @@ namespace JobHiringAPI.Model
 
         public async Task<BaseUsernameDto> GetUserName(int id)
         {
-            return _context.Users.Where(x => x.UserID == id).Select(x => new BaseUsernameDto { ID = x.UserID, UserName = x.UserName }).First();
+            return _context.Users
+                .Where(x => x.UserID == id)
+                .Select(x => new BaseUsernameDto 
+                { 
+                    ID = x.UserID, 
+                    UserName = x.UserName 
+                }).First();
         }
 
         public async Task<IEnumerable<BaseUserDto>> GetUsers()
         {
-            return _context.Users.Select(x => new BaseUserDto { ID = x.UserID, UserName = x.UserName, Role = x.Role });
+            return _context.Users
+                .Select(x => new BaseUserDto 
+                { 
+                    ID = x.UserID, 
+                    UserName = x.UserName, 
+                    Role = x.Role 
+                });
         }
         
         public async Task<IEnumerable<AdminCompanyDto>> GetCompanies(int id)
         {
-            return _company.GetOwnedCompanies(id).Result.Select(x => new AdminCompanyDto { ID = x.ID, OwnerID = x.OwnerID, Name = x.CompanyName });
+            return _company.GetOwnedCompanies(id).Result
+                .Select(x => new AdminCompanyDto 
+                { 
+                    ID = x.ID, 
+                    OwnerID = x.OwnerID, 
+                    Name = x.CompanyName 
+                });
         }
 
         public async Task<string> ResetPassword(int id)
@@ -96,7 +122,25 @@ namespace JobHiringAPI.Model
         {
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.Requests.Where(x => x.RequestID == dto.ID).ExecuteUpdate(setters => setters.SetProperty(x => x.Status, dto.Status));
+                _context.Requests
+                    .Where(x => x.RequestID == dto.ID)
+                    .ExecuteUpdate(setters => 
+                        setters.SetProperty(x => x.Status, dto.Status));
+                _context.SaveChanges();
+                trx.Commit();
+            }
+
+            await Task.CompletedTask;
+        }
+        
+        public async Task PutUnderRevies(int id)
+        {
+            using var trx = _context.Database.BeginTransaction();
+            {
+                _context.Requests
+                    .Where(x => x.RequestID == id)
+                    .ExecuteUpdate(setters => 
+                        setters.SetProperty(x => x.Status, "UnderReview"));
                 _context.SaveChanges();
                 trx.Commit();
             }

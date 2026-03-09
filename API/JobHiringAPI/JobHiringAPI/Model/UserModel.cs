@@ -30,7 +30,13 @@ namespace JobHiringAPI.Model
 
             var trx = _context.Database.BeginTransaction();
             {
-                _context.Users.Add(new User { UserName = dto.Username, Password = HashPassword(dto.Password), Role = "User" });
+                _context.Users
+                    .Add(new User 
+                    { 
+                        UserName = dto.Username, 
+                        Password = HashPassword(dto.Password), 
+                        Role = "User" 
+                    });
                 _context.SaveChanges();
                 trx.Commit();
             }
@@ -38,7 +44,10 @@ namespace JobHiringAPI.Model
 
         private string GeneratePassword(int length = 12)
         {
-            return new char[length].Select(x => _random.Next(0, 1) == 1 ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,./:".ToLower()[_random.Next(0, 40)] : "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,./:"[_random.Next(0, 40)]).ToString();
+            return new char[length]
+                .Select(x => _random.Next(0, 1) == 1 
+                    ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,./:".ToLower()[_random.Next(0, 40)] 
+                    : "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,./:"[_random.Next(0, 40)]).ToString();
         }
 
         public async Task<bool> AvailableNames(string name)
@@ -48,15 +57,24 @@ namespace JobHiringAPI.Model
 
         public UserLoginDto? ValidateUser(LoginDetailsDto dto)
         {
-            return _context.Users.Where(x => x.UserName == dto.UserName).Where(x => x.Password == HashPassword(dto.Password)).Select(x => new UserLoginDto { Role = x.Role, UserName = x.UserName, UserID = x.UserID }).FirstOrDefault();
+            return _context.Users
+                .Where(x => x.UserName == dto.UserName)
+                .Where(x => x.Password == HashPassword(dto.Password))
+                .Select(x => new UserLoginDto 
+                { 
+                    Role = x.Role, 
+                    UserName = x.UserName, 
+                    UserID = x.UserID 
+                }).FirstOrDefault();
         }
 
         private string HashPassword(string password)
         {
-            using System.Security.Cryptography.SHA256 sha = System.Security.Cryptography.SHA256.Create();
+            return Convert.ToBase64String(System.Security.Cryptography.SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(password)));
+
+            //using System.Security.Cryptography.SHA256 sha = System.Security.Cryptography.SHA256.Create();
             //byte[] bytes = Encoding.UTF8.GetBytes(password);
             //byte[] hash = sha.ComputeHash(bytes);
-            return Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(password)));
         }
 
         public async Task<string> ResetPassword(int id, int secure = 12)
@@ -65,7 +83,10 @@ namespace JobHiringAPI.Model
 
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.Users.Where(x => x.UserID == id).ExecuteUpdate(setters => setters.SetProperty(x => x.Password, HashPassword(newpass)));
+                _context.Users
+                    .Where(x => x.UserID == id)
+                    .ExecuteUpdate(setters =>
+                        setters.SetProperty(x => x.Password, HashPassword(newpass)));
                 _context.SaveChanges();
                 trx.Commit();
             }
@@ -77,7 +98,10 @@ namespace JobHiringAPI.Model
         {
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.Users.Where(x => x.UserID == dto.ID).ExecuteUpdate(setters => setters.SetProperty(x => x.Password, HashPassword(dto.Password)));
+                _context.Users
+                    .Where(x => x.UserID == dto.ID)
+                    .ExecuteUpdate(setters => 
+                        setters.SetProperty(x => x.Password, HashPassword(dto.Password)));
                 _context.SaveChanges();
                 trx.Commit();
             }
@@ -102,6 +126,22 @@ namespace JobHiringAPI.Model
         {
             var trx = _context.Database.BeginTransaction();
             {
+                await _context.Requests
+                    .Where(x => x.UserID == id)
+                    .ExecuteDeleteAsync();
+                await _context.Areas
+                    .Where(x => x.UserID == id)
+                    .ExecuteDeleteAsync();
+                await _context.CVs
+                    .Where(x => x.UserID == id)
+                    .ExecuteDeleteAsync();
+                await _context.Users
+                    .Where(x => x.UserID == id)
+                    .ExecuteDeleteAsync();
+                await _context.SaveChangesAsync();
+                await trx.CommitAsync();
+                
+                //trx.Commit();
                 // REWRITE IN EDUCATION MODEL _context.Educations.Where(x => x.UserID == id).ExecuteDelete();
                 // REWRITE IN REQUESTS MODEL _context.Requests.Where(x =>x.UserID == id).ExecuteDelete();
                 // REWRITE IN CV MODEL _context.CVs.Where(x => x.UserID == id).ExecuteDelete();
@@ -117,22 +157,6 @@ namespace JobHiringAPI.Model
                 //await _context.SaveChangesAsync();
                 //await trx.CommitAsync();
 
-                await _context.Requests.Where(x => x.UserID == id).ExecuteDeleteAsync();
-                //await _context.SaveChangesAsync();
-                //await trx.CommitAsync();
-
-                await _context.Areas.Where(x => x.UserID == id).ExecuteDeleteAsync();
-                //await _context.SaveChangesAsync();
-                //await trx.CommitAsync();
-
-                await _context.CVs.Where(x => x.UserID == id).ExecuteDeleteAsync();
-                //await _context.SaveChangesAsync();
-                //await trx.CommitAsync();
-
-                await _context.Users.Where(x => x.UserID == id).ExecuteDeleteAsync();
-                //await _context.SaveChangesAsync();
-                await trx.CommitAsync();
-                //trx.Commit();
             }
 
             await Task.CompletedTask;
@@ -140,12 +164,37 @@ namespace JobHiringAPI.Model
 
         public async Task<IEnumerable<BaseAdminsDto>> GetAdmins(int skip = 0, int take = 3)
         {
-            return _context.Users.Where(x => x.Role == "Admin").Skip(skip).Take(take).Select(x => new BaseAdminsDto { ID = x.UserID, Name = x.FirstName, UserName = x.UserName, Email = x.Email });
+            return _context.Users
+                .Where(x => x.Role == "Admin")
+                .Skip(skip)
+                .Take(take)
+                .Select(x => new BaseAdminsDto 
+                { 
+                    ID = x.UserID, 
+                    Name = x.FirstName, 
+                    UserName = x.UserName, 
+                    Email = x.Email 
+                });
         }
         
         public async Task<DetailedUserDto> GetUser(int id)
         {
-            return _context.Users.Where(x => x.UserID == id).Select(x => new DetailedUserDto { ID = x.UserID, UserName = x.UserName, FirstName = x.FirstName, LastName = x.LastName, Email = x.Email, Phone = x.Phone, Company = _context.Companies.Any(x => x.OwnerID == id), Role = x.Role == "Admin" ? "Registered Administrator at JobHiringSite." : "Regular JobHiringSite User." }).First();
+            return _context.Users
+                .Where(x => x.UserID == id)
+                .Select(x => new DetailedUserDto 
+                { 
+                    ID = x.UserID, 
+                    UserName = x.UserName, 
+                    FirstName = x.FirstName, 
+                    LastName = x.LastName, 
+                    Email = x.Email, 
+                    Phone = x.Phone, 
+                    Company = _context.Companies
+                        .Any(x => x.OwnerID == id), 
+                    Role = x.Role == "Admin" 
+                        ? "Registered Administrator at JobHiringSite." 
+                        : "Regular JobHiringSite User." 
+                }).First();
         }
     }
 }

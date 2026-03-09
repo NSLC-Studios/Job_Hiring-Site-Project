@@ -157,6 +157,20 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpPut("request/underreview")]
+        public async Task<ActionResult> PutUnderReview([FromQuery] int id)
+        {
+            try
+            {
+                await _model.PutUnderRevies(id);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
         
         [HttpPut("reset")]
         public async Task<ActionResult<string>> ResetPassword([FromQuery] int id)

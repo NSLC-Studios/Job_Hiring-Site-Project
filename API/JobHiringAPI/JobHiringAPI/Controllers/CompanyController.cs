@@ -63,9 +63,9 @@ namespace JobHiringAPI.Controllers
                 await _model.CreateCompany(dto);
                 return Ok();
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
         
@@ -125,7 +125,7 @@ namespace JobHiringAPI.Controllers
             }
         }
         
-        [HttpPut("delete")]
+        [HttpDelete("delete")]
         public async Task<ActionResult> DeleteCompany([FromQuery] int id)
         {
             try

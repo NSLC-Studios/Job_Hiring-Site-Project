@@ -20,7 +20,10 @@ namespace JobHiringAPI.Model
         {
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.CVs.Add(new CV { UserID = id });
+                _context.CVs.Add(new CV 
+                { 
+                    UserID = id 
+                });
                 _context.SaveChanges();
                 trx.Commit();
             }
@@ -32,7 +35,9 @@ namespace JobHiringAPI.Model
         {
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.CVs.Where(x => x.CVID == id).ExecuteDelete();
+                await _context.CVs
+                    .Where(x => x.CVID == id)
+                    .ExecuteDeleteAsync();
                 _context.SaveChanges();
                 trx.Commit();
             }
@@ -44,31 +49,67 @@ namespace JobHiringAPI.Model
         {
             if (!_context.CVs.Any(x => x.UserID == id)) throw new IndexOutOfRangeException("No CVs Found!");
 
-            return _context.CVs.Include(x => x.Area).Where(x => x.UserID == id).Select(x => new BaseCVDto { ID = x.CVID, 
-                Summary = x.Summary == null 
-                ? "Empty CV!" 
-                    : x.Summary.Length < 50 
-                        ? x.Area.City == null 
-                            ? $"{x.Summary} No Location Set!"
-                            : $"{x.Summary} City: {x.Area.City}"
-                        : x.Area.City == null 
-                            ? $"{x.Summary.Substring(0, 50)}... No Location Set!" 
-                            : $"{new string (x.Summary.Take(50).ToArray())}... City: {x.Area.City}" });
+            return _context.CVs.Include(x => x.Area)
+                .Where(x => x.UserID == id)
+                .Select(x => new BaseCVDto 
+                { 
+                    ID = x.CVID, 
+                    Summary = x.Summary == null 
+                    ? "Empty CV!" 
+                        : x.Summary.Length < 50 
+                            ? x.Area.City == null 
+                                ? $"{x.Summary} No Location Set!"
+                                : $"{x.Summary} City: {x.Area.City}"
+                            : x.Area.City == null 
+                                ? $"{x.Summary.Substring(0, 50)}... No Location Set!" 
+                                : $"{new string (x.Summary.Take(50).ToArray())}... City: {x.Area.City}" 
+                });
         }
 
         public async Task<DetailedCVDto> GetDetailedCV(int id)
         {
+            return _context.CVs.Include(x => x.User).Include(x => x.Area)
+                .Where(x => x.CVID == id)
+                .Select(x => new DetailedCVDto 
+                { 
+                    ID = x.CVID, 
+                    UserID = x.UserID, 
+                    Summary = x.Summary, 
+                    Phone = x.User.Phone, 
+                    Email = x.User.Email, 
+                    FirstName = x.User.FirstName, 
+                    LastName = x.User.LastName, 
+                    UserName = x.User.UserName, 
+                    Role = x.User.Role == "Admin" 
+                        ? "Administrator of JobHiringSite." 
+                        : "Regular user of JobHiringSite.", 
+                    Country = x.Area.Country, 
+                    County = x.Area.County, 
+                    Postal = x.Area.PostalCode, 
+                    City = x.Area.City, 
+                    Address = x.Area.Address, 
+                    Companies = !_context.Companies
+                        .Where(y => y.OwnerID == x.UserID)
+                        .Any() 
+                        ? "None"
+                        : _context.Companies
+                            .Where(y => y.OwnerID == x.UserID)
+                            .Select(x => x.CompanyName)
+                            .ToString()
+                }).First();
+
             //var user = _context.Users.Where(x => x.UserID == _context.CVs.Where(x => x.CVID == id).First().UserID).First();
             //var area = _context.Areas.Where(x => x.AreaID == _context.CVs.Where(x => x.CVID == id).First().AreaID).First();
-
-            return _context.CVs.Include(x => x.User).Include(x => x.Area).Where(x => x.CVID == id).Select(x => new DetailedCVDto { ID = x.CVID, UserID = x.UserID, Summary = x.Summary, Phone = x.User.Phone, Email = x.User.Email, FirstName = x.User.FirstName, LastName = x.User.LastName, UserName = x.User.UserName, Role = x.User.Role == "Admin" ? "Administrator of JobHiringSite." : "Regular user of JobHiringSite.", Country = x.Area.Country, County = x.Area.County, Postal = x.Area.PostalCode, City = x.Area.City, Address = x.Area.Address, Companies = _context.Companies.Where(y => y.OwnerID == x.UserID).Any() ? _context.Companies.Where(y => y.OwnerID == x.UserID).Select(x => x.CompanyName).ToString() : "None"}).First();
         }
 
         public async Task UpdateSummary(UpdateCVSummaryDto dto)
         {
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.CVs.Where(x => x.CVID == dto.ID).ExecuteUpdate(setters => setters.SetProperty(x => x.Summary, dto.Summary));
+                _context.CVs
+                    .Where(x => x.CVID == dto.ID)
+                    .ExecuteUpdate(setters => 
+                        setters.SetProperty(x => x.Summary, dto.Summary));
                 _context.SaveChanges();
                 trx.Commit();
             }
@@ -80,7 +121,10 @@ namespace JobHiringAPI.Model
         {
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.CVs.Where(x => x.CVID == dto.ID).ExecuteUpdate(setters => setters.SetProperty(x => x.AreaID, dto.AreaID));
+                _context.CVs
+                    .Where(x => x.CVID == dto.ID)
+                    .ExecuteUpdate(setters => 
+                        setters.SetProperty(x => x.AreaID, dto.AreaID));
                 _context.SaveChanges();
                 trx.Commit();
             }
