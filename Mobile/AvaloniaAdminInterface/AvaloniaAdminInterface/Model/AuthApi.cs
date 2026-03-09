@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,22 +17,25 @@ namespace AvaloniaAdminInterface.Model
             _session = session;
         }
 
-        public async Task<BaseUserDto> GetUserData()
+        public async Task<BaseUserDto> GetUserData(string user2,string pass)
         {
-            return await _session._client.GetFromJsonAsync<BaseUserDto>("api/user/whoami");
+            // await _session._client.PostAsync<BaseUserDto>("api/user/")
+            var response = await _session._client.PostAsJsonAsync<BaseUserDto>($"api/user/login?username={user2}&password={pass}", null);
+            response.EnsureSuccessStatusCode();
+
+
+
+            // Read and deserialize the response body
+            var user = await response.Content.ReadFromJsonAsync<BaseUserDto>();
+
+            return user!;
         }
 
-        public async Task<bool> CanProcced(string username,string pass)
+        public async Task CanProcced(string username,string pass)
         {
             //reminder make a get user by name in user 
             //make it return basicuser dto
-            if ()
-            {
-                return false;
-                throw new UnauthorizedAccessException("Current user is not an admin");
-               
-            }
-            return true;
+           
         }
     }
 }
