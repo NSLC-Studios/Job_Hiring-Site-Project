@@ -2,6 +2,7 @@
 using JobHiringAPI.Model;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Formats.Tar;
@@ -33,7 +34,9 @@ namespace JobHiringAPI.Controllers
 
                 List<Claim> claims = new()
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()), new Claim(ClaimTypes.Name, user.UserName), new Claim(ClaimTypes.Role, user.Role)
+                    new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()), 
+                    new Claim(ClaimTypes.Name, user.UserName), 
+                    new Claim(ClaimTypes.Role, user.Role)
                 };
                 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme)));
@@ -118,6 +121,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("admins")]
         public async Task<ActionResult<IEnumerable<BaseAdminsDto>>> GetAdmins([FromQuery] int skip, [FromQuery] int take)
         {
