@@ -23,18 +23,24 @@ namespace JobHiringAPI.Model
 
         public void Registration(UserRegistrationDto dto)
         {
-            if (_context.Users.Any(x => x.UserName == dto.Username))
-            {
-                throw new InvalidOperationException("Already exists");
-            }
+            if (string.IsNullOrWhiteSpace(dto.Username))
+                throw new InvalidOperationException("Empty name");
 
-            var trx = _context.Database.BeginTransaction();
-            {
-                _context.Users.Add(new User { UserName = dto.Username, Password = HashPassword(dto.Password), Role = "User" });
-                _context.SaveChanges();
-                trx.Commit();
-            }
+            if (string.IsNullOrWhiteSpace(dto.Password))
+                throw new InvalidOperationException("Empty password");
+
+            if (_context.Users.Any(x => x.UserName == dto.Username))
+                throw new InvalidOperationException("Already exists");
+
+            using var trx = _context.Database.BeginTransaction();
+
+            var user = new User{UserName = dto.Username,Password = HashPassword(dto.Password),Role = "User"};
+
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            trx.Commit();
         }
+
 
         private string GeneratePassword(int length = 12)
         {
@@ -43,6 +49,9 @@ namespace JobHiringAPI.Model
 
         public async Task<bool> AvailableNames(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new InvalidOperationException("No name found");
+
             return !_context.Users.Any(x => x.UserName == name);
         }
 

@@ -9,7 +9,12 @@ namespace UnitTester
     public class FundamentalUnitTest
     {
         [Fact]
-        public void FundemantalTest()
+        public void FundamentalTest()
+        {
+            Assert.True(1 + 1 == 2, "yes 1+1 is 2");
+        }
+
+        /*public void FundemantalTest()
         {
             switch (1 + 1 == 2)
             {
@@ -20,6 +25,7 @@ namespace UnitTester
                     throw new ThreadStateException();
                     //break;
             }
-        }
+        }*/
+
     }
 }

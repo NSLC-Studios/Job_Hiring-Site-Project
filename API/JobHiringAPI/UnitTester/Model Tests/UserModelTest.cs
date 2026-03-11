@@ -23,33 +23,29 @@ namespace UnitTester.Model_Tests
             _context = DbContextFactory.Create();
             _model = new UserModel(_context);
         }
+
+        //-------------------------------Registration Tests----------------------------------
         [Fact]
         public void CheckRegistrationCorrect()
         {
             var user = new UserRegistrationDto
             {
                 Username = "testuser",
-                Password = "password123",
-
+                Password = "password123"
             };
 
-            try
-            {
-                _model.Registration(user);
-            }
-            catch (Exception ex)
-            {
-                Assert.NotEqual("Already exists",ex.Message);
-            }
+            _model.Registration(user);
 
+            Assert.True(_context.Users.Any(x => x.UserName == "testuser"));
         }
+
         [Fact]
-        public void CheckRegistrationExits()
+        public void CheckRegistrationAlredyExits()
         {
             var user = new UserRegistrationDto
             {
                 Username = "NickTiler",
-                Password = HashPassword("admin123")
+                Password = "admin123"
             };
 
             try
@@ -62,9 +58,76 @@ namespace UnitTester.Model_Tests
             }
 
         }
-        
+        [Fact]
+        public void CheckRegistrationNAmeNull()
+        {
+            var user = new UserRegistrationDto
+            {
+                Username = null,
+                Password = "idk"
+            };
 
+            try
+            {
+                _model.Registration(user);
+            }
+            catch (Exception ex)
+            {
+                Assert.Equal("Empty name", ex.Message);
+            }
 
+        }
+        [Fact]
+        public void CheckRegistrationPassNull()
+        {
+            var user = new UserRegistrationDto
+            {
+                Username = "Franciska",
+                Password = null
+            };
+
+            try
+            {
+                _model.Registration(user);
+            }
+            catch (Exception ex)
+            {
+                Assert.Equal("Empty password", ex.Message);
+            }
+
+        }
+        // ------------------AvailableNames Tests----------------------------------
+
+        [Fact]
+        public void AvalibleNames()
+        {
+           
+            string name = "Franciska";
+            try
+            {
+                _model.AvailableNames(name);
+            }
+            catch (Exception ex)
+            {
+                Assert.NotEqual("No name found", ex.Message);
+            }
+
+        }
+        [Fact]
+        public void AvalibleNamesNull()
+        {
+
+            string name = "Franciska";
+            try
+            {
+                _model.AvailableNames(null);
+            }
+            catch (Exception ex)
+            {
+                Assert.Equal("No name found", ex.Message);
+            }
+
+        }
 
 
 
