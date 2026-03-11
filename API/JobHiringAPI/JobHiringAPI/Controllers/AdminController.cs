@@ -1,6 +1,7 @@
 ﻿using JobHiringAPI.Dtos;
 using JobHiringAPI.Model;
 using JobHiringAPI.Persistence;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace JobHiringAPI.Controllers
             _model = model;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("username")]
         public async Task<ActionResult<BaseUsernameDto>> GetUserName([FromQuery] int id)
         {
@@ -29,7 +31,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpGet("users")]
         public async Task<ActionResult<IEnumerable<BaseUserDto>>> GetUsers()
         {
@@ -43,6 +46,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("companies")]
         public async Task<ActionResult<IEnumerable<AdminCompanyDto>>> GetCompanies([FromQuery] int id)
         {
@@ -56,6 +60,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("jobs")]
         public async Task<ActionResult<IEnumerable<AdminCompanyDto>>> GetJobs([FromQuery] int id)
         {
@@ -69,6 +74,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("requests")]
         public async Task<ActionResult<IEnumerable<AdminCompanyDto>>> GetRequests([FromQuery] int id)
         {
@@ -81,7 +87,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpGet("requests/company")]
         public async Task<ActionResult<IEnumerable<AdminCompanyDto>>> GetCompanyRequests([FromQuery] int id)
         {
@@ -94,7 +101,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpGet("requests/user")]
         public async Task<ActionResult<IEnumerable<AdminCompanyDto>>> GetUserRequests([FromQuery] int id)
         {
@@ -108,6 +116,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("request/status")]
         public async Task<ActionResult> UpdateStatus([FromBody] AdminUpdateRequestStatusDto status)
         {
@@ -121,7 +130,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpPut("user/promote")]
         public async Task<ActionResult> Promote([FromQuery] int id)
         {
@@ -139,7 +149,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpPut("user/demote")]
         public async Task<ActionResult> Demote([FromQuery] int id)
         {
@@ -158,6 +169,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("request/underreview")]
         public async Task<ActionResult> PutUnderReview([FromQuery] int id)
         {
@@ -171,7 +183,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpPut("reset")]
         public async Task<ActionResult<string>> ResetPassword([FromQuery] int id)
         {
@@ -185,6 +198,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete/user")]
         public async Task<ActionResult> DeleteUser([FromQuery] int id)
         {
@@ -198,7 +212,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete/company")]
         public async Task<ActionResult> DeleteCompany([FromQuery] int id)
         {
@@ -212,7 +227,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete/job")]
         public async Task<ActionResult> DeleteJob([FromQuery] int id)
         {

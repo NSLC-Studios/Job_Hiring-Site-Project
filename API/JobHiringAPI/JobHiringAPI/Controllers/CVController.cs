@@ -1,5 +1,6 @@
 ﻿using JobHiringAPI.Dtos;
 using JobHiringAPI.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace JobHiringAPI.Controllers
             _model = model;
         }
 
+        [Authorize]
         [HttpGet("cvs")]
         public async Task<ActionResult<IEnumerable<BaseCVDto>>> GetCVs([FromQuery] int id)
         {
@@ -32,7 +34,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<DetailedCVDto>>> GetDetailedCV([FromQuery] int id)
         {
@@ -46,6 +49,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("create")]
         public async Task<ActionResult> CreateCV([FromQuery] int id)
         {
@@ -59,8 +63,9 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
-        [HttpPut("cv/summary")]
+
+        [Authorize]
+        [HttpPut("update/summary")]
         public async Task<ActionResult> UpdateSummary([FromBody] UpdateCVSummaryDto dto)
         {
             try
@@ -73,8 +78,9 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
-        [HttpPut("cv/area")]
+
+        [Authorize]
+        [HttpPut("update/area")]
         public async Task<ActionResult> UpdateArea([FromBody] UpdateCVArealDto dto)
         {
             try
@@ -88,7 +94,8 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        [HttpDelete("cv/delete")]
+        [Authorize]
+        [HttpDelete("delete")]
         public async Task<ActionResult> DeleteCV([FromQuery] int id)
         {
             try

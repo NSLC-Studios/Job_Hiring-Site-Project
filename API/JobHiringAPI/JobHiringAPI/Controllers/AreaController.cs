@@ -1,5 +1,6 @@
 ﻿using JobHiringAPI.Dtos;
 using JobHiringAPI.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace JobHiringAPI.Controllers
             _model = model;
         }
 
+        [Authorize]
         [HttpGet("user/area")]
         public async Task<ActionResult<IEnumerable<BaseAreaDto>>> GetAreas([FromQuery] int id)
         {
@@ -28,9 +30,10 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<BaseAreaDto>>> GetArea([FromQuery] int id)
+        public async Task<ActionResult<IEnumerable<DetailedAreaDto>>> GetArea([FromQuery] int id)
         {
             try
             {
@@ -42,6 +45,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("create")]
         public async Task<ActionResult> CreateNewArea([FromBody] CreateAreaDto dto)
         {
@@ -55,7 +59,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpPut("update")]
         public async Task<ActionResult> UpdateArea([FromBody] UpdateAreaDto dto)
         {
@@ -69,7 +74,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpDelete("delete")]
         public async Task<ActionResult> DeleteArea([FromQuery] int id)
         {

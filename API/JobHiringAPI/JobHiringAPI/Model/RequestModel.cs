@@ -1,6 +1,7 @@
 ﻿using JobHiringAPI.Dtos;
 using JobHiringAPI.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace JobHiringAPI.Model
 {
@@ -19,17 +20,19 @@ namespace JobHiringAPI.Model
 
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.Requests
-                    .Add(new Request 
+                await _context.Requests
+                    .AddAsync(new Request 
                     { 
                         Status = "Processing", 
                         JobID = dto.ID, 
                         CVID = dto.CVID, 
                         UserID = dto.UserID, 
-                        Comment = dto.Comment 
+                        Comment = dto.Comment == null || dto.Comment == ""
+                            ? null 
+                            : dto.Comment
                     });
-                _context.SaveChanges();
-                trx.Commit();
+                await _context.SaveChangesAsync();
+                await trx.CommitAsync();
             }
 
             await Task.CompletedTask;
@@ -46,10 +49,10 @@ namespace JobHiringAPI.Model
                     Status = x.Status,
                     CompanyName = x.Job.Company.CompanyName,
                     Response = x.Response.Length > 25 
-                        ? $"{x.Response.Substring(25)}..." 
+                        ? $"{x.Response.Substring(0, 25)}..." 
                         : x.Response, 
                     Description = x.Job.Description.Length > 25 
-                        ? $"{x.Job.Description.Substring(25)}..." 
+                        ? $"{x.Job.Description.Substring(0, 25)}..." 
                         : x.Job.Description
                 });
         }
@@ -66,7 +69,7 @@ namespace JobHiringAPI.Model
                     Status = x.Status, 
                     Comment = x.Comment.Length <= 0 || x.Comment == null 
                         ? x.Comment.Length > 25 
-                            ? $"{x.Comment.Substring(25)}..." : "There was no comment from the applicant." 
+                            ? $"{x.Comment.Substring(0, 25)}..." : "There was no comment from the applicant." 
                             : x.Comment 
                 });
         }
@@ -84,7 +87,7 @@ namespace JobHiringAPI.Model
                     Comment = x.Comment.Length <= 0 || x.Comment == null
                         ? "There was no comment from the applicant." 
                         : x.Comment.Length > 25 
-                            ? $"{x.Comment.Substring(25)}..." 
+                            ? $"{x.Comment.Substring(0, 25)}..." 
                             : x.Comment, 
                     Description = x.Job.Description.Length > 25 
                         ? $"{x.Job.Description.Take(25)}..." 
@@ -106,6 +109,7 @@ namespace JobHiringAPI.Model
                     Email = x.User.Email, 
                     Phone = x.User.Phone, 
                     Status = x.Status, 
+                    Response = x.Response,
                     Description = x.Job.Description, 
                     Language = x.Job.Language, 
                     WorkTime = x.Job.WorkTime, 
@@ -126,15 +130,21 @@ namespace JobHiringAPI.Model
 
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.Requests
+                await _context.Requests
                     .Where(x => x.RequestID == dto.ID)
-                    .ExecuteUpdate(setters => 
-                        setters.SetProperty(x => x.Response, dto.Response)
-                        .SetProperty(x => x.Status, dto.Status == "" || dto.Status == null 
-                            ? _context.Requests.Where(x => x.RequestID == dto.ID).First().Status 
-                            : dto.Status));
-                _context.SaveChanges();
-                trx.Commit();
+                    .ExecuteUpdateAsync(setters =>
+                        setters.SetProperty(x => x.Response, dto.Response));
+
+                if (dto.Status != "" && dto.Status != null)
+                {
+                    await _context.Requests
+                        .Where(x => x.RequestID == dto.ID)
+                        .ExecuteUpdateAsync(setters =>
+                            setters.SetProperty(x => x.Status, dto.Status));
+                }
+                
+                await _context.SaveChangesAsync();
+                await trx.CommitAsync();
             }
 
             await Task.CompletedTask;
@@ -147,12 +157,12 @@ namespace JobHiringAPI.Model
 
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.Requests
+                await _context.Requests
                     .Where(x => x.RequestID == dto.ID)
-                    .ExecuteUpdate(setters => 
+                    .ExecuteUpdateAsync(setters => 
                         setters.SetProperty(x => x.Comment, dto.Comment));
-                _context.SaveChanges();
-                trx.Commit();
+                await _context.SaveChangesAsync();
+                await trx.CommitAsync();
             }
 
             await Task.CompletedTask;
@@ -165,12 +175,12 @@ namespace JobHiringAPI.Model
 
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.Requests
+                await _context.Requests
                     .Where(x => x.RequestID == dto.ID)
-                    .ExecuteUpdate(setters =>
+                    .ExecuteUpdateAsync(setters =>
                         setters.SetProperty(x => x.Status, dto.Status));
-                _context.SaveChanges();
-                trx.Commit();
+                await _context.SaveChangesAsync();
+                await trx.CommitAsync();
             }
 
             await Task.CompletedTask;
@@ -185,8 +195,8 @@ namespace JobHiringAPI.Model
                 await _context.Requests
                     .Where(x => x.RequestID == id)
                     .ExecuteDeleteAsync();
-                _context.SaveChanges();
-                trx.Commit();
+                await _context.SaveChangesAsync();
+                await trx.CommitAsync();
             }
 
             await Task.CompletedTask;

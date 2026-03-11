@@ -20,26 +20,12 @@ namespace JobHiringAPI.Model
         {
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.CVs.Add(new CV 
+                await _context.CVs.AddAsync(new CV 
                 { 
                     UserID = id 
                 });
-                _context.SaveChanges();
-                trx.Commit();
-            }
-
-            await Task.CompletedTask;
-        }
-
-        public async Task DeleteCV(int id)
-        {
-            using var trx = _context.Database.BeginTransaction();
-            {
-                await _context.CVs
-                    .Where(x => x.CVID == id)
-                    .ExecuteDeleteAsync();
-                _context.SaveChanges();
-                trx.Commit();
+                await _context.SaveChangesAsync();
+                await trx.CommitAsync();
             }
 
             await Task.CompletedTask;
@@ -70,32 +56,29 @@ namespace JobHiringAPI.Model
         {
             return _context.CVs.Include(x => x.User).Include(x => x.Area)
                 .Where(x => x.CVID == id)
-                .Select(x => new DetailedCVDto 
-                { 
-                    ID = x.CVID, 
-                    UserID = x.UserID, 
-                    Summary = x.Summary, 
-                    Phone = x.User.Phone, 
-                    Email = x.User.Email, 
-                    FirstName = x.User.FirstName, 
-                    LastName = x.User.LastName, 
-                    UserName = x.User.UserName, 
-                    Role = x.User.Role == "Admin" 
-                        ? "Administrator of JobHiringSite." 
-                        : "Regular user of JobHiringSite.", 
-                    Country = x.Area.Country, 
-                    County = x.Area.County, 
-                    Postal = x.Area.PostalCode, 
-                    City = x.Area.City, 
-                    Address = x.Area.Address, 
-                    Companies = !_context.Companies
+                .Select(x => new DetailedCVDto
+                {
+                    ID = x.CVID,
+                    UserID = x.UserID,
+                    Summary = x.Summary,
+                    Phone = x.User.Phone,
+                    Email = x.User.Email,
+                    FirstName = x.User.FirstName,
+                    LastName = x.User.LastName,
+                    UserName = x.User.UserName,
+                    Role = x.User.Role == "Admin"
+                        ? "Administrator of JobHiringSite."
+                        : "Regular user of JobHiringSite.",
+                    Country = x.Area.Country,
+                    County = x.Area.County,
+                    Postal = x.Area.PostalCode,
+                    City = x.Area.City,
+                    Address = x.Area.Address,
+                    Companies = _context.Companies
                         .Where(y => y.OwnerID == x.UserID)
-                        .Any() 
-                        ? "None"
-                        : _context.Companies
-                            .Where(y => y.OwnerID == x.UserID)
-                            .Select(x => x.CompanyName)
-                            .ToString()
+                        .GroupBy(y => y.OwnerID)
+                        .Select(x => string.Join(", ", x.Select(y => y.CompanyName)))
+                        .FirstOrDefault() ?? "None"
                 }).First();
 
             //var user = _context.Users.Where(x => x.UserID == _context.CVs.Where(x => x.CVID == id).First().UserID).First();
@@ -106,12 +89,12 @@ namespace JobHiringAPI.Model
         {
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.CVs
+                await _context.CVs
                     .Where(x => x.CVID == dto.ID)
-                    .ExecuteUpdate(setters => 
+                    .ExecuteUpdateAsync(setters => 
                         setters.SetProperty(x => x.Summary, dto.Summary));
-                _context.SaveChanges();
-                trx.Commit();
+                await _context.SaveChangesAsync();
+                await trx.CommitAsync();
             }
 
             await Task.CompletedTask;
@@ -121,12 +104,26 @@ namespace JobHiringAPI.Model
         {
             using var trx = _context.Database.BeginTransaction();
             {
-                _context.CVs
+                await _context.CVs
                     .Where(x => x.CVID == dto.ID)
-                    .ExecuteUpdate(setters => 
+                    .ExecuteUpdateAsync(setters => 
                         setters.SetProperty(x => x.AreaID, dto.AreaID));
-                _context.SaveChanges();
-                trx.Commit();
+                await _context.SaveChangesAsync();
+                await trx.CommitAsync();
+            }
+
+            await Task.CompletedTask;
+        }
+
+        public async Task DeleteCV(int id)
+        {
+            using var trx = _context.Database.BeginTransaction();
+            {
+                await _context.CVs
+                    .Where(x => x.CVID == id)
+                    .ExecuteDeleteAsync();
+                await _context.SaveChangesAsync();
+                await trx.CommitAsync();
             }
 
             await Task.CompletedTask;

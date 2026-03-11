@@ -156,12 +156,12 @@ namespace JobHiringAPI.Persistence
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int JobID { get; set; }
         public int Pay { get; set; }
-        public string? WorkTime { get; set; }
-        public string? Description { get; set; }
-        public string? Language { get; set; }
+        public string ?WorkTime { get; set; }
+        public string ?Description { get; set; }
+        public string ?Language { get; set; }
         public int CompanyID { get; set; }
         public Company Company { get; set; }
-        public int AreaID { get; set; }
+        public int ?AreaID { get; set; }
         public Area Area { get; set; }
         public List<Request> Request { get; set; }
     }
