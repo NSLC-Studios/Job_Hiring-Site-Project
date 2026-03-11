@@ -1,4 +1,4 @@
-﻿using JobHiringAPI.Dtos;
+using JobHiringAPI.Dtos;
 using JobHiringAPI.Persistence;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
@@ -23,10 +23,14 @@ namespace JobHiringAPI.Model
 
         public async Task Registration(UserRegistrationDto dto)
         {
+            if (string.IsNullOrWhiteSpace(dto.Username))
+                throw new InvalidOperationException("Empty name");
+
+            if (string.IsNullOrWhiteSpace(dto.Password))
+                throw new InvalidOperationException("Empty password");
+
             if (_context.Users.Any(x => x.UserName == dto.Username))
-            {
                 throw new InvalidOperationException("Already exists");
-            }
 
             var trx = _context.Database.BeginTransaction();
             {
@@ -56,6 +60,9 @@ namespace JobHiringAPI.Model
 
         public async Task<bool> AvailableNames(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new InvalidOperationException("No name found");
+
             return !_context.Users.Any(x => x.UserName == name);
         }
 

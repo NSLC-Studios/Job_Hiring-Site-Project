@@ -1,4 +1,4 @@
-﻿using JobHiringAPI.Dtos;
+using JobHiringAPI.Dtos;
 using JobHiringAPI.Model;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
