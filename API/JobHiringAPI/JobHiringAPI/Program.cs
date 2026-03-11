@@ -16,7 +16,13 @@ namespace JobHiringAPI
 
             builder.Services.AddDbContextPool<JobDatabaseContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Connect")));
             builder.Services.AddTransient<UserModel>();
-            builder.Services.AddTransient <CVModel>();
+            builder.Services.AddTransient<CVModel>();
+            builder.Services.AddTransient<AdminModel>();
+            builder.Services.AddTransient<AreaModel>();
+            builder.Services.AddTransient<JobModel>();
+            builder.Services.AddTransient<RequestModel>();
+            builder.Services.AddTransient<CompanyModel>();
+
             // builder.Services.AddTransient <model> ();
 
             builder.Services.AddControllers();

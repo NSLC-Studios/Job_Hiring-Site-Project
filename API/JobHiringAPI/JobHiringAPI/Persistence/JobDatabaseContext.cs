@@ -58,7 +58,7 @@ namespace JobHiringAPI.Persistence
         public User User { get; set; }
         public int UserID { get; set; }
         public Area Area { get; set; }
-        public int AreaID { get; set; }
+        public int ?AreaID { get; set; }
     }
 
     public class Area
@@ -69,6 +69,7 @@ namespace JobHiringAPI.Persistence
         [Required]
         //public int HolderID { get; set; }
         public int UserID { get; set; }
+        public User User { get; set; }
         //[Required]
         //public required string HolderType { get; set; }
         [Required]
@@ -104,6 +105,7 @@ namespace JobHiringAPI.Persistence
     }
     */
 
+    [Index(nameof(CompanyName), IsUnique = true)]
     public class Company
     {
         [Key]
@@ -118,9 +120,9 @@ namespace JobHiringAPI.Persistence
         public int OwnerID { get; set; }
         [ForeignKey(nameof(OwnerID))]
         public User User { get; set; }
-        public int AreaID { get; set; }
+        public int ?AreaID { get; set; }
         public Area Area { get; set; }
-        public List<Area> Areas { get; set; }
+        //public List<Area> Areas { get; set; }
         //public List<Rating> Ratings { get; set; }
         //public List<Branch> Branch { get; set; }
         //public List<AreaCollection> AreaCollection { get; set; }
@@ -154,12 +156,12 @@ namespace JobHiringAPI.Persistence
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int JobID { get; set; }
         public int Pay { get; set; }
-        public string? WorkTime { get; set; }
-        public string? Description { get; set; }
-        public string? Language { get; set; }
+        public string ?WorkTime { get; set; }
+        public string ?Description { get; set; }
+        public string ?Language { get; set; }
         public int CompanyID { get; set; }
         public Company Company { get; set; }
-        public int AreaID { get; set; }
+        public int ?AreaID { get; set; }
         public Area Area { get; set; }
         public List<Request> Request { get; set; }
     }

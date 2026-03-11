@@ -1,5 +1,6 @@
 ﻿using JobHiringAPI.Dtos;
 using JobHiringAPI.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -59,7 +60,7 @@ namespace JobHiringAPI.Controllers
         }
 
         [HttpGet("jobs/search")]
-        public async Task<ActionResult<IEnumerable<BaseJobDto>>> GetSearchedJobs([FromQuery] string description, [FromQuery] int skip = 0, [FromQuery] int take = 12)
+        public async Task<ActionResult<IEnumerable<BaseJobDto>>> GetSearchedJobs([FromQuery] string description = "", [FromQuery] int skip = 0, [FromQuery] int take = 12)
         {
             try
             {
@@ -84,6 +85,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("create")]
         public async Task<ActionResult> CreateJob([FromQuery] int id)
         {
@@ -97,7 +99,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpPut("update/description")]
         public async Task<ActionResult> UpdateJobDescription([FromBody] UpdateJobDescriptionDto dto)
         {
@@ -111,7 +114,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpPut("update/pay")]
         public async Task<ActionResult> UpdateJobPay([FromBody] UpdateJobPayDto dto)
         {
@@ -125,7 +129,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpPut("update/worktime")]
         public async Task<ActionResult> UpdateJobWorkTime([FromBody] UpdateJobWorkTimeDto dto)
         {
@@ -139,7 +144,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpPut("update/language")]
         public async Task<ActionResult> UpdateJobLanguage([FromBody] UpdateJobLanguageDto dto)
         {
@@ -153,7 +159,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpPut("update/area")]
         public async Task<ActionResult> UpdateJobArea([FromBody] UpdateJobAreaDto dto)
         {
@@ -167,8 +174,9 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
-        [HttpPut("delete")]
+
+        [Authorize]
+        [HttpDelete("delete")]
         public async Task<ActionResult> DeleteJob([FromQuery] int id)
         {
             try
