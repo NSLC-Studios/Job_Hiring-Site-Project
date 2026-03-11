@@ -1,5 +1,6 @@
 ﻿using JobHiringAPI.Dtos;
 using JobHiringAPI.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace JobHiringAPI.Controllers
             _model = model;
         }
 
+        [Authorize]
         [HttpGet("requests/user")]
         public async Task<ActionResult<IEnumerable<BaseRequestDto>>> GetRequests([FromQuery] int id)
         {
@@ -28,9 +30,10 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpGet("requests/job")]
-        public async Task<ActionResult<IEnumerable<BaseRequestDto>>> GetEnquires([FromQuery] int id)
+        public async Task<ActionResult<IEnumerable<BaseReceivedRequestDto>>> GetEnquires([FromQuery] int id)
         {
             try
             {
@@ -41,9 +44,10 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpGet("requests/company")]
-        public async Task<ActionResult<IEnumerable<BaseRequestDto>>> GetCompanyEnquires([FromQuery] int id)
+        public async Task<ActionResult<IEnumerable<BaseReceivedCompanyRequestDto>>> GetCompanyEnquires([FromQuery] int id)
         {
             try
             {
@@ -54,9 +58,10 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
-        [HttpGet("request")]
-        public async Task<ActionResult<IEnumerable<BaseRequestDto>>> GetDetailedRequest([FromQuery] int id)
+
+        [Authorize]
+        [HttpGet()] // ("request")
+        public async Task<ActionResult<DetailedRequestDto>> GetDetailedRequest([FromQuery] int id)
         {
             try
             {
@@ -68,6 +73,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("apply")]
         public async Task<ActionResult> CreateRequest([FromBody] CreateRequestDto dto)
         {
@@ -86,6 +92,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("request/response")]
         public async Task<ActionResult> UpdateRequestResponse([FromBody] UpdateRequestResponseDto dto)
         {
@@ -104,6 +111,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("request/comment")]
         public async Task<ActionResult> UpdateRequestComment([FromBody] UpdateRequestCommentDto dto)
         {
@@ -121,7 +129,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpPut("request/status")]
         public async Task<ActionResult> UpdateRequestStatus([FromBody] UpdateRequestStatusDto dto)
         {
@@ -139,7 +148,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpDelete("request/delete")]
         public async Task<ActionResult> DeleteRequest([FromQuery] int id)
         {

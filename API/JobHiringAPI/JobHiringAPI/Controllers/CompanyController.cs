@@ -1,5 +1,6 @@
 ﻿using JobHiringAPI.Dtos;
 using JobHiringAPI.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -55,6 +56,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("create")]
         public async Task<ActionResult> CreateCompany([FromBody] CreateCompanyDto dto)
         {
@@ -63,12 +65,13 @@ namespace JobHiringAPI.Controllers
                 await _model.CreateCompany(dto);
                 return Ok();
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
-        
+
+        [Authorize]
         [HttpPut("update/contacts")]
         public async Task<ActionResult> UpdateCompanyContacts([FromBody] UpdateCompanyContactsDto dto)
         {
@@ -82,7 +85,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpPut("update/description")]
         public async Task<ActionResult> UpdateCompanyDescription([FromBody] UpdateCompanyDescriptionDto dto)
         {
@@ -96,7 +100,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpPut("update/area")]
         public async Task<ActionResult> UpdateCompanyArea([FromBody] UpdateCompanyAreaDto dto)
         {
@@ -110,7 +115,8 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
+
+        [Authorize]
         [HttpPut("update/name")]
         public async Task<ActionResult> UpdateCompanyName([FromBody] UpdateCompanyNameDto dto)
         {
@@ -124,8 +130,9 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        
-        [HttpPut("delete")]
+
+        [Authorize]
+        [HttpDelete("delete")]
         public async Task<ActionResult> DeleteCompany([FromQuery] int id)
         {
             try

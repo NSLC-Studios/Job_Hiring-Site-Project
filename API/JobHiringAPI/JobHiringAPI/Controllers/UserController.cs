@@ -2,6 +2,7 @@
 using JobHiringAPI.Model;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Formats.Tar;
@@ -20,6 +21,65 @@ namespace JobHiringAPI.Controllers
             _model = model;
         }
 
+        [HttpGet()]
+        public async Task<ActionResult<DetailedUserDto>> GetDetailedUser([FromQuery] int id)
+        {
+            try
+            {
+                return Ok(await _model.GetUser(id));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("checkuser")]
+        public async Task<ActionResult<bool>> CheckUserAvailability([FromQuery] string username)
+        {
+            try
+            {
+                return Ok(await _model.AvailableNames(username));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("session")]
+        public async Task<ActionResult> UserSession()
+        {
+            try
+            {
+                return Ok(new UserDto
+                {
+                    ID = Convert.ToInt32(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value),
+                    UserName = User.Identity.Name,
+                    Role = User.FindFirst(System.Security.Claims.ClaimTypes.Role).Value
+                });
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        // [Authorize]
+        [HttpGet("admins")]
+        public async Task<ActionResult<IEnumerable<BaseAdminsDto>>> GetAdmins([FromQuery] int skip = 0, [FromQuery] int take = 3)
+        {
+            try
+            {
+                return Ok(await _model.GetAdmins(skip, take));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost("login")]
         public async Task<ActionResult<UserLoginDto>> Login([FromQuery] string username, [FromQuery] string password)
         {
@@ -33,9 +93,11 @@ namespace JobHiringAPI.Controllers
 
                 List<Claim> claims = new()
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()), new Claim(ClaimTypes.Name, user.UserName), new Claim(ClaimTypes.Role, user.Role)
+                    new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()), 
+                    new Claim(ClaimTypes.Name, user.UserName), 
+                    new Claim(ClaimTypes.Role, user.Role)
                 };
-                
+
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme)));
                 return Ok(user);
             }
@@ -45,6 +107,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("logout")]
         public async Task<ActionResult> Logout()
         {
@@ -64,7 +127,7 @@ namespace JobHiringAPI.Controllers
         {
             try
             {
-                _model.Registration(new UserRegistrationDto { Password = password, Username = username });
+                await _model.Registration(new UserRegistrationDto { Password = password, Username = username });
                 return Ok();
             }
             catch (InvalidOperationException e)
@@ -77,34 +140,8 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        [HttpDelete("delete")]
-        public async Task<ActionResult> DeleteUser([FromQuery] int id)
-        {
-            try
-            {
-                _model.DeleteUser(id);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        [HttpGet("checkuser")]
-        public async Task<ActionResult<bool>> CheckUserAvailability([FromQuery] string username)
-        {
-            try
-            {
-                return Ok(_model.AvailableNames(username));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        [HttpPut("updatepassword")]
+        [Authorize]
+        [HttpPut("update/password")]
         public async Task<ActionResult> UpdateUserPassword([FromBody] UpdateUserPasswordDto dto)
         {
             try
@@ -118,12 +155,18 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        [HttpGet("admins")]
-        public async Task<ActionResult<IEnumerable<BaseAdminsDto>>> GetAdmins([FromQuery] int skip, [FromQuery] int take)
+        [Authorize]
+        [HttpPut("update/username")]
+        public async Task<ActionResult> UpdateUserName([FromBody] UpdateUserNameDto dto)
         {
             try
             {
-                return Ok(await _model.GetAdmins(skip, take));
+                await _model.UpdateUserName(dto);
+                return Ok();
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                return Conflict(e.Message);
             }
             catch
             {
@@ -131,16 +174,48 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        [HttpGet()]
-        public async Task<ActionResult<DetailedUserDto>> GetDetailedUser([FromQuery] int id)
+        [Authorize]
+        [HttpPut("update/name")]
+        public async Task<ActionResult> UpdateUserLegalName([FromBody] UpdateUserLegalNameDto dto)
         {
             try
             {
-                return Ok(await _model.GetUser(id));
+                await _model.UpdateLegalName(dto);
+                return Ok();
             }
             catch
             {
                 return BadRequest();
+            }
+        }
+
+        [Authorize]
+        [HttpPut("update/contact")]
+        public async Task<ActionResult> UpdateContact([FromBody] UpdateUserContactDto dto)
+        {
+            try
+            {
+                await _model.UpdateContact(dto);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [Authorize]
+        [HttpDelete("delete")]
+        public async Task<ActionResult> DeleteUser([FromQuery] int id)
+        {
+            try
+            {
+                await _model.DeleteUser(id);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
     }
