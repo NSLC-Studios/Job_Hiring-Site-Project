@@ -26,7 +26,7 @@ namespace UnitTester.Model_Tests
 
         //-------------------------------Registration Tests----------------------------------
         [Fact]
-        public void CheckRegistrationCorrect()
+        public async Task CheckRegistrationCorrect()
         {
             var user = new UserRegistrationDto
             {
@@ -34,7 +34,7 @@ namespace UnitTester.Model_Tests
                 Password = "password123"
             };
 
-            _model.Registration(user);
+            await _model.Registration(user);
 
             Assert.True(_context.Users.Any(x => x.UserName == "testuser"));
         }
@@ -77,24 +77,22 @@ namespace UnitTester.Model_Tests
             }
 
         }
-        [Fact]
-        public void CheckRegistrationPassNull()
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("     ")]
+        public async Task CheckRegistrationPassNull(string item)
         {
             var user = new UserRegistrationDto
             {
                 Username = "Franciska",
-                Password = null
+                Password = item
             };
 
-            try
-            {
-                _model.Registration(user);
-            }
-            catch (Exception ex)
-            {
-                Assert.Equal("Empty password", ex.Message);
-            }
-
+            var respomse = await Assert.ThrowsAsync<InvalidOperationException>(() => _model.Registration(user));
+            
+            Assert.Equal("Empty password", respomse.Message);
         }
         // ------------------AvailableNames Tests----------------------------------
 

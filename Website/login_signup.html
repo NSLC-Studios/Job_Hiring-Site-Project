@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="Styles/universal_style.css">
+    <link rel="stylesheet" href="Styles/Base_Style.css">
     <title>Log-In Page</title>
 </head>
 
-<body class="darkmode_animation">
+<body class="">
+    <div id="getrotated" class="darkmode_animation"></div>
     <header class="universal_header dark_nav">
         <nav class="header_nav container">
             <ul class="row">
@@ -38,29 +39,29 @@
     </header>
     <main>
         <form id="sign_up" class="signup_login_window container dark center">
-            <h1>Sign up</h1>
+            <h2>Sign up</h2>
             <div class="row">
                 <div class="col-sm-12 col-lg-6">
-                    <input placeholder="Sir Name" type="text" id="first_name" required>
+                    <input class="form-control" placeholder="Sir Name" type="text" id="first_name" required>
                 </div>
                 <div class="col-sm-12 col-lg-6">
-                    <input placeholder="Family Name" type="text" id="last_name" required>
+                    <input class="form-control" placeholder="Family Name" type="text" id="last_name" required>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12 col-lg-6">
-                    <input type="text" class="UserName" placeholder="UserName">
+                    <input class="form-control" type="text" class="UserName" placeholder="UserName">
                 </div>
                 <div class="col-sm-12 col-lg-6">
-                    <input type="email" id="email" placeholder="email@xyz.com">
+                    <input class="form-control" type="email" id="email" placeholder="email@xyz.com">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12 col-lg-6">
-                    <input type="password" id="pass1" placeholder="Password">
+                    <input class="form-control" type="password" id="pass1" placeholder="Password">
                 </div>
                 <div class="col-sm-12 col-lg-6">
-                    <input type="password" id="pass2" placeholder="Repeat Password">
+                    <input class="form-control" type="password" id="pass2" placeholder="Repeat Password">
                 </div>
             </div>
             <div class="row">
@@ -71,20 +72,22 @@
         </form>
 
         <form id="log_in" class="signup_login_window container dark center">
-            <h1>Log In</h1>
+            <h2>Log In</h2>
             <div class="row">
-                <div class="col-sm-12 ">
-                    <input type="text" class="UserName" placeholder="UserName or Email">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 ">
-                    <input type="password" id="pass" placeholder="Password">
+                <div class="col-sm-12">
+                    <label class="fs-3 form-label lh-base">Please type in your name to begin!</label>
+                    <input required type="text" class="form-control-lg UserName" placeholder="UserName or Email">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <button id="log_in_button">Log in</button>
+                    <label class="fs-3 form-label">Don't forget your password!</label>
+                    <input required class="form-control-lg" type="password" id="pass" placeholder="Password">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button class="btn btn-lg btn-danger" id="log_in_button">Log in</button>
                 </div>
             </div>
         </form>
@@ -93,7 +96,7 @@
     <footer class="universal_footer">
 
     </footer>
-    <script src="logic/the_logic.js"></script>
+    <script src="scripts/Base_Script.js"></script>
 </body>
 
 </html>

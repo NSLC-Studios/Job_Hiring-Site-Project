@@ -16,30 +16,35 @@ namespace UnitTester
         {
             _context = DbContextFactory.Create();
 
-
             _adminmodel = new AdminModel(_context);
         }
 
         [Fact]
-        public void TestGetAllUsers()
+        public async Task TestGetAllUsers()
         {
-            var users = _adminmodel.GetUsers();
-            Assert.NotNull(users);
-            Assert.IsType<List<BaseUserDto>>(users);
-        }
-        [Fact]
-        public void TestGetAllUsersEmpty()
-        {
-            var result = _adminmodel.GetUsers();
+            IEnumerable<BaseUserDto> result = await _adminmodel.GetUsers();
             Assert.NotNull(result);
-            Assert.IsType<List<BaseUserDto>>(result);
+            Assert.IsAssignableFrom<IEnumerable<BaseUserDto>>(result);
         }
+
         [Fact]
-        public void TestGetAllJobs()
+        public async Task TestGetAllUsersEmpty()
         {
-            var result = _adminmodel.GetJobs(2);
+            using var empty = DbContextFactory.CreateEmpty();
+            AdminModel model = new AdminModel(empty);
+
+            var result = await model.GetUsers();
+            Assert.Empty(result.ToList());
+            //Assert.IsAssignableFrom<IEnumerable<BaseUserDto>>(result);
+            //Assert.IsType<IEnumerable<BaseUserDto>>(result);
+        }
+
+        [Fact]
+        public async Task TestGetAllJobs()
+        {
+            var result = await _adminmodel.GetJobs(1);
             Assert.NotNull(result);
-            Assert.IsType<List<BaseJobDto>>(result);
+            Assert.IsAssignableFrom<IEnumerable<BaseJobDto>>(result);
         }
     }
 }

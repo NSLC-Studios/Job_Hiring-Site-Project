@@ -42,21 +42,15 @@ namespace UnitTester
 
         public static JobDatabaseContext CreateEmpty()
         {
-            if (_connection.State != ConnectionState.Open)
-                _connection.Open();
+            var connection = new SqliteConnection("Data Source=:memory:");
+            connection.Open();
 
             var options = new DbContextOptionsBuilder<JobDatabaseContext>()
-                .UseSqlite(_connection)
-                .EnableSensitiveDataLogging()
+                .UseSqlite(connection)
                 .Options;
 
             var context = new JobDatabaseContext(options);
-
-            if (!_initialized)
-            {
-                context.Database.EnsureCreated();
-                _initialized = true;
-            }
+            context.Database.EnsureCreated();
 
             return context;
         }

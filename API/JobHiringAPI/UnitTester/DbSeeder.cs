@@ -28,30 +28,36 @@ namespace UnitTester
             //-----------------USERS-------------------
             var admin = new User
             {
+                UserID = 1,
                 UserName = "NickTiler",
                 FirstName = "Nick",
                 LastName = "Tile",
                 Email = "nicktiler@truemail.nav",
+                Phone = "-4576321",
                 Password = HashPassword("admin123"),
                 Role = "Admin"
             };
 
             var bin = new User
             {
+                UserID = 2,
                 UserName = "Bin",
                 FirstName = "Bin",
                 LastName = "Limn",
                 Email = "limn@truemail.nav",
+                Phone = "-899941",
                 Password = HashPassword("123456"),
                 Role = "User"
             };
 
             var joley = new User
             {
+                UserID = 3,
                 UserName = "Joley",
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "john@email.com",
+                Phone = "-389721",
                 Password = HashPassword("123456"),
                 Role = "User"
             };
@@ -62,6 +68,7 @@ namespace UnitTester
             // ----------------area -----------------(UserID is Needed)
             var mania = new Area
             {
+                AreaID = 1,
                 UserID = bin.UserID,
                 Country = "Mania",
                 County = "Lancer",
@@ -72,6 +79,7 @@ namespace UnitTester
             // 
             var untmaly = new Area
             {
+                AreaID = 2,
                 UserID = joley.UserID,
                 Country = "Untmaly",
                 County = "Tanger",
@@ -86,9 +94,11 @@ namespace UnitTester
             //-------------COMPANY-----------------
             var company = new Company
             {
+                CompanyID = 1,
                 CompanyName = "Future Tech Ltd.",
                 CompanyEmail = "info@futuretech.com",
                 CompanyPhone = "789",
+                Description = "We are a company!",
                 OwnerID = bin.UserID,
                 AreaID = mania.AreaID
             };
@@ -99,9 +109,11 @@ namespace UnitTester
             //------------JOB---------------
             var job = new Job
             {
+                JobID = 1,
                 Pay = 8000,
                 WorkTime = "8-17",
                 Language = "English, German",
+                Description = "janitorial.",
                 CompanyID = company.CompanyID,
                 AreaID = mania.AreaID
             };
@@ -112,6 +124,7 @@ namespace UnitTester
             //---------CV ---------
             var cv = new CV
             {
+                CVID = 1,
                 Summary = "Junior .NET Developer with 2 years experience.",
                 UserID = joley.UserID,
                 AreaID = untmaly.AreaID
@@ -123,6 +136,7 @@ namespace UnitTester
             //------ REQUEST----------
             var request = new Request
             {
+                RequestID = 1,
                 Status = "Pending",
                 Comment = "I am very interested in this opportunity.",
                 JobID = job.JobID,
@@ -135,6 +149,7 @@ namespace UnitTester
         }
     }
 }
+
 /*
         public static void Seed(JobDatabaseContext _context)
         {

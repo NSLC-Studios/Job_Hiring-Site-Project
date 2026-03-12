@@ -1,0 +1,141 @@
+.darkmode_animation{
+    background: repeating-linear-gradient(0deg, #0a1a3f 0%, #3b0f2f 20%, #6b1a1a 40%, #3b0f2f 60%, #0a1a3f 80%);
+    background-size: 300% 300%;
+    background-attachment: fixed;
+    transform: rotate(45deg);
+    transform-origin: center;
+    animation: scrolled 20s ease-in infinite;
+}
+
+#getrotated {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.lightmode_animation {
+    background: linear-gradient(
+        130deg,
+        rgb(212, 104, 158) 0%,
+        rgb(255, 255, 255) 50%,
+        rgb(212, 104, 158) 100%
+    );
+    background-size: 400% 400%;
+    background-attachment: fixed;
+    animation:  20s ease infinite;
+}
+
+.deprecated_sheme {
+    background: linear-gradient(130deg, #31c7ba,#7cc42b, #dbdf1c);
+
+    background: linear-gradient(130deg, rgb(236,40,97),rgb(242,84,119), rgb(255,167,167));
+}
+
+@keyframes scrolled {
+    from {
+      background-position: 0% 0%;
+    }
+    to {
+      background-position: -200% -200%;
+    }
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.dark{
+    background-color: rgb(94, 26, 73);
+    color: rgb(180, 180, 180);
+}
+
+.dark_nav{
+    background-color: rgb(45, 45, 45);
+    color: rgb(180,180, 180);
+}
+
+.light {
+    color: rgb(45, 45, 45);
+    background:  rgb(200, 40, 75);
+}
+
+.light_nav {
+    color: rgb(45, 45, 45);
+    background: rgb(180,180, 180);
+}
+
+.container {
+    margin: 20px auto;
+    padding: 20px;
+    margin-top: 0;
+}
+
+.row{
+    margin: auto;
+}
+
+.universal_header{
+    font-size: 2vw;
+}
+
+.header_nav ul {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.header_nav li {
+    list-style: none;
+    flex: 1;
+    text-align: center;
+}
+
+.nav-icon {
+    height: auto;
+    width: auto;        
+    cursor: pointer;
+}
+
+h2{
+    text-align: center;
+    font-weight: bold;
+    font-size: 4vw;
+}
+
+.signup_login_window{
+    width: 50vw;
+    height: auto;
+    border-radius: 15px;
+    padding-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+
+input{
+    width: 100%;
+}
+
+li{
+    display: inline-block;
+    margin: 5px 20px 5px 20px;
+}
+
+input{
+    margin-bottom: 2vh;
+}
+
+#sign_up_button{
+    width: 100%;
+    border: 1px solid black;
+    box-shadow: 2px 2px 5px black;
+}
+
+#log_in_button{
+    width: 100%;
+    border: 1px solid black;
+    box-shadow: 2px 2px 5px black;
+}
