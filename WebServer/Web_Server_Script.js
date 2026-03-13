@@ -10,9 +10,7 @@ const ContentSuffixTable = {
     ".css" : "text/css",
     ".png" : "image/png",
     ".jpg" : "image/jpeg",
-    ".ico" : "image/x-icon",
-    ".js"  : "application/javascript",
-    ".svg" : "image/svg+xml",
+    ".ico" : "image/x-icon"
 };
 
 function ReplyError(sender, error = "Not Specified"){
@@ -41,37 +39,9 @@ http.createServer((req, res) => {
             target = "Contdact";
             type = ".html";
             break;
-        case "login" :
-            target = "Login";
-            type = ".html";
-            break;
         case "styles" :
-            target = `Styles/${query[2].replace(".css", "")}`
+            target = `Styles`
             type = ".css";
-            break;
-        case "scripts" :
-            target = `Scripts/${query[2].replace(".js", "")}`
-            type = ".js";
-            break;
-        case "images" :
-            switch(query[2]){
-                case "vectors" :
-                    target = `Images/Vectors/${query[3].replace(".svg", "")}`
-                    type = ".svg";
-                    break
-                default :
-                    switch(query[2].split(".")[1]){
-                        case "jpg" :
-                            target = `Images/${query[2].replace(".jpg", "")}`
-                            type = ".jpg";
-                            break
-                        case "png" :
-                            target = `Images/${query[2].replace(".png", "")}`
-                            type = ".png";
-                            break
-                    }
-                    break
-            }
             break;
         case "favicon.ico" :
             target = "logo";

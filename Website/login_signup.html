@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="Styles/universal_style.css">
+    <title>Log-In Page</title>
+</head>
+<body class="darkmode_animation">
+    <header class="universal_header dark_nav">
+        <nav class="header_nav container">
+            <ul class="row">
+                <li class="col-sm-6 col-md-4 col-lg-2 ">
+                    About Us
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-2">
+                    idk yet
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-2">
+                    About Us
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-2 form_switch_button" >
+                    Log in
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-2">
+                    Free Beer ?
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-2" id="mode_swich">
+                    <img src="light_dark_mode3.svg" class="img-fluid nav-icon" alt="Light / Dark Mode">
+                    </img>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <form id="sign_up" class="signup_login_window container dark center">
+            <h1>Sign up</h1>
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <input placeholder="Sir Name" type="text" id="first_name" required>
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <input placeholder="Family Name" type="text" id="last_name" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <input type="text" class="UserName" placeholder="UserName">
+                </div>
+                  <div class="col-sm-12 col-lg-6">
+                    <input type="email" id="email" placeholder="email@xyz.com">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <input type="password" id="pass1" placeholder="Password">
+                </div>
+                <div class="col-sm-12 col-lg-6"> 
+                    <input type="password" id="pass2" placeholder="Repeat Password">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button id="sign_up_button">Sign up</button>
+                </div>
+            </div>
+        </form>
+
+        <form id="log_in" class="signup_login_window container dark center">
+                <h1>Log In</h1>
+                <div class="row">
+                    <div class="col-sm-12 ">
+                        <input type="text" class="UserName" placeholder="UserName or Email">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 ">
+                        <input type="password" id="pass" placeholder="Password">
+                    </div>
+                </div>
+                <div class="row">
+                     <div class="col-sm-12">
+                        <button id="log_in_button">Log in</button>
+                    </div>
+                </div>
+        </form>
+
+    </main>
+    <footer class="universal_footer">
+
+    </footer>
+    <script src="logic/the_logic.js"></script>
+</body>
+</html>
