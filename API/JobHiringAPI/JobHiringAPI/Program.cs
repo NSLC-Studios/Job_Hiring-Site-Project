@@ -23,6 +23,18 @@ namespace JobHiringAPI
             builder.Services.AddTransient<RequestModel>();
             builder.Services.AddTransient<CompanyModel>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend",
+                policy =>
+                {
+                    policy
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
             // builder.Services.AddTransient <model> ();
 
             builder.Services.AddControllers();
@@ -67,6 +79,9 @@ namespace JobHiringAPI
 
 
             app.MapControllers();
+
+            // cors
+            app.UseCors("AllowFrontend");
 
             app.Run();
         }
