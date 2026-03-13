@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace AvaloniaAdminInterface.Model
 {
-    public class Model
+    public class TheModel
     {
         //private readonly HttpClient _client;
         private readonly ApiSession _session;
 
-        public Model(ApiSession session,HttpClient httpClient)
+        public TheModel(ApiSession session)
         {
             _session = session;
              
@@ -84,7 +84,7 @@ namespace AvaloniaAdminInterface.Model
             return response;
         }
 
-        public async Task ResetPassword(int id , int secure )
+        public async Task ResetPassword(int id)//, int secure
         {
             EnsureAdmin();
             var response = await _session._client.PostAsJsonAsync("api/AdminController/requests/user", id);
@@ -93,9 +93,8 @@ namespace AvaloniaAdminInterface.Model
             {
                 throw new UnauthorizedAccessException();
             }
-            
-
         }
+
         
     }
 }
