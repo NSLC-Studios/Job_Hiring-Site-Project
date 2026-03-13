@@ -5,12 +5,22 @@ const footer = document.querySelector("footer");
 const form = document.querySelectorAll("form")
 
 
+let showingLogin = false;
+
 const sign_up = document.getElementById("sign_up");
 const log_in = document.getElementById("log_in")
 
-log_in.remove();
-let showingLogin = false;
 const form_switch = document.querySelectorAll(".form_switch_button");
+
+if (document.body.contains(document.getElementById("sign_up"))) 
+{
+    log_in.remove();
+    form_switch.forEach(i => {
+        i.addEventListener("click", switch_log_in);
+    });
+}
+
+
 
 const mode_switch = document.getElementById("mode_swich")
 
@@ -18,9 +28,7 @@ mode_switch.addEventListener("click",function(){
     mode_change();
 })
 
-form_switch.forEach(i => {
-    i.addEventListener("click", switch_log_in);
-});
+
 
 function switch_log_in() {
 
