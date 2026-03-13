@@ -63,6 +63,10 @@ public class MainViewModel : ViewModelBase
         {
             int phonenumtype = rnd.Next(0, 3);
             int tempid = rnd.Next(10, 50);
+            if (_UserId.Contains(tempid))
+            {
+                tempid = rnd.Next(10, 50);
+            }
             int tempname = rnd.Next(0, _UserName.Count);
             int phonenumber = 0;
             if (phonenumtype == 1)
@@ -90,12 +94,21 @@ public class MainViewModel : ViewModelBase
 
             string fullandomemail = $"{_UserName[tempname]}-{funnyemailfiller}@gmail.com";
 
-            User victims = new User(tempid, _UserName[tempname], _UserName[tempname].Split("_")[0], _UserName[tempname].Split("_")[1], fullandomemail, Convert.ToString(phonenumber), Convert.ToString(rnd.Next(100, 999)), tempjob_title,"",1 );
+            User victims = new User(tempid, _UserName[tempname], _UserName[tempname].Split("_")[0], _UserName[tempname].Split("_")[1], fullandomemail, Convert.ToString(phonenumber), Convert.ToString(rnd.Next(100, 999)), tempjob_title,"",1,
+            DeleteUserInstance,ExpandUserInstance);
             Users.Add(victims);
         }
     }
-   // private void OpenDetailsWindow() { var vm = new UserDetailsViewModel(User); var window = new UserDetailsWindow { DataContext = vm }; window.Show(); }
+    // private void OpenDetailsWindow() { var vm = new UserDetailsViewModel(User); var window = new UserDetailsWindow { DataContext = vm }; window.Show(); }
+    private void DeleteUserInstance(User user)
+    {
+        Users.Remove(user);
+    }
 
+    private void ExpandUserInstance(User user)
+    { 
+        Console.WriteLine($"Expanding user {user.UserId}");
+    }
 
     private void GetUserById()
     {
@@ -114,45 +127,6 @@ public class MainViewModel : ViewModelBase
     {
         var user = Users.FirstOrDefault(x => x.UserId == _searchByUserId);
         if (user != null)
-            Users.Replace(user, new User(user.UserId, user.UserName, user.FirstName, user.LastName, user.Email, user.PhoneNumber, "Pass", user.Role,"",1));
+            Users.Replace(user, new User(user.UserId, user.UserName, user.FirstName, user.LastName, user.Email, user.PhoneNumber, "Pass", user.Role,"",1, DeleteUserInstance, ExpandUserInstance));
     }
 }
-//Deprecated
-/*
-    private ObservableCollection<User> _selectedByUserId { get; set; }
-    public ObservableCollection<User> SelectedByUserId
-    {
-        get { return _selectedByUserId; }
-        set
-
-        {
-            if (_selectedByUserId != value)
-            {
-                _selectedByUserId = value;
-                OnPropertyChanged(nameof(SelectedByUserId));
-            }
-        }
-
-    }*/
-/*
-  private int _removeByUserId { get; set; }
- public int RemoveByUserId { get { return _removeByUserId; } set 
-
-     {
-         if (_removeByUserId != value)
-         {
-             _removeByUserId = value;
-             OnPropertyChanged(nameof(_removeByUserId));
-         }
-     } 
-
- }
- private void UpdateFunction()
- {
-     //OnPropertyChanged(nameof(RemoveByUserId)); //Apperently ObservableCollection already notifies the UI when items are added or removed.
-     //Users.Remove(Users.Where(x => x.UserId == RemoveByUserId)); //aka i only need it when i replace the whole Users ...
-     //OnPropertyChanged(nameof(Users));//save it 
-     var user = Users.FirstOrDefault(x => x.UserId == _removeByUserId);
-     if (user != null)
-         Users.Remove(user);
- }*/

@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
 using Avalonia.Controls;
+using AvaloniaAdminInterface.ViewModels;
 
 namespace AvaloniaAdminInterface.Views
 {
@@ -11,6 +12,7 @@ namespace AvaloniaAdminInterface.Views
         public UserControl1()
         {
             InitializeComponent();
+            
         }
     }
 }
