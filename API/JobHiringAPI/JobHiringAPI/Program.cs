@@ -29,9 +29,11 @@ namespace JobHiringAPI
                 policy =>
                 {
                     policy
-                        .AllowAnyOrigin()
+                        .WithOrigins("http://localhost")
+                        //.AllowAnyOrigin()
                         .AllowAnyHeader()
-                        .AllowAnyMethod();
+                        .AllowAnyMethod()
+                        .AllowCredentials();
                 });
             });
 
@@ -44,6 +46,8 @@ namespace JobHiringAPI
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
+                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.LoginPath = "/api/User/login";
                 options.LogoutPath = "/api/User/logout";
                 options.Events = new CookieAuthenticationEvents
@@ -72,16 +76,15 @@ namespace JobHiringAPI
 
             app.UseHttpsRedirection();
 
+            // cors
+            app.UseCors("AllowFrontend");
+
             // for cookie authentication
             app.UseAuthentication();
 
             app.UseAuthorization();
 
-
             app.MapControllers();
-
-            // cors
-            app.UseCors("AllowFrontend");
 
             app.Run();
         }

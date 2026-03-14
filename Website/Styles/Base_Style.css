@@ -166,3 +166,12 @@ input{
 .hidden {
     display: none;
 }
+
+.warning{
+    color: red;
+    font-weight: bold;
+    background-color: #3b0f2f;
+    text-align: center;
+    border-color: #ec2861;
+    border-radius: 15px;
+}

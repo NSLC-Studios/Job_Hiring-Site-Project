@@ -39,6 +39,11 @@
         <form id="sign_up" class="signup_login_window container dark center">
             <h2>Sign up</h2>
             <div class="row">
+                <div class="col-sm-12 col-lg-12">
+                    <label id="sign_warningbox" class="fs-2 warning hidden">The passwords do not match!</label>
+                </div>
+            </div>
+            <div class="row">
                 <label class="fs-4 label col-sm-12 col-lg-12">Come up with a fancy Username!</label>
                 <div class="col-sm-12 col-lg-12">
                     <input class="form-control fs-4" type="text" id="sign_user" class="UserName" placeholder="UserName">
@@ -49,21 +54,26 @@
                 <div class="col-sm-12 col-lg-6">
                     <input class="form-control fs-4" type="password" id="sign_pass" placeholder="Password">
                 </div>
-                <div class="col-sm-12 col-lg-6"> 
+                <div class="col-sm-12 col-lg-6">
                     <input class="form-control fs-4" type="password" id="sign_repass" placeholder="Repeat Password">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <label class="buttons btn btn-danger fs-3" id="sign_up_button">Sign up</label>
+                    <button class="buttons btn btn-danger fs-3" id="sign_up_button">Sign up</button>
                 </div>
             </div>
         </form>
 
-        <form id="UpdateUser" class="signup_login_window container dark center">
+        <form id="updateuser" class="hidden signup_login_window container dark center">
             <h2>Tell us about you!</h2>
             <div class="row">
-                <label class="fs-4 form-label col-sm-12 col-lg-12">It could never hurt to be reached out to!</label>
+                <div class="col-sm-12 col-lg-12">
+                    <label id="upd_warningbox" class="fs-2 warning hidden">Please fill everything out...</label>
+                </div>
+            </div>
+            <div class="row">
+                <label class="fs-4 form-label col-sm-12 col-lg-12">How can we call you?</label>
                 <div class="col-sm-12 col-lg-6">
                     <input class="form-control fs-4" placeholder="Firstname" type="text" id="first_name" required>
                 </div>
@@ -80,10 +90,10 @@
             <div class="row">
                 <label class="fs-4 form-label col-sm-12 col-lg-12">It could never hurt to be reached out to!</label>
                 <div class="col-sm-12 col-lg-6">
-                    <input class="form-control fs-4"  type="text" class="Phone" placeholder="+[123]45607890">
+                    <input class="form-control fs-4" type="text" id="phone" placeholder="+[123]45607890">
                 </div>
                   <div class="col-sm-12 col-lg-6">
-                    <input class="form-control fs-4"  type="email" id="email" placeholder="email@xyz.com">
+                    <input class="form-control fs-4" type="email" id="email" placeholder="email@xyz.com">
                 </div>
             </div>
             <div class="row">
@@ -95,6 +105,11 @@
 
         <form id="log_in" class="signup_login_window container dark center">
                 <h2>Log In</h2>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <label id="log_warningbox" class="fs-2 warning hidden">Your username or password is incorrect!</label>
+                    </div>
+                </div>
                 <div class="row">
                     <label class="fs-4 form-label col-sm-12 col-lg-12">We kinda need that to log you in...</label>
                     <div class="col-sm-12 ">
