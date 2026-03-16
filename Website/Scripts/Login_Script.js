@@ -7,9 +7,11 @@ let UserContainer = {
 const body = document.body;
 const header = document.querySelector("header");
 const footer = document.querySelector("footer");
-const form = document.querySelectorAll("form");
+//const form = document.querySelectorAll("form");
+const mode_switch = document.getElementById("mode_switch");
 
 let showingLogin = false;
+mode_switch.dark = true;
 let register_process = false;
 let update_process = 0;
 
@@ -45,11 +47,9 @@ if (document.body.contains(document.getElementById("sign_up")))
     });
 }
 
-const mode_switch = document.getElementById("mode_swich")
-
-mode_switch.addEventListener("click",function(){
+mode_switch.addEventListener("click", () => {
     mode_change();
-})
+});
 
 function switch_log_in() {
     if (showingLogin === false) {
@@ -65,6 +65,43 @@ function switch_log_in() {
 
 function mode_change()
 {
+    if (mode_switch.dark == true){
+        document.querySelectorAll(".dark_nav").forEach((element) => {
+            element.classList.remove("dark_nav");
+            element.classList.add("light_nav");
+        });
+
+        document.querySelectorAll(".darkmode_animation").forEach((element) => {
+            element.classList.remove("darkmode_animation");
+            element.classList.add("lightmode_animation");
+        });
+
+        document.querySelectorAll(".dark").forEach((element) => {
+            element.classList.remove("dark");
+            element.classList.add("light");
+        });
+
+        mode_switch.dark = false;
+    } else{
+        document.querySelectorAll(".light_nav").forEach((element) => {
+            element.classList.remove("light_nav");
+            element.classList.add("dark_nav");
+        });
+
+        document.querySelectorAll(".lightmode_animation").forEach((element) => {
+            element.classList.remove("lightmode_animation");
+            element.classList.add("darkmode_animation");
+        });
+
+        document.querySelectorAll(".light").forEach((element) => {
+            element.classList.remove("light");
+            element.classList.add("dark");
+        });
+
+        mode_switch.dark = true;
+    }
+
+    /*
     if(header.classList.contains("dark_nav"))
     {
         header.classList.remove("dark_nav");
@@ -87,6 +124,7 @@ function mode_change()
         body.classList.add("darkmode_animation");
         form.forEach(f => f.classList.add("dark"));
     }
+    */
 }
 
 async function UpdateLegalName(){
