@@ -1,0 +1,44 @@
+
+/*-----DEPRECATED------*/
+
+/*-----The Dropdown Menü------*/
+.menu-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+
+.dropdown {
+    position: absolute;/* no it dosnt work on reative*/
+    top: 100%;   
+    left: 0;   
+    background: white;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+}
+
+.dropdown a {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown a:hover {
+    background: #f0f0f0;
+}
+
+/*---Scroll Menu stuff----*/
+.scroll_stuff {
+    height: 800px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+    position: relative;
+}
+
+.job_box {
+    height: 200px;
+    background: #eee;
+    margin-top: 20px;
+}

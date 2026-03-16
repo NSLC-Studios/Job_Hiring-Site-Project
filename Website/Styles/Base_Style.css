@@ -1,5 +1,5 @@
 /*-----Dark/light theme------*/
-.darkmode_animation{
+.darkmode_animation {
     background: linear-gradient(130deg, #0a1a3f, #3b0f2f, #6b1a1a);
     background-size: 300% 300%;
     background-attachment: fixed;
@@ -25,6 +25,15 @@
     100% { background-position: 0% 50%; }
 }
 
+.dark_background,
+.dark,
+.dark_nav,
+.light_background,
+.light,
+.light_nav {
+    transition: background-color .3s ease, color .3s ease;
+}
+
 .dark_background {
     background-color: rgb(94, 26, 73);
 }
@@ -39,7 +48,7 @@
 }
 
 .light_background {
-    background:  rgb(219, 140, 157);
+    background: rgb(219, 140, 157);
 }
 
 .light {
@@ -91,16 +100,14 @@ nav {
     height: auto;
 }
 
-.header_nav ul {
-    display: flex;
-    list-style: none;
-    align-items: center;
-}
-
-.header_nav li {
+.nav-content {
     display: flex;
     flex: 2;
     text-align: center;
+}
+
+.nav-content div {
+    margin: auto;
 }
 
 .nav-icon {
@@ -130,50 +137,38 @@ h2{
     padding-bottom: 5px;
 }
 
-/*-----DEPRECATED------*/
+.dropdown-menu {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transform-origin: top right;
+    transition:
+        opacity .15s ease,
+        transform .15s ease,
+        visibility 0s linear .15s;
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition-delay: 0s;
+}
+
+.nav-icon {
+    width: 2.5em;
+    height: 2.5em;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+#profile-tab button {
+    display: flex;
+    margin: auto;
+}
 
 li{
     display: inline-block;
     margin: 5px 20px 5px 20px;
-}
-
-/*-----The Dropdown Menü------*/
-.menu-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown {
-    position: absolute;/* no it dosnt work on reative*/
-    top: 100%;   
-    left: 0;   
-    background: white;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ddd;
-}
-
-.dropdown a {
-    padding: 10px 15px;
-    text-decoration: none;
-    color: black;
-}
-
-.dropdown a:hover {
-    background: #f0f0f0;
-}
-
-/*---Scroll Menu stuff----*/
-.scroll_stuff {
-    height: 800px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 20px;
-    position: relative;
-}
-
-.job_box {
-    height: 200px;
-    background: #eee;
-    margin-top: 20px;
 }

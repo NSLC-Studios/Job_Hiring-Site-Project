@@ -272,6 +272,15 @@ async function Login(){
 //sign_button.addEventListener("click", Register);
 //log_button.addEventListener("click", Login);
 
+window.addEventListener("load", () => {
+    const path = window.location.pathname.toLowerCase();
+
+    if (path.endsWith("in/login")) {
+        sign_up.classList.add("hidden");
+        log_in.classList.remove("hidden");
+    }
+});
+
 upd_ing.addEventListener("submit", content => {
     content.preventDefault();
 });
