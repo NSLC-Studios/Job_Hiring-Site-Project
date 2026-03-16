@@ -1,17 +1,4 @@
-let UserContainer = {
-    UserID : 0,
-    UserName : "",
-    Role : ""
-}
-
-const body = document.body;
-const header = document.querySelector("header");
-const footer = document.querySelector("footer");
-//const form = document.querySelectorAll("form");
-const mode_switch = document.getElementById("mode_switch");
-
-let showingLogin = false;
-mode_switch.dark = true;
+let login_box = false;
 let register_process = false;
 let update_process = 0;
 
@@ -37,94 +24,20 @@ const log_user = document.getElementById("log_user");
 const log_pass = document.getElementById("log_pass")
 const log_warningbox = document.getElementById("log_warningbox");
 
-const form_switch = document.querySelectorAll(".form_switch_button");
+const form_switch = document.getElementById("form_switch_button");
 
-if (document.body.contains(document.getElementById("sign_up"))) 
-{
-    log_in.remove();
-    form_switch.forEach(i => {
-        i.addEventListener("click", switch_log_in);
-    });
-}
-
-mode_switch.addEventListener("click", () => {
-    mode_change();
-});
+form_switch.addEventListener("click", switch_log_in);
 
 function switch_log_in() {
-    if (showingLogin === false) {
-        sign_up.remove();
-        body.appendChild(log_in);
-        showingLogin = true;
+    if (login_box === false) {
+        sign_up.classList.add("hidden");
+        log_in.classList.remove("hidden");
+        login_box = true;
     } else {
-        log_in.remove();
-        body.appendChild(sign_up);
-        showingLogin = false;
+        sign_up.classList.remove("hidden");
+        log_in.classList.add("hidden");
+        login_box = false;
     }
-}
-
-function mode_change()
-{
-    if (mode_switch.dark == true){
-        document.querySelectorAll(".dark_nav").forEach((element) => {
-            element.classList.remove("dark_nav");
-            element.classList.add("light_nav");
-        });
-
-        document.querySelectorAll(".darkmode_animation").forEach((element) => {
-            element.classList.remove("darkmode_animation");
-            element.classList.add("lightmode_animation");
-        });
-
-        document.querySelectorAll(".dark").forEach((element) => {
-            element.classList.remove("dark");
-            element.classList.add("light");
-        });
-
-        mode_switch.dark = false;
-    } else{
-        document.querySelectorAll(".light_nav").forEach((element) => {
-            element.classList.remove("light_nav");
-            element.classList.add("dark_nav");
-        });
-
-        document.querySelectorAll(".lightmode_animation").forEach((element) => {
-            element.classList.remove("lightmode_animation");
-            element.classList.add("darkmode_animation");
-        });
-
-        document.querySelectorAll(".light").forEach((element) => {
-            element.classList.remove("light");
-            element.classList.add("dark");
-        });
-
-        mode_switch.dark = true;
-    }
-
-    /*
-    if(header.classList.contains("dark_nav"))
-    {
-        header.classList.remove("dark_nav");
-        footer.classList.remove("dark_nav");
-        body.classList.remove("darkmode_animation");
-        form.forEach(f => f.classList.remove("dark"))
-        header.classList.add("light_nav");
-        footer.classList.add("light_nav");
-        body.classList.add("lightmode_animation");
-        form.forEach(f => f.classList.add("light"))
-    }
-    else {
-        header.classList.remove("light_nav");
-        footer.classList.remove("light_nav");
-        body.classList.remove("lightmode_animation");
-        form.forEach(f => f.classList.remove("light"));
-    
-        header.classList.add("dark_nav");
-        footer.classList.add("dark_nav");
-        body.classList.add("darkmode_animation");
-        form.forEach(f => f.classList.add("dark"));
-    }
-    */
 }
 
 async function UpdateLegalName(){
@@ -219,7 +132,7 @@ async function UpdateContacts(){
             if (update_process >= 2){
                 setTimeout(() =>{
                     window.location.href = "/";
-                }, 5000);
+                }, 1000);
             }
         }
 
@@ -232,6 +145,12 @@ async function UpdateContacts(){
 }
 
 async function Register(){
+    if (sign_user.value == "" || sign_repass.value == "") {
+        sign_warningbox.innerText = "Please fill everything out!";
+        sign_warningbox.classList.remove("hidden");
+        return;
+    }
+
     if (sign_pass.value != sign_repass.value) {
         sign_warningbox.innerText = "The passwords do not match!";
         sign_warningbox.classList.remove("hidden");
@@ -256,7 +175,7 @@ async function Register(){
 
         if (!response.ok) {
             sign_button.disabled = false;
-            log_button.innerText = "Sign up";
+            sign_button.innerText = "Sign up";
             sign_warningbox.classList.remove("hidden");
             sign_warningbox.innerText = `Please notify an admin! There was a problem with your request. Error: ${response.status}`;
 
@@ -272,18 +191,25 @@ async function Register(){
 
             setTimeout(() => {
                 switch_log_in();
-            }, 5000);
+            }, 1000);
         }
 
     }catch (e){
         console.log("SIGN UP");
         console.log(e);
+        sign_button.innerText = "Sign up";
         sign_warningbox.classList.remove("hidden");
         sign_warningbox.innerText = `Please notify an admin! Error: ${e}`;
     }
 }
 
 async function Login(){
+    if (log_user.value == "" || log_pass.value == "") {
+        log_warningbox.innerText = "Please fill everything out!";
+        log_warningbox.classList.remove("hidden");
+        return;
+    }
+    
     if (!log_warningbox.classList.contains("hidden")){
         log_warningbox.classList.add("hidden");
     }
@@ -294,7 +220,7 @@ async function Login(){
         const response = await fetch(`https://localhost:7142/api/User/login?username=${log_user.value}&password=${log_pass.value}`, { 
             method: "POST", 
             headers: { "Content-Type": "application/json" },
-            credentials: "include" 
+            credentials: "include"
         });
 
         if (response.status === 401) {
@@ -320,9 +246,10 @@ async function Login(){
                 } else{
                     window.location.href = "/";
                 }
-            }, 5000);
+            }, 1000);
         } else{
             log_button.disabled = false;
+            log_button.innerText = "Log in";
             log_warningbox.innerText = `Please notify an admin! There was a problem. Error: ${response.status}`;
         }
 
@@ -336,6 +263,7 @@ async function Login(){
     }catch (e){
         console.log("LOGIN");
         console.log(e);
+        log_button.innerText = "Log in";
         log_warningbox.classList.remove("hidden");
         log_warningbox.innerText = `Please notify an admin! Error: ${e}`;
     }

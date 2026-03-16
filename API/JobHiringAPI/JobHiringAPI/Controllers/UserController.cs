@@ -107,7 +107,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("logout")]
         public async Task<ActionResult> Logout()
         {
