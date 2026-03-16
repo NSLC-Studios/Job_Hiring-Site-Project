@@ -31,7 +31,7 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-
+       
         [Authorize(Roles = "Admin")]
         [HttpGet("users")]
         public async Task<ActionResult<IEnumerable<BaseUserDto>>> GetUsers()

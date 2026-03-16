@@ -18,7 +18,7 @@ namespace AvaloniaAdminInterface.ViewModels;
 public class MainViewModel : ViewModelBase
 {
         private readonly TheModel _model;
-        //private readonly DialogServiceInterface _dialog;
+        private readonly DialogServiceInterface _dialog;
         private readonly INavigationService _nav;
 
         public ObservableCollection<User> Users { get; } = new();
@@ -27,16 +27,17 @@ public class MainViewModel : ViewModelBase
         public ReactiveCommand<User, Unit> DeleteUserCommand { get; }
         public ReactiveCommand<User, Unit> ExpandUserCommand { get; }
 
-        public MainViewModel(TheModel model, INavigationService nav)
+        public MainViewModel(TheModel model, DialogServiceInterface dialog, INavigationService nav)
         {
             _model = model;
+            _dialog = dialog;
             _nav = nav;
 
             LoadUsersCommand = ReactiveCommand.CreateFromTask(LoadUsersAsync);
             DeleteUserCommand = ReactiveCommand.CreateFromTask<User>(DeleteUserAsync);
 
             ExpandUserCommand = ReactiveCommand.Create<User>(u =>
-                _nav.OpenWindow(new LookUpUserDetailsViewModel(_model, u.UserId)));
+                _nav.OpenWindow(new LookUpUserDetailsViewModel(_model, _dialog, u.UserId)));
         }
     
 
@@ -63,19 +64,19 @@ public class MainViewModel : ViewModelBase
 
     async Task DeleteUserAsync(User user)
     {
-       // if (!await _dialog.Confirm("Delete user", $"Delete {user.UserName}?"))
-           // return;
+        if (!await _dialog.Confirm("Delete user", $"Delete {user.UserName}?"))
+            return;
 
         try
         {
             await _model.DeleteUser(user.UserId);
             Users.Remove(user);
-          //  await _dialog.ShowMessage("Success", "User deleted");
+            await _dialog.ShowMessage("Success", "User deleted");
         }
         catch
         {
-            //await _dialog.ShowMessage("Error", "Failed to delete user");
-        } 
+            await _dialog.ShowMessage("Error", "Failed to delete user");
+        }
     }
 
     static User.TheRoles ConvertRole(string role) => role switch

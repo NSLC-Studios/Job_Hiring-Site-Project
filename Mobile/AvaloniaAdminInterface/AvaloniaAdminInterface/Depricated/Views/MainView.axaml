@@ -1,0 +1,51 @@
+
+
+ <UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaloniaAdminInterface.ViewModels"
+             xmlns:Views="clr-namespace:AvaloniaAdminInterface.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaAdminInterface.Views.MainView"
+             x:DataType="vm:MainViewModel">
+
+<Grid>
+	<Grid.RowDefinitions>
+		<RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="3*"/>
+   
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+	    <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+	<TextBox Text="{Binding SearchByUserId}" Watermark="User ID" Grid.Column="0" Grid.Row="0" Margin="-300,20,20,20" Width="20" VerticalAlignment="Center"  FontSize="40" />
+	
+    <Button Command="{Binding LookUpUserCommand}" Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Center" VerticalAlignment="Center" Content="Look Up" FontSize="40" IsEnabled="True" />
+    <Button Command="{Binding DeleteUser}" Grid.Column="0" Grid.Row="0" Margin="500,15,40,10" HorizontalAlignment="Center"  VerticalAlignment="Center" Content="Delete User" FontSize="40" IsEnabled="True" />
+
+    <StackPanel Grid.Row="1">
+    <ItemsControl ItemsSource="{Binding SelectedUserList}">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Views:UserControl1/>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+    </StackPanel>
+
+
+    <ScrollViewer Grid.Column="0" Grid.Row="2">
+        <StackPanel>
+            <ItemsControl ItemsSource="{Binding Users}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Views:UserControl1/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+  </Grid>
+</UserControl>

@@ -2,6 +2,7 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using AvaloniaAdminInterface.Model;
+using AvaloniaAdminInterface.Model.Services;
 using AvaloniaAdminInterface.ViewModels;
 using AvaloniaAdminInterface.Views;
 
@@ -17,10 +18,15 @@ public partial class App : Application
     static ApiSession session;
     public override void OnFrameworkInitializationCompleted()
     {
-        session = new ApiSession("https://localhost:????/");
+        session = new ApiSession("https://localhost:7142/");
         AuthApi auth = new AuthApi(session);
         TheModel model = new TheModel(session);
- //ViewModel a modelt kapja meg meg
+        MainWindow mainWindow = new MainWindow();
+        //ViewModel a modelt kapja meg meg
+        var nav = new NavigationService(mainWindow);
+
+ 
+        MainViewModel MainViewModel = new MainViewModel (model);
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {/*
