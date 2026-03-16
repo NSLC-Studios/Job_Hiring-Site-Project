@@ -58,19 +58,23 @@ http.createServer((req, res) => {
                 case "vectors" :
                     target = `Images/Vectors/${query[3].replace(".svg", "")}`
                     type = ".svg";
-                    break
+                    break;
+                case "icons" :
+                    target = `Images/Icons/${query[3].replace(".ico", "")}`
+                    type = ".ico";
+                    break;
                 default :
                     switch(query[2].split(".")[1]){
                         case "jpg" :
                             target = `Images/${query[2].replace(".jpg", "")}`
                             type = ".jpg";
-                            break
+                            break;
                         case "png" :
                             target = `Images/${query[2].replace(".png", "")}`
                             type = ".png";
-                            break
+                            break;
                     }
-                    break
+                    break;
             }
             break;
         case "favicon.ico" :
