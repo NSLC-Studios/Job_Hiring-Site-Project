@@ -35,6 +35,8 @@
     color: rgb(180,180, 180);
 }
 
+
+
 .light {
     color: rgb(45, 45, 45);
     background:  rgb(200, 40, 75);
@@ -54,12 +56,16 @@
     padding: 20px;
 }
 
-.row{
+.row {
     margin: auto;
 }
 
-.universal_header{
+.universal_header {
     font-size: 100%;
+}
+
+nav {
+    width: 100%;
 }
 
 .header_nav {
