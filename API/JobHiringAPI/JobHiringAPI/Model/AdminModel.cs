@@ -61,6 +61,19 @@ namespace JobHiringAPI.Model
                     Name = x.CompanyName 
                 });
         }
+        
+        public async Task<IEnumerable<BaseCompanyDto>> GetCompaniesExtended(int ownerId)
+        {
+            return _company.GetOwnedCompanies(ownerId).Result
+                .Select(x => new BaseCompanyDto
+                {
+                    ID = x.ID,
+                    OwnerID = x.OwnerID,
+                    CompanyName = x.CompanyName,
+                    Description = x.Description
+                    
+                });
+        }
 
         public async Task Demote(int id)
         {
@@ -152,12 +165,12 @@ namespace JobHiringAPI.Model
         {
             return await _request.GetEnquires(id);
         }
-        
+
         public async Task<IEnumerable<BaseRequestDto>> GetUserRequests(int id)
         {
             return await _request.GetRequests(id);
         }
-        
+
         public async Task<IEnumerable<BaseReceivedCompanyRequestDto>> GetCompanyRequests(int id)
         {
             return await _request.GetCompanyEnquires(id);

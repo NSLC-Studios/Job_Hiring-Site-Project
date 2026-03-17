@@ -59,6 +59,20 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
+        
+        [Authorize(Roles = "Admin")]
+        [HttpGet("companies/extended")]
+        public async Task<ActionResult<IEnumerable<BaseCompanyDto>>> GetCompaniesExtended([FromQuery] int ownerId)
+        {
+            try
+            {
+                return Ok(await _model.GetCompaniesExtended(ownerId));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
 
         [Authorize(Roles = "Admin")]
         [HttpGet("jobs")]
