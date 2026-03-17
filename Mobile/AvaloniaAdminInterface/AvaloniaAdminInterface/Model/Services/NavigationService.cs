@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Avalonia.Controls;
+using global::AvaloniaAdminInterface.ViewModels;
 
 namespace AvaloniaAdminInterface.Model.Services
 {
-    using Avalonia.Controls;
-    using AvaloniaAdminInterface.ViewModels;
-
     public class NavigationService : INavigationService
     {
         private Window _mainWindow;

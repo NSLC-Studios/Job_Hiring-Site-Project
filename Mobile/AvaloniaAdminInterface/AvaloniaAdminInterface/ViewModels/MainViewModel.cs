@@ -10,8 +10,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using static AvaloniaAdminInterface.ViewModels.User;
 
 namespace AvaloniaAdminInterface.ViewModels;
 
@@ -66,36 +64,7 @@ public class MainViewModel : ViewModelBase
             ));
         }
     }
-    async Task GetUserReqests(int id)
-    {
-        var requestList = await _model.GetRequestsByUserId(id);
-        foreach (var dto in requestList)
-        {
-            /*
-                BaseReceivedRequestDto {
-        public int ID { get; set; }
-        public int JobID { get; set; }
-        public string Applicant { get; set; }
-        public string Status { get; set; }
-        public string Comment { get; set; }
-    }
-}
-             */
-            Users.Add(new BaseRequestDto(
-               dto.ID,
-               dto.JobID,
-               dto.Status,
-               dto.Description,
-               dto.Response//,
-               // u => DeleteUserCommand.Execute(u),
-              //  u => ChangeStatusUserCommand.Execute(u)
-            ));
-        }
-    }
-    async Task GetUserownedCompanies(int id)
-    {
-    }
-
+    
     async Task DeleteUserAsync(User user)
     {
        // if (!await _dialog.Confirm("Delete user", $"Delete {user.UserName}?"))

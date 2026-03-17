@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 
-namespace AvaloniaAdminInterface.ViewModels
+namespace AvaloniaAdminInterface.Model
 {
     public class User
     {
@@ -41,13 +41,13 @@ namespace AvaloniaAdminInterface.ViewModels
         {
             UserId = id;
             UserName = username;
-           // FirstName = firstname;
-           // LastName = lastname;
-          //  Email = email;
-           // PhoneNumber = phone;
-           // Password = pass;
             Role = role;
-           // CompanyName = companyName;
+            // FirstName = firstname;
+            // LastName = lastname;
+            //  Email = email;
+            // PhoneNumber = phone;
+            // Password = pass;
+            // CompanyName = companyName;
             //CompanyId =companyId;
 
             DeleteThisUser = new RelayCommand(() => deleteAction(this));
