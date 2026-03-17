@@ -48,7 +48,7 @@
 }
 
 .light_background {
-    background: rgb(219, 140, 157);
+    background: rgb(246, 208, 217);
 }
 
 .light {
@@ -89,15 +89,10 @@ nav {
     padding-right: 15px;
 }
 
-.header_nav {
-    top: 0;
-    left: 0;
-    width: 100%;
+body {
     display: flex;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-    height: auto;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .nav-content {
@@ -114,6 +109,37 @@ nav {
     height: auto;
     width: auto;        
     cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: whitesmoke;
+}
+
+.nav-link {
+    color: rgb(165, 160, 160);
+}
+
+.nav-link:hover {
+    color: whitesmoke;
+}
+
+.navbar-brand:hover {
+    color: whitesmoke;
+}
+
+footer {
+    background-color: rgba(36, 36, 36, 0.774);
+    margin-top: auto;
+    width: 100%;
+}
+
+main {
+    flex: 1;
+    margin-bottom: 1em;
 }
 
 h2{

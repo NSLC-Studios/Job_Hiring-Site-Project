@@ -4,27 +4,31 @@ let UserContainer = {
     Role : ""
 }
 
-UserSession();
-
 const body = document.body;
 const header = document.querySelector("header");
 const footer = document.querySelector("footer");
-const mode_switch = document.getElementById("mode_switch");
 
+const mode_switch = document.getElementById("mode_switch");
 const register_tab = document.getElementById("register-tab");
 const profile_tab = document.getElementById("profile-tab");
 const profile = document.getElementById("profile");
+const weather = document.getElementById("weather");
+const weather_btn = document.getElementById("weather-btn");
+const log_profile = document.getElementById("log-profile");
 const admin_check = document.getElementById("admin-check");
 const logout = document.getElementById("logout");
 
 mode_switch.dark = true;
 
-mode_switch.addEventListener("click", () => {
-    mode_change();
-});
+mode_switch.addEventListener("click", mode_change);
 
-logout.addEventListener("click", () => {
-    Logout();
+weather_btn.addEventListener("click", Weather);
+
+logout.addEventListener("click", Logout);
+
+window.addEventListener("load", () =>{
+    UserSession();
+    Weather();
 });
 
 function mode_change()
@@ -112,6 +116,24 @@ function mode_change()
     */
 }
 
+async function Weather(){
+    try {
+        weather_btn.disabled = true;
+        const response = await fetch("https://localhost:7142/WeatherForecast");
+        
+        if (response.ok) {
+            const data = await response.json();
+
+            weather.innerText = `${data[0].summary} Weather.`;
+        }
+
+        weather_btn.disabled = false;
+    } catch (e) {
+        console.log("WEATHER");
+        console.log(e);
+    }
+}
+
 async function Logout() {
     try {
         const response = await fetch("https://localhost:7142/api/User/logout", { 
@@ -124,6 +146,7 @@ async function Logout() {
             location.reload();
         }
     } catch (e) {
+        console.log("LOGOUT");
         console.log(e);
     }
 }
@@ -144,6 +167,7 @@ async function UserSession(){
             register_tab.classList.remove("d-flex");
             profile.innerText = `Welcome ${UserContainer.UserName}!`;
             profile.href = `/Profile/${UserContainer.UserID}`;
+            log_profile.href = `/Profile/${UserContainer.UserID}`;
             profile_tab.classList.remove("hidden");
 
             if (UserContainer.Role == "Admin"){
@@ -151,6 +175,7 @@ async function UserSession(){
             }
         }
     } catch (e) {
+        console.log("USER SESSION");
         console.log(e);
     }
 }

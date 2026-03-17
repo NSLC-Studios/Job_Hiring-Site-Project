@@ -5,35 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register Today!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/Styles/Base_Style.css">
     <link rel="stylesheet" href="/Styles/Login_Style.css">
 </head>
 <body class="darkmode_animation">
     <header>
         <nav class="navbar container">
-            <div class="dark_nav container-fluid">
-                <a class="navbar-brand dark_nav" href="/">
-                    <img src="/Images/Icons/logo.ico" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+            <div class="nav dark_nav container-fluid">
+                <a class="fw-bold fs-3 navbar-brand dark_nav" href="/">
+                    <img src="/Images/Icons/logo.ico" alt="Logo" width="40px" height="40px" class="d-inline-block align-middle">
                     Job Hiring Site!
                 </a>
-                <div class="row">
-                    <div class="col-sm-6 col-md-4 col-lg-2 ">
-                        About Us
+                <div class="nav-content row">
+                    <div class="nav-link col-sm-6 col-md-4 col-lg-2 ">
+                        <a class="dark" href="/About">About Us!</a>
+                    </div>
+                    <div class="nav-link col-sm-6 col-md-4 col-lg-2">
+                        <a class="dark" href="/Companies">Our Companies!</a>
                     </div>
                     <div class="col-sm-6 col-md-4 col-lg-2">
-                        idk yet
+                        <button class="nav-link" id="surprise_me">
+                            <div class="dark">
+                                Surprise Me!
+                            </div>
+                        </button>
+                    </div>
+                    <div class="nav-link col-sm-6 col-md-4 col-lg-2">
+                        <a class="dark" href="/Contact">Get Support!</a>
                     </div>
                     <div class="col-sm-6 col-md-4 col-lg-2">
-                        About Us
-                    </div>
-                    <div id="form_switch_button" class="col-sm-6 col-md-4 col-lg-2" >
-                        Log in
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-2">
-                        Free Beer ?
+                        <!--form_switch_button-->
+                        <button class="nav-link" id="weather-btn">
+                            <div id="weather" class="dark">Calm Weather.</div>
+                        </button>
                     </div>
                     <div class="col-sm-6 col-md-4 col-lg-2" id="mode_switch">
                         <img src="/Images/Vectors/light_dark_mode3.svg" class="img-fluid nav-icon" alt="Light / Dark Mode"></img>
+                    </div>
+                </div>
+                <div class="ms-auto d-flex align-items-center">
+                    <div id="register-tab" class="d-flex gap-2">
+                        <button id="form-switch" class="btn btn-outline-light">
+                            Log In!
+                        </button>
+                    </div>
+                    <div id="profile-tab" class="hidden">
+                        <a id="profile" class="dark fs-2 text-decoration-none">
+                            You shouldn't see this..
+                        </a>
+                        
+                        <button type="button" class="btn btn-outline-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"></button>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a id="log-profile" class="dropdown-item">My Profile</a></li>
+                            <li><a class="dropdown-item" href="/CV">My CVs</a></li>
+                            <li><a class="dropdown-item" href="/Request">My Applications</a></li>
+                            <li><a class="dropdown-item" href="/Company">Companies</a></li>
+                            <li><a id="admin-check" class="hidden dropdown-item" href="/Admin">Admin Page</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item btn text-danger" id="logout">Log Out</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -136,8 +168,44 @@
         </form>
     </main>
 
-    <footer class="universal_footer">
+    <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 border-top">
+        <div class="col mb-3">
+            <a href="/" class="nav-link fw-bold fs-2 d-flex align-items-center mb-3 text-decoration-none">
+                <img src="/Images/Icons/logo.ico" alt="Logo" width="40" height="40" class="d-inline-block align-middle me-2">
+                Job Hiring Site!
+            </a>
+            <p class="text-light">© 2026</p>
+        </div>
+        <div class="col mb-3">
 
+        </div>
+        <div class="col mb-3">
+            <h5 class="text-light fw-bold">Quick Links!</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="/" class="nav-link p-0">Home</a></li>
+                <li class="nav-item mb-2"><a href="/About" class="nav-link p-0">About Us</a></li>
+                <li class="nav-item mb-2"><a href="/Companies" class="nav-link p-0">Our Companies</a></li>
+                <li class="nav-item mb-2"><a href="/FAQ" class="nav-link p-0">FAQs</a></li>
+                <li class="nav-item mb-2"><a href="#weather" class="nav-link p-0">Weather</a></li>
+            </ul>
+        </div>
+        <div class="col mb-3">
+            <h5 class="text-light fw-bold">Account!</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="/Login" class="nav-link p-0">Register</a></li>
+                <li class="nav-item mb-2"><a href="/Login/login" class="nav-link p-0">Log In</a></li>
+                <li class="nav-item mb-2"><a href="/TOS" class="nav-link p-0">TOS</a></li>
+            </ul>
+        </div>
+        <div class="col mb-3">
+            <h5 class="text-light fw-bold">Contacts!</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a target="_blank" class="nav-link p-0" href="/Contact">Get Support!</a></li>
+                <li class="nav-item nav-link mb-2 p-0">Phone: [+1] 11 234 5678</li>
+                <li class="nav-item nav-link mb-2 p-0">Email: support@job-hiring-site.fox</li>
+                <li class="nav-item mb-2"><a target="_blank" class="nav-link p-0" href="https://www.cvkeskus.ee/">Inspired by...</a></li>
+            </ul> 
+        </div>
     </footer>
     <script src="/Scripts/Base_Script.js"></script>
     <script src="/Scripts/Login_Script.js"></script>

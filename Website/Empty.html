@@ -12,31 +12,27 @@
     <header>
         <nav class="navbar container">
             <div class="nav dark_nav container-fluid">
-                <a class="fw-bold fs-3 navbar-brand dark_nav" href="/">
+                <a class="fs-3 navbar-brand dark_nav" href="/">
                     <img src="/Images/Icons/logo.ico" alt="Logo" width="40px" height="40px" class="d-inline-block align-middle">
                     Job Hiring Site!
                 </a>
                 <div class="nav-content row">
-                    <div class="nav-link col-sm-6 col-md-4 col-lg-2 ">
-                        <a class="dark" href="/About">About Us!</a>
-                    </div>
-                    <div class="nav-link col-sm-6 col-md-4 col-lg-2">
-                        <a class="dark" href="/Companies">Our Companies!</a>
+                    <div class="col-sm-6 col-md-4 col-lg-2 ">
+                        <a class="dark nav-link" href="/About">About Us!</a>
                     </div>
                     <div class="col-sm-6 col-md-4 col-lg-2">
-                        <button class="nav-link" id="surprise_me">
-                            <div class="dark">
-                                Surprise Me!
-                            </div>
-                        </button>
+                        <a class="dark nav-link" href="/Companies">Our Companies!</a>
                     </div>
-                    <div class="nav-link col-sm-6 col-md-4 col-lg-2">
-                        <a class="dark" href="/Contact">Get Support!</a>
+                    <div id="form_switch_button" class="col-sm-6 col-md-4 col-lg-2" >
+                        <a class="dark nav-link" href="/">Place</a>
                     </div>
                     <div class="col-sm-6 col-md-4 col-lg-2">
-                        <button class="nav-link" id="weather-btn">
-                            <div id="weather" class="dark">Calm Weather.</div>
+                        <button class="dark nav-link" id="surprise_me">
+                            Surprise Me!
                         </button>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-2">
+                        <a class="dark nav-link" href="/Contact">Get Support!</a>
                     </div>
                     <div class="col-sm-6 col-md-4 col-lg-2" id="mode_switch">
                         <img src="/Images/Vectors/light_dark_mode3.svg" class="img-fluid nav-icon" alt="Light / Dark Mode"></img>
@@ -46,7 +42,7 @@
                     <div id="register-tab" class="d-flex gap-2">
                         <a href="/Login" class="btn btn-primary">Sign Up!</a>
                         <a href="/Login/login" class="btn btn-outline-light">Log In!</a>
-                    </div>
+                    </div>                    
                     <div id="profile-tab" class="hidden">
                         <a id="profile" class="dark fs-2 text-decoration-none">
                             You shouldn't see this..
@@ -55,13 +51,13 @@
                         <button type="button" class="btn btn-outline-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"></button>
 
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a id="log-profile" class="dropdown-item">My Profile</a></li>
+                            <li><a class="dropdown-item" href="/settings">Settings</a></li>
                             <li><a class="dropdown-item" href="/CV">My CVs</a></li>
                             <li><a class="dropdown-item" href="/Request">My Applications</a></li>
                             <li><a class="dropdown-item" href="/Company">Companies</a></li>
                             <li><a id="admin-check" class="hidden dropdown-item" href="/Admin">Admin Page</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item btn text-danger" id="logout">Log Out</a></li>
+                            <li><a class="dropdown-item text-danger" id="logout">Log Out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -75,8 +71,8 @@
 
     <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 border-top">
         <div class="col mb-3">
-            <a href="/" class="nav-link fw-bold fs-2 d-flex align-items-center mb-3 text-decoration-none">
-                <img src="/Images/Icons/logo.ico" alt="Logo" width="40" height="40" class="d-inline-block align-middle me-2">
+            <a href="/" class="nav-link fs-2 d-flex align-items-center mb-3 text-decoration-none">
+                <img src="/Images/Icons/logo.ico" alt="Logo" width="40" height="40" class="d-inline-block align-middle">
                 Job Hiring Site!
             </a>
             <p class="text-light">© 2026</p>
@@ -90,16 +86,17 @@
                 <li class="nav-item mb-2"><a href="/" class="nav-link p-0">Home</a></li>
                 <li class="nav-item mb-2"><a href="/About" class="nav-link p-0">About Us</a></li>
                 <li class="nav-item mb-2"><a href="/Companies" class="nav-link p-0">Our Companies</a></li>
-                <li class="nav-item mb-2"><a href="/FAQ" class="nav-link p-0">FAQs</a></li>
-                <li class="nav-item mb-2"><a href="#weather" class="nav-link p-0">Weather</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0">FAQs</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0">About</a></li>
             </ul>
         </div>
         <div class="col mb-3">
-            <h5 class="text-light fw-bold">Account!</h5>
+            <h5 class="text-light fw-bold">Account</h5>
             <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="/Login" class="nav-link p-0">Register</a></li>
-                <li class="nav-item mb-2"><a href="/Login/login" class="nav-link p-0">Log In</a></li>
-                <li class="nav-item mb-2"><a href="/TOS" class="nav-link p-0">TOS</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Register</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Log In</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0">TOS</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0">FAQs</a></li>
             </ul>
         </div>
         <div class="col mb-3">

@@ -1,4 +1,3 @@
-let login_box = false;
 let register_process = false;
 let update_process = 0;
 
@@ -24,19 +23,22 @@ const log_user = document.getElementById("log_user");
 const log_pass = document.getElementById("log_pass")
 const log_warningbox = document.getElementById("log_warningbox");
 
-const form_switch = document.getElementById("form_switch_button");
+const form_switch = document.getElementById("form-switch");
+form_switch.login = false
 
-form_switch.addEventListener("click", switch_log_in);
+form_switch.addEventListener("click", Switch_Forms);
 
-function switch_log_in() {
-    if (login_box === false) {
+function Switch_Forms() {
+    if (form_switch.login == false) {
         sign_up.classList.add("hidden");
         log_in.classList.remove("hidden");
-        login_box = true;
+        form_switch.innerText = "Sign Up!";
+        form_switch.login = true;
     } else {
         sign_up.classList.remove("hidden");
         log_in.classList.add("hidden");
-        login_box = false;
+        form_switch.innerText = "Log In!";
+        form_switch.login = false;
     }
 }
 
@@ -276,6 +278,8 @@ window.addEventListener("load", () => {
     const path = window.location.pathname.toLowerCase();
 
     if (path.endsWith("in/login")) {
+        form_switch.innerText = "Sign Up!";
+        form_switch.login = true;
         sign_up.classList.add("hidden");
         log_in.classList.remove("hidden");
     }
