@@ -1,90 +1,113 @@
-﻿using System;
+﻿using Avalonia.Markup.Xaml.Templates;
+using AvaloniaAdminInterface.Model;
+using CommunityToolkit.Mvvm.Input;
+using JobHiringAPI.Dtos;
+using ReactiveUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
-using Avalonia.Markup.Xaml.Templates;
-using AvaloniaAdminInterface.Model;
-using ReactiveUI;
-using System.Net.Http;
-using JobHiringAPI.Dtos;
+using System.Windows.Input;
 
 
 namespace AvaloniaAdminInterface.ViewModels
 {
-    
+
     public class LogInViewModel : ViewModelBase
     {
         private readonly TheModel _model;
 
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string ErrorMessage { get; private set; }
-        public bool IsBusy { get; private set; }
+        public string Username
+        {
+            get => _username;
+            set { _username = value; OnPropertyChanged(); }
+        }
+        private string _username;
 
-        public ReactiveCommand<Unit, Unit> LoginCommand { get; }
+        public string Password
+        {
+            get => _password;
+            set { _password = value; OnPropertyChanged(); }
+        }
+        private string _password;
+
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            private set { _errorMessage = value; OnPropertyChanged(); }
+        }
+        private string _errorMessage;
+
+        public bool IsBusy
+        {
+            get => _isBusy;
+            private set { _isBusy = value; OnPropertyChanged(); }
+        }
+        private bool _isBusy;
+
+        public ICommand LoginCommand { get; }
 
         public event Action<UserLoginDto> LoginSucceeded;
 
-        public LogInViewModel(AuthApi auth, TheModel model)
+        public LogInViewModel(TheModel model)
         {
             _model = model;
-
-            LoginCommand = ReactiveCommand.CreateFromTask(ExecuteLoginAsync);
+            LoginCommand = new RelayCommand(async () => await ExecuteLoginAsync());
         }
 
         private async Task ExecuteLoginAsync()
         {
             IsBusy = true;
-            this.RaisePropertyChanged(nameof(IsBusy));
-            ErrorMessage = string.Empty;
-            this.RaisePropertyChanged(nameof(ErrorMessage));
+            ErrorMessage = "";
 
             try
             {
+                // DEVELOPMENT BYPASS
+                if (Username == "admin" && Password == "0000")
+                {
+                    LoginSucceeded?.Invoke(new UserLoginDto
+                    {
+                        UserID = 99,
+                        UserName = "DeveloperAdmin",
+                        Role = "Admin"
+                    });
+                    return;
+                }
+
+                // REAL API LOGIN
                 var user = await _model.Log_in(Username, Password);
 
-                // 1) API returned non-success or null
                 if (user == null)
                 {
-                    SetError("Login failed. Server returned no data.");
+                    ErrorMessage = "Login failed.";
                     return;
                 }
 
-                // 2) Role check
                 if (!string.Equals(user.Role, "Admin", StringComparison.OrdinalIgnoreCase))
                 {
-                    SetError("Access denied. Admin role required.");
+                    ErrorMessage = "Access denied.";
                     return;
                 }
 
-                // 3) Success → event to open MainViewModel
                 LoginSucceeded?.Invoke(user);
             }
-            catch (HttpRequestException)
+            catch
             {
-                SetError("Could not reach server. Check your connection or try again later.");
-            }
-            catch (Exception ex)
-            {
-                SetError($"Unexpected error: {ex.Message}");
+                ErrorMessage = "Server error.";
             }
             finally
             {
                 IsBusy = false;
-                this.RaisePropertyChanged(nameof(IsBusy));
             }
-        }
-
-        private void SetError(string message)
-        {
-            ErrorMessage = message;
-            this.RaisePropertyChanged(nameof(ErrorMessage));
         }
     }
 }
+
     /*
+     //before api connection
     public class LogInViewModel : ViewModelBase
     {
         readonly TheModel _model;

@@ -77,42 +77,43 @@ namespace AvaloniaAdminInterface.Model
 
 
         // GET api/admin/companies?id=123
-        public async Task<List<AdminCompanyDto>> GetCompanies(int id)
+        //_company.GetOwnedCompanies(id)
+        public async Task<List<AdminCompanyDto>> GetCompanies(int ownerId)
         {
             EnsureAdmin();
             return await _session._client.GetFromJsonAsync<List<AdminCompanyDto>>(
-                $"api/admin/companies?id={id}");
+                $"api/admin/companies?id={ownerId}");
         }
 
         // GET api/admin/jobs?id=123
-        public async Task<List<AdminCompanyDto>> GetJobs(int id)
+        public async Task<List<BaseJobDto>> GetJobs(int id)
         {
             EnsureAdmin();
-            return await _session._client.GetFromJsonAsync<List<AdminCompanyDto>>(
+            return await _session._client.GetFromJsonAsync<List<BaseJobDto>>(
                 $"api/admin/jobs?id={id}");
         }
 
         // GET api/admin/requests?id=123
-        public async Task<List<AdminCompanyDto>> GetRequestsByJobId(int id)
+        public async Task<List<BaseRequestDto>> GetRequestsByJobId(int id)
         {
             EnsureAdmin();
-            return await _session._client.GetFromJsonAsync<List<AdminCompanyDto>>(
+            return await _session._client.GetFromJsonAsync<List<BaseRequestDto>>(
                 $"api/admin/requests?id={id}");
         }
 
         // GET api/admin/requests/user?id=123
-        public async Task<List<AdminCompanyDto>> GetRequestsByUserId(int id)
+        public async Task<List<BaseRequestDto>> GetRequestsByUserId(int id)
         {
             EnsureAdmin();
-            return await _session._client.GetFromJsonAsync<List<AdminCompanyDto>>(
+            return await _session._client.GetFromJsonAsync<List<BaseRequestDto>>(
                 $"api/admin/requests/user?id={id}");
         }
 
         // GET api/admin/requests/company?id=123
-        public async Task<List<AdminCompanyDto>> GetRequestsByCompanyId(int id)
+        public async Task<List<BaseRequestDto>> GetRequestsByCompanyId(int id)
         {
             EnsureAdmin();
-            return await _session._client.GetFromJsonAsync<List<AdminCompanyDto>>(
+            return await _session._client.GetFromJsonAsync<List<BaseRequestDto>>(
                 $"api/admin/requests/company?id={id}");
         }
     
@@ -213,4 +214,5 @@ namespace AvaloniaAdminInterface.Model
     //2 am insanity
     //4am torture
     //3am 3rd day in a row of not sleeping enough
+    //2am 4th day still must fix dtos
 }

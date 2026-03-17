@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="using:AvaloniaAdminInterface"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Views="clr-namespace:AvaloniaAdminInterface.Views"
+        mc:Ignorable="d"
+        x:Class="AvaloniaAdminInterface.LookUpUserDetailsWindow">
+
+     <Grid RowDefinitions="Auto,Auto,*,Auto,*">
+         <StackPanel Grid.Row="0" Margin="10" HorizontalAlignment="Center">
+            <TextBlock Text="{Binding UserId}" 
+                       FontSize="28" FontWeight="Bold" 
+                       HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding UserName}" 
+                       FontSize="22" FontWeight="Bold"
+                       HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- COMPANIES LABEL -->
+        <TextBlock Grid.Row="1" Text="User's Companies"
+                   FontSize="20" FontWeight="Bold"
+                   Margin="10"/>
+
+        <!-- COMPANIES LIST -->
+        <ScrollViewer Grid.Row="2" Margin="10">
+            <ItemsControl ItemsSource="{Binding Companies}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:CompanyControl/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- REQUESTS LABEL -->
+        <TextBlock Grid.Row="3" Text="User's Requests"
+                   FontSize="20" FontWeight="Bold"
+                   Margin="10"/>
+
+        <!-- REQUESTS LIST -->
+        <ScrollViewer Grid.Row="4" Margin="10">
+            <ItemsControl ItemsSource="{Binding Requests}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:RequestControl/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </Grid>
+</Window>
+

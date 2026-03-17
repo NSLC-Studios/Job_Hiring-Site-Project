@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace AvaloniaAdminInterface;
 
-public partial class CompanyPage : Window
+public partial class RequestControl : UserControl
 {
-    public CompanyPage()
+    public RequestControl()
     {
         InitializeComponent();
     }

@@ -15,7 +15,6 @@ internal class LookUpUserDetailsViewModel : ViewModelBase
     public int UserId { get; }
 
     public ObservableCollection<BaseCompanyDto> Companies { get; } = new();
-    public ObservableCollection<BaseJobDto> Jobs { get; } = new();
     public ObservableCollection<BaseRequestDto> Requests { get; } = new();
 
     public ReactiveCommand<Unit, Unit> LoadCommand { get; }

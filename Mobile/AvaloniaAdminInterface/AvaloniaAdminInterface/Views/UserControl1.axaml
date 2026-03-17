@@ -4,8 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="50"
              x:Class="AvaloniaAdminInterface.Views.UserControl1">
-             
 
+    <Grid ColumnDefinitions="*,2*,*,*,*">
+
+        <TextBlock Grid.Column="0" Text="{Binding UserId}" 
+                   HorizontalAlignment="Center"/>
+
+        <TextBlock Grid.Column="1" Text="{Binding UserName}" 
+                   HorizontalAlignment="Left"/>
+
+        <TextBlock Grid.Column="2" Text="{Binding Role}" 
+                   HorizontalAlignment="Center"/>
+
+        <Button Grid.Column="3" Content="Expand"
+                Command="{Binding ExpandCommand}"/>
+
+        <Button Grid.Column="4" Content="Delete"
+                Command="{Binding DeleteThisUser}"/>
+
+    </Grid>
+</UserControl>
+<!--
   <Grid>
 	  <Grid.RowDefinitions>
             <RowDefinition/>
@@ -19,12 +38,15 @@
 			<ColumnDefinition  Width="*"/>
 			<ColumnDefinition  Width="*"/>
         </Grid.ColumnDefinitions>
+      
       <Label Grid.Column="0" Grid.Row="0" Content="{Binding UserId}" HorizontalAlignment="Center"/>
       <Label Grid.Column="1" Grid.Row="0" Content="{Binding Name}"/>
       <Label Grid.Column="2" Grid.Row="0" Content="{Binding PhoneNumber}"/>
       <Label Grid.Column="3" Grid.Row="0" Content="{Binding Email}"/>
       <Label Grid.Column="4" Grid.Row="0" Content="{Binding Role}"/>
-      <Button Grid.Column="5" Grid.Row="0" Content="Expanding" Command="{Binding ExpandCommand}" CommandParameter="{Binding UserId} " IsEnabled="True"/>
+      <Button Grid.Column="5" Grid.Row="0" Content="Expanding" Command="{Binding ExpandCommand}" CommandParameter="{Binding ID} " IsEnabled="True"/>
       <Button Grid.Column="6" Grid.Row="0" Content="kill" Command="{Binding DeleteThisUser}" CommandParameter="{Binding UserId}" IsEnabled="True"/>
   </Grid>
 </UserControl>
+-->
+

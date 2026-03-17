@@ -36,13 +36,19 @@ public class MainViewModel : ViewModelBase
             DeleteUserCommand = ReactiveCommand.CreateFromTask<User>(DeleteUserAsync);
 
             ExpandUserCommand = ReactiveCommand.Create<User>(u =>
-                _nav.OpenWindow(new LookUpUserDetailsViewModel(_model, u.UserId)));
-        }
-    
+            {
+                _nav.OpenWindow(new LookUpUserDetailsViewModel(_model, u.UserId));
+            });
+
+
+
+    }
+
 
     public MainViewModel(TheModel model)
     {
         _model = model;
+
     }
 
     async Task LoadUsersAsync()
@@ -59,6 +65,35 @@ public class MainViewModel : ViewModelBase
                 u => ExpandUserCommand.Execute(u) 
             ));
         }
+    }
+    async Task GetUserReqests(int id)
+    {
+        var requestList = await _model.GetRequestsByUserId(id);
+        foreach (var dto in requestList)
+        {
+            /*
+                BaseReceivedRequestDto {
+        public int ID { get; set; }
+        public int JobID { get; set; }
+        public string Applicant { get; set; }
+        public string Status { get; set; }
+        public string Comment { get; set; }
+    }
+}
+             */
+            Users.Add(new BaseRequestDto(
+               dto.ID,
+               dto.JobID,
+               dto.Status,
+               dto.Description,
+               dto.Response//,
+               // u => DeleteUserCommand.Execute(u),
+              //  u => ChangeStatusUserCommand.Execute(u)
+            ));
+        }
+    }
+    async Task GetUserownedCompanies(int id)
+    {
     }
 
     async Task DeleteUserAsync(User user)
@@ -88,7 +123,8 @@ public class MainViewModel : ViewModelBase
     
 }
 
-    /*
+    /* Old one 
+
     //  public string Greeting => "Welcome to Hell,it took 2 hourst to set up!";
     TheModel _model;
     public ObservableCollection<User> Users { get; set; }

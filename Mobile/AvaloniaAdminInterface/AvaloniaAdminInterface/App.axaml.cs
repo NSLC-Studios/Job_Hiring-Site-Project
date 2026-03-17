@@ -19,7 +19,7 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         session = new ApiSession("https://localhost:7142/");
-        AuthApi auth = new AuthApi(session);
+        //AuthApi auth = new AuthApi(session);
         TheModel model = new TheModel(session);
         MainWindow mainWindow = new MainWindow();
         //ViewModel a modelt kapja meg meg
@@ -35,7 +35,9 @@ public partial class App : Application
                 DataContext = new MainViewModel()
             };
             */
-            desktop.MainWindow = new LoginWindow();
+           
+            desktop.MainWindow = new LoginWindow(model);
+           
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {/*
@@ -43,7 +45,7 @@ public partial class App : Application
             {
                 DataContext = new MainViewModel()
             };*/
-            singleViewPlatform.MainView = new LoginWindow();
+            singleViewPlatform.MainView = new LoginWindow(model);
         }
 
         base.OnFrameworkInitializationCompleted();
