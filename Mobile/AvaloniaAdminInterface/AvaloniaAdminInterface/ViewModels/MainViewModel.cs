@@ -25,31 +25,31 @@ public class MainViewModel : ViewModelBase
         public ReactiveCommand<User, Unit> DeleteUserCommand { get; }
         public ReactiveCommand<User, Unit> ExpandUserCommand { get; }
 
-        public MainViewModel(TheModel model, INavigationService nav)
+    public MainViewModel(TheModel model, INavigationService nav)
+    {
+        _model = model;
+        _nav = nav;
+
+        LoadUsersCommand = ReactiveCommand.CreateFromTask(LoadUsersAsync);
+        DeleteUserCommand = ReactiveCommand.CreateFromTask<User>(DeleteUserAsync);
+
+        ExpandUserCommand = ReactiveCommand.Create<User>(u =>
         {
-            _model = model;
-            _nav = nav;
+            _nav.OpenWindow(new LookUpUserDetailsViewModel(_model, u.UserId));
+        });
 
-            LoadUsersCommand = ReactiveCommand.CreateFromTask(LoadUsersAsync);
-            DeleteUserCommand = ReactiveCommand.CreateFromTask<User>(DeleteUserAsync);
-
-            ExpandUserCommand = ReactiveCommand.Create<User>(u =>
-            {
-                _nav.OpenWindow(new LookUpUserDetailsViewModel(_model, u.UserId));
-            });
-
-
+        LoadUsersCommand.Execute().Subscribe();
 
     }
 
 
-    public MainViewModel(TheModel model)
+    /*public MainViewModel(TheModel model)
     {
         _model = model;
 
-    }
+    }*/
 
-    async Task LoadUsersAsync()
+    /*async Task LoadUsersAsync()
     {
         var usersList= await _model.GetUsers();
         Users.Clear();
@@ -63,8 +63,25 @@ public class MainViewModel : ViewModelBase
                 u => ExpandUserCommand.Execute(u) 
             ));
         }
+    }*/
+    async Task LoadUsersAsync()
+    {
+        var usersList = await _model.GetUsers();
+        Users.Clear();
+
+        foreach (var dto in usersList)
+        {
+            Users.Add(new User(
+                dto.ID,
+                dto.UserName,
+                ConvertRole(dto.Role),
+                u => DeleteUserCommand.Execute(u),
+                u => ExpandUserCommand.Execute(u)
+            ));
+        }
     }
-    
+
+
     async Task DeleteUserAsync(User user)
     {
        // if (!await _dialog.Confirm("Delete user", $"Delete {user.UserName}?"))
