@@ -1,18 +1,10 @@
 /*----sign up and log in----- */
-.signup_login_window{
-    width: 50vw;
-    height: auto;
-    border-radius: 15px;
-    padding-bottom: 20px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-}
-
-input{
+input {
     margin-bottom: 25px;
     width: 100%;
 }
 
-.buttons{
+.buttons {
     width: 100%;
     border: 1px solid black;
     box-shadow: 2px 2px 5px black;

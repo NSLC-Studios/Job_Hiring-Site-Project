@@ -83,10 +83,18 @@ http.createServer((req, res) => {
             break;
         default :
             // throw connection to stop interference with other web utilities
-            res.writeHead(530, {"Content-Type": "text/html"});
-            res.end();
+            res.writeHead(404, {"Content-Type": "text/html"}); // 530
+            
+            fs.readFile(`../Website/Empty.html`, (err, payload) =>{
+                if(err){
+                    ReplyError(res, err.message);
+                    return;
+                }
+
+                res.end(payload);
+            })
+
             return;
-            //return;
     }
     try {
         // throw new error;

@@ -65,10 +65,6 @@
     padding: 20px;
 }
 
-.row {
-    margin: auto;
-}
-
 header {
     font-size: 100%;
     margin-left: 2%;
@@ -163,11 +159,27 @@ h2{
     padding-bottom: 5px;
 }
 
+.main-box {
+    width: 50vw;
+    height: auto;
+    border-radius: 15px;
+    padding-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+
+.content-box {
+    width: 90%;
+    height: auto;
+    border-radius: 15px;
+    padding-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+
 .dropdown-menu {
-    display: block;
+    display: inline-block;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-10px);
+    transform: translateY(-10px) scaleY(0.95);
     transform-origin: top right;
     transition:
         opacity .15s ease,
@@ -178,7 +190,7 @@ h2{
 .dropdown-menu.show {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateY(0) scaleY(1);;
     transition-delay: 0s;
 }
 
