@@ -1,5 +1,6 @@
 ﻿using AvaloniaAdminInterface.Model;
 using AvaloniaAdminInterface.Model.Services;
+using AvaloniaAdminInterface.Views;
 using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using JobHiringAPI.Dtos;
@@ -80,7 +81,7 @@ public class MainViewModel : ViewModelBase
             ));
         }
     }
-
+    
 
     async Task DeleteUserAsync(User user)
     {

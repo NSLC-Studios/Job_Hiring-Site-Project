@@ -22,12 +22,14 @@ public partial class App : Application
         //AuthApi auth = new AuthApi(session);
         TheModel model = new TheModel(session);
         MainWindow mainWindow = new MainWindow();
-        //ViewModel a modelt kapja meg meg
         var nav = new NavigationService(mainWindow);
-
- 
-        MainViewModel MainViewModel = new MainViewModel (model);
+        MainViewModel viewModel = new MainViewModel(model,nav);
         
+
+        //ViewModel a modelt kapja meg meg
+
+
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {/*
             desktop.MainWindow = new MainWindow
