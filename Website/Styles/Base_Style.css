@@ -61,7 +61,8 @@
 }
 
 .container {
-    margin: 20px auto;
+   margin-top: 20px;
+   margin-bottom: 20px;
     padding: 20px;
 }
 
@@ -168,7 +169,7 @@ h2{
 }
 
 .content-box {
-    width: 90%;
+    width: 100%;
     height: auto;
     border-radius: 15px;
     padding-bottom: 20px;

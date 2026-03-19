@@ -63,11 +63,15 @@ namespace JobHiringAPI.Model
                 .Skip(skip)
                 .Take(take)
                 .Include(x => x.Area)
-                .Select(x => new BaseCompanyDto 
-                { 
-                    ID = x.CompanyID, 
-                    OwnerID = x.OwnerID, 
+                .Include(x => x.User)
+                .Select(x => new BaseCompanyDto
+                {
+                    ID = x.CompanyID,
+                    OwnerID = x.OwnerID,
                     CompanyName = x.CompanyName, 
+                    OwnerName = x.User.FirstName == null
+                    ? "Owner name not set."
+                    : $"{x.User.FirstName} {x.User.LastName}", 
                     Description = x.Description == null || x.Description == ""
                     ? "Company has no Description"
                     : x.Description.Length > 25

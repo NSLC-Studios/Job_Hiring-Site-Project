@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Companies</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/Styles/Base_Style.css">
-    <link rel="stylesheet" href="/Styles/Home_Style.css">
+    <link rel="stylesheet" href="/Styles/Companies_Style.css">
 </head>
 <body class="darkmode_animation">
     <header>
@@ -72,52 +72,15 @@
         <div class="text-center content-box container my-4 dark">
             <div class="d-flex justify-content-center mb-3">
                 <div class="input-group w-75 me-3">
-                    <input id="reg-word" placeholder="Keywords to search..." class="fs-3 form-control" type="text">
+                    <input id="reg-word" placeholder="Company name..." class="fs-3 form-control" type="text">
                     <button id="reg-search" class="btn btn-primary fs-3">Search!</button>
-                </div>
-                <button class="btn btn-outline-secondary fs-3" data-bs-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#filterPanel">Filters</button>
-            </div>
-
-            <div id="filterPanel" class="collapse w-90 mx-auto">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Pay</label>
-                        <input id="fil-pay" type="number" class="form-control" placeholder="Minimum">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Work hours</label>
-                        <input id="fil-hour" type="text" class="form-control" placeholder="12am-7pm, 12hours...">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Country</label>
-                        <input id="fil-country" type="text" class="form-control" placeholder="Country">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">County</label>
-                        <input id="fil-county" type="text" class="form-control" placeholder="County">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">City</label>
-                        <input id="fil-city" type="text" class="form-control" placeholder="City">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Languages</label>
-                        <input id="fil-language" type="text" class="form-control" placeholder="English, German...">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Company</label>
-                        <input id="fil-company" type="text" class="form-control" placeholder="Company name">
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <button id="fil-search" class="btn btn-success w-100 fs-4">Filter Out!</button>
                 </div>
             </div>
         </div>
 
         <template id="card-template">
             <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                <div class="card-backdrop dark fs-4 job-card rounded">
+                <div class="card-backdrop dark fs-4 company-card rounded">
                     <a class="card-company nav-link text-start">Company</a>
                     <div class="card-language text-end fs-6">Languages</div>
                     
@@ -134,8 +97,8 @@
         </template>
 
         <div class="text-center content-box container px-4 py-3 my-4 dark fs-3">
-            <span id="job-check">No Jobs found!</span>
-            <div id="job-container" class="row">
+            <span id="company-check">No Companies found!</span>
+            <div id="company-container" class="row">
 
             </div>
         </div>

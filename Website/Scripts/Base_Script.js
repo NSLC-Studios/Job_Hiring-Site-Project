@@ -12,7 +12,7 @@ const mode_switch = document.getElementById("mode_switch");
 const register_tab = document.getElementById("register-tab");
 const profile_tab = document.getElementById("profile-tab");
 const profile = document.getElementById("profile");
-const weather = document.getElementById("weather");
+//const weather = document.getElementById("weather");
 const weather_btn = document.getElementById("weather-btn");
 const log_profile = document.getElementById("log-profile");
 const admin_check = document.getElementById("admin-check");
@@ -118,16 +118,16 @@ function mode_change()
 
 async function Weather(){
     try {
-        weather_btn.disabled = true;
+        weather_btn.parentElement.disabled = true;
         const response = await fetch("https://localhost:7142/WeatherForecast");
         
         if (response.ok) {
             const data = await response.json();
 
-            weather.innerText = `${data[0].summary} Weather.`;
+            weather_btn.innerText = `${data[0].summary} Weather.`;
         }
 
-        weather_btn.disabled = false;
+        weather_btn.parentElement.disabled = false;
     } catch (e) {
         console.log("WEATHER");
         console.log(e);
