@@ -22,6 +22,42 @@ function ReplyError(sender, error = "Not Specified"){
     sender.end();
 }
 
+function SendEmpty(sender){
+    sender.writeHead(404, {"Content-Type": "text/html"}); // 530
+            
+    fs.readFile(`../Website/Empty.html`, (err, payload) =>{
+        if(err){
+            ReplyError(sender, err.message);
+            return;
+        }
+
+        sender.end(payload);
+    });
+    return;
+}
+
+function SendResponse(sender, target, type){
+    fs.readFile(`../Website/${target}${type}`, (err, payload) =>{
+        if(err){
+            //throw err;
+            //console.log(err)
+            
+            if (err.code === "ENOENT"){
+                SendEmpty(sender);
+                return;
+            } else{
+                ReplyError(sender, err.message);
+                return;
+            }
+        }
+
+        // const payload = data;
+        sender.writeHead(200, {"Content-Type": ContentSuffixTable[type]}); // "text/html"
+        //res.write();
+        sender.end(payload);
+    });
+}
+
 http.createServer((req, res) => {
     console.log("hi");
     const query = req.url.toLowerCase().split("?")[0].split("/");
@@ -38,11 +74,28 @@ http.createServer((req, res) => {
             type = ".html";
             break;
         case "condtact" :
+            // 404 purposes deprecated
             target = "Contdact";
             type = ".html";
             break;
         case "login" :
             target = "Login";
+            type = ".html";
+            break;
+        case "companies" :
+            target = "Companies";
+            type = ".html";
+            break;
+        case "company" :
+            target = "Company";
+            type = ".html";
+            break;
+        case "job" :
+            target = "Job";
+            type = ".html";
+            break;
+        case "about" :
+            target = "About";
             type = ".html";
             break;
         case "styles" :
@@ -83,35 +136,16 @@ http.createServer((req, res) => {
             break;
         default :
             // throw connection to stop interference with other web utilities
-            res.writeHead(404, {"Content-Type": "text/html"}); // 530
-            
-            fs.readFile(`../Website/Empty.html`, (err, payload) =>{
-                if(err){
-                    ReplyError(res, err.message);
-                    return;
-                }
-
-                res.end(payload);
-            })
-
+            try {
+                SendEmpty(res);
             return;
+            } catch (err) {
+                ReplyError(res, err.message);
+            }
     }
     try {
         // throw new error;
-        fs.readFile(`../Website/${target}${type}`, (err, payload) =>{
-            if(err){
-                //throw err;
-                //console.log(err)
-
-                ReplyError(res, err.message);
-                return;
-            }
-
-            // const payload = data;
-            res.writeHead(200, {"Content-Type": ContentSuffixTable[type]}); // "text/html"
-            //res.write();
-            res.end(payload);
-        })
+        SendResponse(res, target, type);
     } catch (err) {
         console.log(err);
         ReplyError(res, JSON.stringify(err));

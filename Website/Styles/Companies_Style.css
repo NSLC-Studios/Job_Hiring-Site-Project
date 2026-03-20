@@ -1,4 +1,4 @@
-.job-card {
+.company-card {
     position: relative; 
     display: flex;
     flex-direction: column;
@@ -22,38 +22,20 @@
     font-size: 80%;
 }
 
-.card-language {
-    position: absolute;
-    right: 15px;
-    top: 2px;
-}
-
-.card-workhour {
-    position: absolute;
-    right: 15px;
-    top: 2px;
-}
-
-.card-pay {
-    position: absolute;
-    right: 15px;
-    top: 30px;
-}
-
-.card-address {
+.card-description {
     position: absolute;
     left: 15px;
     top: 50px;
 }
 
-.card-description {
+.card-company {
     position: absolute;
     width: 50%;
     left: 15px;
     top: 2px;
 }
 
-.card-company {
+.card-owner {
     position: absolute;
     left: 15px;
     bottom: 140px;

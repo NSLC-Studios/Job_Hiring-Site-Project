@@ -84,6 +84,34 @@ namespace JobHiringAPI.Model
                 });
         }
 
+        public async Task<IEnumerable<BaseCompanyDto>> GetSearchedCompanies(string description = "", int skip = 0, int take = 24)
+        {
+            return _context.Companies
+                .Where(x => x.CompanyName.ToLower().Contains(description.ToLower()))
+                .Skip(skip)
+                .Take(take)
+                .Include(x => x.Area)
+                .Include(x => x.User)
+                .Select(x => new BaseCompanyDto
+                {
+                    ID = x.CompanyID,
+                    OwnerID = x.OwnerID,
+                    CompanyName = x.CompanyName,
+                    OwnerName = x.User.FirstName == null
+                    ? "Owner name not set."
+                    : $"{x.User.FirstName} {x.User.LastName}",
+                    Description = x.Description == null || x.Description == ""
+                    ? "Company has no Description"
+                    : x.Description.Length > 25
+                        ? x.Area.City == null
+                            ? $"{x.Description.Substring(0, 25)}...\nNo location Set"
+                            : $"{x.Description.Substring(0, 25)}...\n{x.Area.County}, {x.Area.City}"
+                        : x.Area.City == null
+                            ? $"{x.Description}\nNo location Set"
+                            : $"{x.Description}\n{x.Area.Country}, {x.Area.City}"
+                });
+        }
+
         public async Task<DetailedCompanyDto> GetDetailedCompany(int id)
         {
             return _context.Companies.Include(x => x.Area)

@@ -24,6 +24,12 @@ async function GetJobs() {
         if (response.ok){
             const data = await response.json();
 
+            if (data.length == 0){
+                container.innerHTML = "";
+                check.innerText = "No Jobs found!";
+                return;
+            }
+
             check.innerText = "";
             container.innerHTML = "";
 
@@ -58,6 +64,12 @@ async function GetSearch() {
 
         if (response.ok){
             const data = await response.json();
+
+            if (data.length == 0){
+                container.innerHTML = "";
+                check.innerText = "No Jobs found!";
+                return;
+            }
 
             check.innerText = "";
             container.innerHTML = "";

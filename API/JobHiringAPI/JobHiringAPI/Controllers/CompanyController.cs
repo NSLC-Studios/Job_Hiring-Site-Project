@@ -29,6 +29,19 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
+        
+        [HttpGet("companies/search")]
+        public async Task<ActionResult<IEnumerable<BaseCompanyDto>>> GetSearchedCompanies([FromQuery] string description = "", [FromQuery] int skip = 0, [FromQuery] int take = 24)
+        {
+            try
+            {
+                return Ok(await _model.GetSearchedCompanies(description, skip, take));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
 
         [HttpGet("companies/user")]
         public async Task<ActionResult<IEnumerable<BaseCompanyDto>>> GetOwnedCompanies([FromQuery] int id)
