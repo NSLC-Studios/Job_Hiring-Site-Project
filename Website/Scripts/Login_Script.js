@@ -192,7 +192,7 @@ async function Register(){
             sign_button.innerText = "Account created! Please wait...";
 
             setTimeout(() => {
-                switch_log_in();
+                Switch_Forms();
             }, 1000);
         }
 
