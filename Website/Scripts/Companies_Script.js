@@ -4,22 +4,54 @@ const check = document.getElementById("company-check");
 
 const reg_word = document.getElementById("reg-word");
 const reg_search = document.getElementById("reg-search");
+const ref_btn = document.getElementById("ref-btn");
+
+reg_search.addEventListener("click", GetSearch);
+ref_btn.addEventListener("click", GetCompanies);
+reg_word.addEventListener("keyup", Rerouted);
+
+const page_tab = document.getElementById("page-tab");
+const page_back = document.getElementById("page-back");
+const page_counter = document.getElementById("page-counter");
+const page_forward = document.getElementById("page-forward");
 
 window.addEventListener("load", GetCompanies);
 
-reg_search.addEventListener("click", GetSearch);
+function Rerouted() { // e
+    reg_search.click();
 
-async function GetCompanies() {
+    //incase of server overloading ^_^ - foxcode above
+    /*if (e.key === "Enter"){
+        reg_search.click();
+    }*/
+}
+
+async function GetCompanies(event, skip = 0, take = 24) {
     try{
-        const response = await fetch("https://localhost:7142/api/Company/companies?skip=0&take=24");
+        const response = await fetch(`https://localhost:7142/api/Company/companies?skip=${skip}&take=${take}`);
 
         if (response.ok){
             const data = await response.json();
 
+            page_tab.classList.remove("hidden");
+
+            if (event != null) {
+                page_counter.innerText = 1;
+                page_counter.index = 1;
+            }
+
             if (data.length == 0){
+                if (event != null) {
+                    page_tab.classList.add("hidden");
+                }
+
                 container.innerHTML = "";
                 check.innerText = "No Companies found!";
                 return;
+            }
+
+            if (data.length < 24 && event != null){
+                page_tab.classList.add("hidden");
             }
 
             check.innerText = "";
@@ -27,6 +59,7 @@ async function GetCompanies() {
 
             data.forEach(element => {
                 const template = card_template.content.cloneNode(true);
+                const card = template.querySelector(".company-card");
 
                 template.querySelector(".card-owner").textContent = element.ownerName;
                 template.querySelector(".card-owner").href = `/User/${element.ownerID}`;
@@ -34,9 +67,17 @@ async function GetCompanies() {
                 template.querySelector(".card-description").textContent = element.description;
                 template.querySelector(".card-button").href = `/Company/${element.id}`;
 
+                card.style.opacity = 0;
                 container.appendChild(template);
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                }, 1);
             });
         } else{
+            if (event != null) {
+                page_counter.classList.add("hidden");
+            }
+
             container.innerHTML = "";
             check.innerText = "No Jobs found!";
         }
@@ -46,17 +87,37 @@ async function GetCompanies() {
     }
 }
 
-async function GetSearch() {
+async function GetSearch(event, skip = 0, take = 24) {
     try{
-        const response = await fetch(`https://localhost:7142/api/Company/companies/search?description=${reg_word.value}&skip=0&take=24`);
+        const response = await fetch(`https://localhost:7142/api/Company/companies/search?description=${reg_word.value}&skip=${skip}&take=${take}`);
 
         if (response.ok){
             const data = await response.json();
 
+            page_tab.classList.remove("hidden");
+
+            if (event != null) {
+                page_counter.innerText = 1;
+                page_counter.index = 1;
+            }
+
             if (data.length == 0){
+                if (event != null) {
+                    page_tab.classList.add("hidden");
+                }
+
                 container.innerHTML = "";
                 check.innerText = "No Companies found!";
                 return;
+            }
+
+            if (data.length < 24 && event != null){
+                page_tab.classList.add("hidden");
+            }
+
+            if (event != null) {
+                page_counter.innerText = 1;
+                page_counter.index = 1;
             }
 
             check.innerText = "";
@@ -64,6 +125,7 @@ async function GetSearch() {
 
             data.forEach(element => {
                 const template = card_template.content.cloneNode(true);
+                const card = template.querySelector(".company-card");
 
                 template.querySelector(".card-owner").textContent = element.ownerName;
                 template.querySelector(".card-owner").href = `/User/${element.ownerID}`;
@@ -71,9 +133,17 @@ async function GetSearch() {
                 template.querySelector(".card-description").textContent = element.description;
                 template.querySelector(".card-button").href = `/Company/${element.id}`;
                 
+                card.style.opacity = 0;
                 container.appendChild(template);
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                }, 1);
             });
         } else{
+            if (event != null) {
+                page_counter.classList.add("hidden");
+            }
+
             container.innerHTML = "";
             check.innerText = "No Companies found!";
         }

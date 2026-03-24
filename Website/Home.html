@@ -75,14 +75,18 @@
                     <input id="reg-word" placeholder="Keywords to search..." class="fs-3 form-control" type="text">
                     <button id="reg-search" class="btn btn-primary fs-3">Search!</button>
                 </div>
-                <button class="btn btn-outline-secondary fs-3" data-bs-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#filterPanel">Filters</button>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-outline-secondary fs-3" data-bs-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#filterPanel">Filters</button>
+                    <button id="ref-btn" class="btn btn-outline-secondary fs-3">Refresh</button>
+                </div>
+
             </div>
 
             <div id="filterPanel" class="collapse w-90 mx-auto">
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label">Pay</label>
-                        <input id="fil-pay" type="number" class="form-control" placeholder="Minimum">
+                        <input min="0" value="0" id="fil-pay" type="number" class="form-control" placeholder="Minimum">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Work hours</label>
@@ -135,8 +139,16 @@
 
         <div class="text-center content-box container px-4 py-3 my-4 dark fs-3">
             <span id="job-check">No Jobs found!</span>
-            <div id="job-container" class="row">
+            <div id="job-container" class="row pb-2">
 
+            </div>
+
+            <div id="page-tab" class="btn-toolbar justify-content-center pb-1" role="toolbar">
+                <div class="btn-group content-design" role="group">
+                    <button id="page-back" type="button" class="d-flex align-items-center justify-content-center dark fs-2 btn">&lt;</button>
+                    <label id="page-counter" type="button" class="d-flex align-items-center justify-content-center dark fs-3 btn">1</label>
+                    <button id="page-forward" type="button" class="d-flex align-items-center justify-content-center dark fs-2 btn">&gt;</button>
+                </div>
             </div>
         </div>
     </main>

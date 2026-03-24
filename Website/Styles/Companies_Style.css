@@ -4,6 +4,7 @@
     flex-direction: column;
     height: 230px;
     overflow: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .card-backdrop {
