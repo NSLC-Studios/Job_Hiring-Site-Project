@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using AvaloniaAdminInterface.Dtos;
 using AvaloniaAdminInterface.Model;
 using AvaloniaAdminInterface.Model.Services;
 using AvaloniaAdminInterface.ViewModels;
@@ -25,28 +26,12 @@ public partial class App : Application
         var nav = new NavigationService(mainWindow);
         MainViewModel viewModel = new MainViewModel(model,nav);
         
-
-        //ViewModel a modelt kapja meg meg
-
-
-
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {/*
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainViewModel()
-            };
-            */
-           
+        {
             desktop.MainWindow = new LoginWindow(model);
-           
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
-        {/*
-            singleViewPlatform.MainView = new MainView
-            {
-                DataContext = new MainViewModel()
-            };*/
+        {
             singleViewPlatform.MainView = new LoginWindow(model);
         }
 

@@ -1,4 +1,5 @@
-﻿using JobHiringAPI.Dtos;
+﻿using AvaloniaAdminInterface.Dtos;
+using JobHiringAPI.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,16 @@ namespace AvaloniaAdminInterface.Model
 
         private void EnsureAdmin()
         {
+            if (_session == null)
+                throw new Exception("_session is not created yet");
+
+            if (_session.Role == null)
+                throw new Exception("_session.Role is NULL");
+
             if (!string.Equals(_session.Role, "Admin"))
                 throw new UnauthorizedAccessException("Current user is not an admin");
         }
+
 
         // --------------Log in/out-------------
         // GET api/user/login
@@ -86,12 +94,14 @@ namespace AvaloniaAdminInterface.Model
         }
 
         // GET api/admin/companies/extended?ownerId=123
+
         //BaseCompanyDto
         public async Task<List<BaseCompanyDto>> GetCompaniesExtended(int ownerId)
         {
             EnsureAdmin();
             return await _session._client.GetFromJsonAsync<List<BaseCompanyDto>>(
-                $"api/admin/companies/extended?ownerId=123={ownerId}");
+                $"api/admin/companies/extended?ownerId={ownerId}"
+);
         }
 
         // GET api/admin/jobs?id=123
@@ -224,4 +234,7 @@ namespace AvaloniaAdminInterface.Model
     //4am torture
     //3am 3rd day in a row of not sleeping enough
     //2am 4th day still must fix dtos
+    //5am bug fixes
+    //2am shenanigans
+    //not much
 }

@@ -38,33 +38,11 @@ public class MainViewModel : ViewModelBase
         {
             _nav.OpenWindow(new LookUpUserDetailsViewModel(_model, u.UserId));
         });
-
+        //sadly runs before log in somehow might have messed up stuff in the app.xamel.cs
         LoadUsersCommand.Execute().Subscribe();
-
+        
     }
 
-
-    /*public MainViewModel(TheModel model)
-    {
-        _model = model;
-
-    }*/
-
-    /*async Task LoadUsersAsync()
-    {
-        var usersList= await _model.GetUsers();
-        Users.Clear();
-        foreach (var dto in usersList)
-        {
-            Users.Add(new User(
-                dto.ID,
-                dto.UserName,
-                ConvertRole(dto.Role),
-                u => DeleteUserCommand.Execute(u),
-                u => ExpandUserCommand.Execute(u) 
-            ));
-        }
-    }*/
     async Task LoadUsersAsync()
     {
         var usersList = await _model.GetUsers();

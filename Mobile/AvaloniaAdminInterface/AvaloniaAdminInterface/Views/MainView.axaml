@@ -29,7 +29,7 @@
     <ItemsControl ItemsSource="{Binding SelectedUserList}">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Views:UserControl1/>
+                <Views:UserControl1 DataContext="{Binding}"/>
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>

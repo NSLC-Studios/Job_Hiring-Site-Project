@@ -69,6 +69,6 @@ public partial class LoginWindow : Window
     /*var main = new MainWindow();
      main.Show();
 
-     this.Close();*/
-}
+     this.Close();
+}*/
 

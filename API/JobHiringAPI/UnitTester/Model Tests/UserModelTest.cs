@@ -28,6 +28,8 @@ namespace UnitTester.Model_Tests
         [Fact]
         public void CheckRegistrationCorrect()
         {
+            _context.Database.EnsureCreated();
+
             var user = new UserRegistrationDto
             {
                 Username = "testuser",
@@ -37,11 +39,16 @@ namespace UnitTester.Model_Tests
             _model.Registration(user);
 
             Assert.True(_context.Users.Any(x => x.UserName == "testuser"));
+
+            
         }
 
         [Fact]
         public void CheckRegistrationAlredyExits()
         {
+            _context.Database.EnsureDeleted();
+            _context.Database.EnsureCreated();
+
             var user = new UserRegistrationDto
             {
                 Username = "NickTiler",
@@ -56,11 +63,14 @@ namespace UnitTester.Model_Tests
             {
                 Assert.Equal("Already exists", ex.Message);
             }
-
+            _context.Database.EnsureDeleted();
         }
         [Fact]
         public void CheckRegistrationNAmeNull()
         {
+            _context.Database.EnsureDeleted();
+            _context.Database.EnsureCreated();
+
             var user = new UserRegistrationDto
             {
                 Username = null,
@@ -101,7 +111,9 @@ namespace UnitTester.Model_Tests
         [Fact]
         public void AvalibleNames()
         {
-           
+            _context.Database.EnsureDeleted();
+            _context.Database.EnsureCreated();
+
             string name = "Franciska";
             try
             {
@@ -116,6 +128,8 @@ namespace UnitTester.Model_Tests
         [Fact]
         public void AvalibleNamesNull()
         {
+            _context.Database.EnsureDeleted();
+            _context.Database.EnsureCreated();
 
             string name = "Franciska";
             try
