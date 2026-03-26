@@ -23,6 +23,20 @@ namespace JobHiringAPI
             builder.Services.AddTransient<RequestModel>();
             builder.Services.AddTransient<CompanyModel>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend",
+                policy =>
+                {
+                    policy
+                        .WithOrigins("http://localhost")
+                        //.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
+
             // builder.Services.AddTransient <model> ();
 
             builder.Services.AddControllers();
@@ -32,6 +46,8 @@ namespace JobHiringAPI
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
+                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.LoginPath = "/api/User/login";
                 options.LogoutPath = "/api/User/logout";
                 options.Events = new CookieAuthenticationEvents
@@ -60,11 +76,13 @@ namespace JobHiringAPI
 
             app.UseHttpsRedirection();
 
+            // cors
+            app.UseCors("AllowFrontend");
+
             // for cookie authentication
             app.UseAuthentication();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
