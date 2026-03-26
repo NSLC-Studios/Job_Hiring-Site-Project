@@ -15,7 +15,23 @@ const page_back = document.getElementById("page-back");
 const page_counter = document.getElementById("page-counter");
 const page_forward = document.getElementById("page-forward");
 
+page_counter.index = 1;
+page_counter.invoker = "load";
+
 window.addEventListener("load", GetCompanies);
+
+page_back.addEventListener("click", () =>{
+    PageHandler(null, "previous");
+});
+
+page_forward.addEventListener("click", () =>{
+    PageHandler(null, "next");
+});
+
+const QuickInvoker = {
+    "load" : GetCompanies,
+    "search" : GetSearch
+}
 
 function Rerouted() { // e
     reg_search.click();
@@ -24,6 +40,36 @@ function Rerouted() { // e
     /*if (e.key === "Enter"){
         reg_search.click();
     }*/
+}
+
+function PageHandler(event = null, action = "next", count = 24){
+    switch(action){
+        case "update" :
+            page_back.disabled = false;
+            page_forward.disabled = false;
+
+            if(event != null){
+                page_counter.innerText = page_counter.index;
+            }
+
+            if (page_counter.index <= 1) page_back.disabled = true;
+            if (count < 24) page_forward.disabled = true;
+            break;
+        case "next" :
+            page_counter.index++;
+            QuickInvoker[page_counter.invoker](null, (page_counter.index * 24) - 24, 24);
+            page_counter.innerText = page_counter.index;
+            break;
+        case "previous" :
+            if (page_counter.index <= 1) return;
+            page_counter.index--;
+            QuickInvoker[page_counter.invoker](null, (page_counter.index * 24) - 24, 24);
+            page_counter.innerText = page_counter.index;
+            break;
+        default :
+            console.log("Nice try!");
+            break;
+    }
 }
 
 async function GetCompanies(event, skip = 0, take = 24) {
@@ -36,8 +82,11 @@ async function GetCompanies(event, skip = 0, take = 24) {
             page_tab.classList.remove("hidden");
 
             if (event != null) {
-                page_counter.innerText = 1;
+                page_counter.invoker = "load";
                 page_counter.index = 1;
+                PageHandler(event, "update");
+            } else {
+                PageHandler(null, "update", data.length);
             }
 
             if (data.length == 0){
@@ -97,8 +146,11 @@ async function GetSearch(event, skip = 0, take = 24) {
             page_tab.classList.remove("hidden");
 
             if (event != null) {
-                page_counter.innerText = 1;
+                page_counter.invoker = "search";
                 page_counter.index = 1;
+                PageHandler(event, "update");
+            } else {
+                PageHandler(null, "update", data.length);
             }
 
             if (data.length == 0){
@@ -113,11 +165,6 @@ async function GetSearch(event, skip = 0, take = 24) {
 
             if (data.length < 24 && event != null){
                 page_tab.classList.add("hidden");
-            }
-
-            if (event != null) {
-                page_counter.innerText = 1;
-                page_counter.index = 1;
             }
 
             check.innerText = "";

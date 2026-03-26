@@ -274,8 +274,18 @@ async function Login(){
 //sign_button.addEventListener("click", Register);
 //log_button.addEventListener("click", Login);
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
     const path = window.location.pathname.toLowerCase();
+
+    await UserSession();
+
+    if (UserContainer.UserID != 0) {
+        log_button.disabled = true;
+        sign_button.disabled = true;
+
+        log_button.innerText = "You are already logged in!"
+        sign_button.innerText = "You are already logged in!"
+    }
 
     if (path.endsWith("in/login")) {
         form_switch.innerText = "Sign Up!";

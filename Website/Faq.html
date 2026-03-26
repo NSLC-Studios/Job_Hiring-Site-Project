@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Frequently Asked Questions!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/Styles/Base_Style.css">
-    <link rel="stylesheet" href="/Styles/Home_Style.css">
 </head>
 <body class="darkmode_animation">
     <header>
@@ -28,13 +27,13 @@
                             <a class="dark" href="/Companies">Our Companies!</a>
                         </div>
                         <div class="nav-link col-sm-6 col-md-4 col-lg-2">
-                            <a class="dark" role="button" id="surprise_me">Surprise Me!</a>
+                            <a class="dark" id="surprise_me">Surprise Me!</a>
                         </div>
                         <div class="nav-link col-sm-6 col-md-4 col-lg-2">
                             <a class="dark" href="/Contact">Get Support!</a>
                         </div>
                         <div class="nav-link col-sm-6 col-md-4 col-lg-2">
-                            <a class="dark" role="button" id="weather-btn">Calm Weather.</a>
+                            <a class="dark" id="weather-btn">Calm Weather.</a>
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-2" id="mode_switch">
                             <img src="/Images/Vectors/light_dark_mode3.svg" class="img-fluid nav-icon" alt="Light / Dark Mode">
@@ -51,7 +50,7 @@
                             You shouldn't see this..
                         </a>
                         
-                        <button type="button" class="btn btn-outline-light dropdown-toggle dropdown-toggle-split"data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"></button>
+                        <button type="button" class="btn btn-outline-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"></button>
 
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a id="log-profile" class="dropdown-item">My Profile</a></li>
@@ -69,85 +68,22 @@
     </header>
     
     <main>
-        <div class="text-center content-box container my-4 dark">
-            <div class="d-flex justify-content-center mb-3">
-                <div class="input-group w-75 me-3">
-                    <input id="reg-word" placeholder="Keywords to search..." class="fs-3 form-control" type="text">
-                    <button id="reg-search" class="btn btn-primary fs-3">Search!</button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button class="btn btn-outline-secondary fs-3" data-bs-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#filterPanel">Filters</button>
-                    <button id="ref-btn" class="btn btn-outline-secondary fs-3">Refresh</button>
-                </div>
-
-            </div>
-
-            <div id="filterPanel" class="collapse w-90 mx-auto">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Pay</label>
-                        <input min="0" value="0" id="fil-pay" type="number" class="form-control" placeholder="Minimum">
+        <div class="content-box container dark">
+            <h1 class="fw-bold">Frequently Asked Questions!</h1>
+            There is no doubt you may want to ask a few things from us...
+            <div class="container">
+                <div class="row dark fs-4">
+                    <div class="col-md-6 col-sm-12">
+                        <h3>How do i make a cv?</h3>
+                        This is easily done by clicking the arrow below your profile and then clicking on <a href="/CV">My CVs</a>. There you can click on an existing cv or make a new one, then follow the instructions!
                     </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Work hours</label>
-                        <input id="fil-hour" type="text" class="form-control" placeholder="12am-7pm, 12hours...">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Country</label>
-                        <input id="fil-country" type="text" class="form-control" placeholder="Country">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">County</label>
-                        <input id="fil-county" type="text" class="form-control" placeholder="County">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">City</label>
-                        <input id="fil-city" type="text" class="form-control" placeholder="City">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Languages</label>
-                        <input id="fil-language" type="text" class="form-control" placeholder="English, German...">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Company</label>
-                        <input id="fil-company" type="text" class="form-control" placeholder="Company name">
+                    <div class="col-md-6 col-sm-12">
+                        <h3>How do i log out?</h3>
+                        Click on the arrow icon underneath your profile name and then hit logout!
                     </div>
                 </div>
-                <div class="mt-4">
-                    <button id="fil-search" class="btn btn-success w-100 fs-4">Filter Out!</button>
-                </div>
-            </div>
-        </div>
-
-        <template id="card-template">
-            <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                <div class="card-backdrop dark fs-4 job-card rounded">
-                    <a class="card-company nav-link text-start">Company</a>
-                    <div class="card-language text-end fs-6">Languages</div>
-                    
-                    <div class="card-bottom dark_background">
-                        <div class="card-description text-start">Description</div>
-                        <div class="card-address text-start fs-6">Address</div>
-                        <div class="card-workhour text-end">WorkHour</div>
-                        <div class="card-pay text-end">Pay</div>
-                        <a class="card-button fw-bold btn btn-success">Check out!</a>
-                    </div>
-                </div>
-            </div>
-            
-        </template>
-
-        <div class="text-center content-box container px-4 py-3 my-4 dark fs-3">
-            <span id="job-check">No Jobs found!</span>
-            <div id="job-container" class="row pb-2">
-
-            </div>
-
-            <div id="page-tab" class="btn-toolbar justify-content-center pb-1" role="toolbar">
-                <div class="btn-group content-design" role="group">
-                    <button id="page-back" type="button" class="d-flex align-items-center justify-content-center dark fs-2 btn">&lt;</button>
-                    <label id="page-counter" type="button" class="d-flex align-items-center justify-content-center dark fs-3 btn">1</label>
-                    <button id="page-forward" type="button" class="d-flex align-items-center justify-content-center dark fs-2 btn">&gt;</button>
+                <div class="row text-center">
+                    <a class="dark fs-2 fw-bold" href="/">Click here to return</a>
                 </div>
             </div>
         </div>
@@ -158,7 +94,7 @@
             <div class="col-sm-12 col-md-3 mb-3">
                 <a href="/" class="nav-link fw-bold fs-2 d-flex align-items-center mb-3 text-decoration-none">
                     <img src="/Images/Icons/logo.ico" alt="Logo" width="40" height="40" class="d-inline-block align-middle me-2">
-                Job Hiring Site!
+                    Job Hiring Site!
                 </a>
                 <p class="text-light">© 2026</p>
             </div>
@@ -184,17 +120,16 @@
                 </ul>
             </div>
             <div class="col-sm-12 col-md-2 mb-3">
-            <h5 class="text-light fw-bold">Contacts!</h5>
-            <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a target="_blank" class="nav-link p-0" href="/Contact">Get Support!</a></li>
-                <li class="nav-item nav-link mb-2 p-0">Phone: [+1] 11 234 5678</li>
-                <li class="nav-item nav-link mb-2 p-0">Email: support@job-hiring-site.fox</li>
-                <li class="nav-item mb-2"><a target="_blank" class="nav-link p-0" href="https://www.cvkeskus.ee/">Inspired by...</a></li>
-            </ul> 
+                <h5 class="text-light fw-bold">Contacts!</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a target="_blank" class="nav-link p-0" href="/Contact">Get Support!</a></li>
+                    <li class="nav-item nav-link mb-2 p-0">Phone: [+1] 11 234 5678</li>
+                    <li class="nav-item nav-link mb-2 p-0">Email: support@job-hiring-site.fox</li>
+                    <li class="nav-item mb-2"><a target="_blank" class="nav-link p-0" href="https://www.cvkeskus.ee/">Inspired by...</a></li>
+                </ul> 
+            </div>
         </div>
-    </div>
     </footer>
     <script src="/Scripts/Base_Script.js"></script>
-    <script src="/Scripts/Home_Script.js"></script>
 </body>
 </html>

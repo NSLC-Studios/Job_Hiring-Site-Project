@@ -98,6 +98,14 @@ http.createServer((req, res) => {
             target = "About";
             type = ".html";
             break;
+        case "tos" :
+            target = "Tos";
+            type = ".html";
+            break;
+        case "faq" :
+            target = "Faq";
+            type = ".html";
+            break;
         case "styles" :
             target = `Styles/${query[2].replace(".css", "")}`
             type = ".css";
