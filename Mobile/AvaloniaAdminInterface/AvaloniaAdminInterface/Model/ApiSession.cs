@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AvaloniaAdminInterface.Dtos
+namespace AvaloniaAdminInterface.Model
 {
     public class ApiSession
     {

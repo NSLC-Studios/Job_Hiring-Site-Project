@@ -1,7 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using AvaloniaAdminInterface.Dtos;
 using AvaloniaAdminInterface.Model;
 using AvaloniaAdminInterface.Model.Services;
 using AvaloniaAdminInterface.ViewModels;
@@ -11,8 +10,8 @@ namespace AvaloniaAdminInterface;
 
 public partial class App : Application
 {
-    public static ApiSession Session { get; private set; }
-    public static TheModel Model { get; private set; }
+    public static ApiSession Session { get; private set; } = null!;
+    public static TheModel Model { get; private set; } = null!;
 
     public override void Initialize()
     {
@@ -21,7 +20,6 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        // 1. Create global session + model
         Session = new ApiSession("https://localhost:7142/");
         Model = new TheModel(Session);
 
