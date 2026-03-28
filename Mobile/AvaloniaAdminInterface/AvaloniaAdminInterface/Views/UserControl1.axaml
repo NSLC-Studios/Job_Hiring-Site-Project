@@ -7,20 +7,14 @@
 
     <Grid ColumnDefinitions="*,2*,*,*,*">
 
-        <TextBlock Grid.Column="0" Text="{Binding UserId}" 
-                   HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Text="{Binding Model.UserId}"/>
+        <TextBlock Grid.Column="1" Text="{Binding Model.UserName}"/>
+        <TextBlock Grid.Column="2" Text="{Binding Model.Role}"/>
 
-        <TextBlock Grid.Column="1" Text="{Binding UserName}" 
-                   HorizontalAlignment="Left"/>
+        <Button Grid.Column="3" Content="Expand" Command="{Binding ExpandCommand}"/>
+        <Button Grid.Column="4" Content="Delete" Command="{Binding DeleteCommand}"/>
 
-        <TextBlock Grid.Column="2" Text="{Binding Role}" 
-                   HorizontalAlignment="Center"/>
 
-        <Button Grid.Column="3" Content="Expand"
-                Command="{Binding ExpandCommand}"/>
-
-        <Button Grid.Column="4" Content="Delete"
-                Command="{Binding DeleteThisUser}"/>
 
     </Grid>
 </UserControl>

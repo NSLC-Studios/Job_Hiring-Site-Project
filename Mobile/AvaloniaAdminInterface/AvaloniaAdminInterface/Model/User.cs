@@ -11,7 +11,6 @@ namespace AvaloniaAdminInterface.Model
     public class User
     {
         public enum TheRoles { Admin, DefaultUser, Company }
-
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string? FirstName { get; set; }
@@ -21,20 +20,21 @@ namespace AvaloniaAdminInterface.Model
         public string Password { get; set; }
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
+
         public TheRoles Role { get; set; } //= TheRoles.DefaultUser; not sure i need it
 
-        public ICommand DeleteThisUser { get; }
+
+
+    }
+
+}
+/*
+ public ICommand DeleteThisUser { get; }
         public ICommand ExpandCommand { get; }
         public User(int id,
             string username,
-            //string firstname,
-            // string lastname,
-            // string email,
-            // string phone,
-            // string pass,
+          
              TheRoles role,
-           //  string companyName,
-           //  int companyId,
              Action<User> deleteAction,
              Action<User> expandAction
             )
@@ -42,18 +42,9 @@ namespace AvaloniaAdminInterface.Model
             UserId = id;
             UserName = username;
             Role = role;
-            // FirstName = firstname;
-            // LastName = lastname;
-            //  Email = email;
-            // PhoneNumber = phone;
-            // Password = pass;
-            // CompanyName = companyName;
-            //CompanyId =companyId;
 
             DeleteThisUser = new RelayCommand(() => deleteAction(this));
             ExpandCommand = new RelayCommand(() => expandAction(this));
 
         }
-
-    }
-}
+*/

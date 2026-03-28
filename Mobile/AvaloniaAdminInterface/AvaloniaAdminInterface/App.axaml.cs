@@ -11,28 +11,29 @@ namespace AvaloniaAdminInterface;
 
 public partial class App : Application
 {
+    public static ApiSession Session { get; private set; }
+    public static TheModel Model { get; private set; }
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
     }
 
-    static ApiSession session;
     public override void OnFrameworkInitializationCompleted()
     {
-        session = new ApiSession("https://localhost:7142/");
-        //AuthApi auth = new AuthApi(session);
-        TheModel model = new TheModel(session);
-        MainWindow mainWindow = new MainWindow();
-        var nav = new NavigationService(mainWindow);
-        MainViewModel viewModel = new MainViewModel(model,nav);
-        
+        // 1. Create global session + model
+        Session = new ApiSession("https://localhost:7142/");
+        Model = new TheModel(Session);
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new LoginWindow(model);
+            // 2. Show login window FIRST
+            desktop.MainWindow = new LoginWindow(Model);
         }
+
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new LoginWindow(model);
+            singleViewPlatform.MainView = new LoginWindow(Model);
         }
 
         base.OnFrameworkInitializationCompleted();

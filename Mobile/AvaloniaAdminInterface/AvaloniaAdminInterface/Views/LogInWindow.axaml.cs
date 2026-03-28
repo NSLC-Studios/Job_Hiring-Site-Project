@@ -36,6 +36,16 @@ public partial class LoginWindow : Window
         main.Show();
         this.Close();
     }
+    /*
+    public async void OnLoginSuccess()
+    {
+        var main = new MainWindow(App.Model);
+
+        main.Show();
+
+        this.Close();
+    }*/
+
 }
 
 /*
@@ -66,9 +76,9 @@ public partial class LoginWindow : Window
         this.Close();
     }
     */
-    /*var main = new MainWindow();
-     main.Show();
+/*var main = new MainWindow();
+ main.Show();
 
-     this.Close();
+ this.Close();
 }*/
 

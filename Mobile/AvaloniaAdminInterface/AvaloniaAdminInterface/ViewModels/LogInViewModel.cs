@@ -56,6 +56,7 @@ namespace AvaloniaAdminInterface.ViewModels
         {
             _model = model;
             LoginCommand = new RelayCommand(async () => await ExecuteLoginAsync());
+
         }
 
         private async Task ExecuteLoginAsync()
@@ -77,7 +78,7 @@ namespace AvaloniaAdminInterface.ViewModels
                     return;
                 }
 
-                // REAL API LOGIN
+                // API LOGIN 
                 var user = await _model.Log_in(Username, Password);
 
                 if (user == null)
@@ -93,6 +94,8 @@ namespace AvaloniaAdminInterface.ViewModels
                 }
 
                 LoginSucceeded?.Invoke(user);
+                
+
             }
             catch
             {
