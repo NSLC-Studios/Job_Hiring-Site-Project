@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using System;
 using System.Reactive.Linq;
 
 namespace AvaloniaAdminInterface;
@@ -12,11 +13,14 @@ public partial class LookUpUserDetailsWindow : Window
     {
         InitializeComponent();
 
-        this.AttachedToVisualTree += (_, __) =>
+        this.Opened += (_, __) =>
         {
             if (DataContext is LookUpUserDetailsViewModel vm)
+            {
                 //vm.LoadCommand.Execute().Subscribe();
-                vm.LoadCommand.Execute().Subscribe(null);
+                vm.LoadAsync();
+            }
         };
     }
 }
+

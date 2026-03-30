@@ -26,16 +26,29 @@ public class MainViewModel : ViewModelBase
 
     public UserViewModel? SelectedUser { get; set; }
 
-    public string SearchByUserId { get; set; }
     public ReactiveCommand<Unit, Unit> LookUpUserCommand { get; }
     public ObservableCollection<UserViewModel> SelectedUserList { get; }
+
+    private string? _searchByUserId;
+    public string? SearchByUserId
+    {
+        get => _searchByUserId;
+        set => this.RaiseAndSetIfChanged(ref _searchByUserId, value);
+    }
+
+
+
+  
+
 
     public MainViewModel(TheModel model, INavigationService nav)
     {
         _model = model;
         _nav = nav;
-
+        LookUpUserCommand = ReactiveCommand.Create(LookUpUser);
         LoadUsersCommand = ReactiveCommand.CreateFromTask(LoadUsersAsync);
+        
+
         //LoadUsersCommand.Execute().Subscribe();
     }
 
@@ -72,6 +85,18 @@ public class MainViewModel : ViewModelBase
             };
 
             Users.Add(new UserViewModel(user, this));
+        }
+    }
+
+    private void LookUpUser()
+    {
+        SelectedUserList.Clear();
+
+        if (int.TryParse(SearchByUserId, out int id))
+        {
+            var match = Users.FirstOrDefault(u => u.Model.UserId == id);
+            if (match != null)
+                SelectedUserList.Add(match);
         }
     }
 

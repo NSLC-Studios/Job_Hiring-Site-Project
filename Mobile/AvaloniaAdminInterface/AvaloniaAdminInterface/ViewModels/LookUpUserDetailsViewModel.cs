@@ -31,43 +31,80 @@ public class LookUpUserDetailsViewModel : ViewModelBase
     public ReactiveCommand<Unit, Unit> ResetPasswordCommand { get; }
     public ReactiveCommand<Unit, Unit> PromoteUserCommand { get; }
     public ReactiveCommand<Unit, Unit> DemoteUserCommand { get; }
-    
+
 
 
     private string? _userName;
     public string? UserName
     {
         get => _userName;
-        set => this.RaiseAndSetIfChanged(ref _userName, value);
+        set
+        {
+            if (_userName != value)
+            {
+                _userName = value;
+                OnPropertyChanged(nameof(UserName));
+            }
+        }
     }
 
     private string? _email;
     public string? Email
     {
         get => _email;
-        set => this.RaiseAndSetIfChanged(ref _email, value);
+        set
+        {
+            if (_email != value)
+            {
+                _email = value;
+                OnPropertyChanged(nameof(Email));
+            }
+        }
     }
 
     private string? _phone;
     public string? Phone
     {
         get => _phone;
-        set => this.RaiseAndSetIfChanged(ref _phone, value);
+        set
+        {
+            if (_phone != value)
+            {
+                _phone = value;
+                OnPropertyChanged(nameof(Phone));
+            }
+        }
     }
 
     private string? _role;
     public string? Role
     {
         get => _role;
-        set => this.RaiseAndSetIfChanged(ref _role, value);
+        set
+        {
+            if (_role != value)
+            {
+                _role = value;
+                OnPropertyChanged(nameof(Role));
+            }
+        }
     }
+
 
     private string? _newPassword;
     public string? NewPassword
     {
         get => _newPassword;
-        set => this.RaiseAndSetIfChanged(ref _newPassword, value);
+        set
+        {
+            if (_newPassword != value)
+            {
+                _newPassword = value;
+                OnPropertyChanged(nameof(NewPassword));
+            }
+        }
     }
+
 
 
     public LookUpUserDetailsViewModel(TheModel model, int userId)
@@ -89,8 +126,9 @@ public class LookUpUserDetailsViewModel : ViewModelBase
 
 
     }
-
-    private async Task LoadAsync()
+    // private async Task LoadAsync()
+    //changed visibility
+    public async Task LoadAsync()
     {
         Companies.Clear();
         Requests.Clear();
