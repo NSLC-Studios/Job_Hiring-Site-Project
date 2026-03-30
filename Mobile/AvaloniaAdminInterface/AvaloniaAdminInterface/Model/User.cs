@@ -18,33 +18,9 @@ namespace AvaloniaAdminInterface.Model
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
         public string Password { get; set; }
-        public int CompanyId { get; set; }
-        public string CompanyName { get; set; }
 
         public TheRoles Role { get; set; } //= TheRoles.DefaultUser; not sure i need it
-
-
 
     }
 
 }
-/*
- public ICommand DeleteThisUser { get; }
-        public ICommand ExpandCommand { get; }
-        public User(int id,
-            string username,
-          
-             TheRoles role,
-             Action<User> deleteAction,
-             Action<User> expandAction
-            )
-        {
-            UserId = id;
-            UserName = username;
-            Role = role;
-
-            DeleteThisUser = new RelayCommand(() => deleteAction(this));
-            ExpandCommand = new RelayCommand(() => expandAction(this));
-
-        }
-*/

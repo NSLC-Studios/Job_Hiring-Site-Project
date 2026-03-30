@@ -1,29 +1,67 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="using:AvaloniaAdminInterface"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Views="clr-namespace:AvaloniaAdminInterface.Views"
+        xmlns:local="clr-namespace:AvaloniaAdminInterface"
         mc:Ignorable="d"
         x:Class="AvaloniaAdminInterface.LookUpUserDetailsWindow">
 
-     <Grid RowDefinitions="Auto,Auto,*,Auto,*">
-         <StackPanel Grid.Row="0" Margin="10" HorizontalAlignment="Center">
-            <TextBlock Text="{Binding UserId}" 
-                       FontSize="28" FontWeight="Bold" 
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto,*">
+
+        
+        <StackPanel Grid.Row="0" Margin="10" HorizontalAlignment="Center" Spacing="4">
+            <TextBlock Text="{Binding UserId}"
+                       FontSize="28" FontWeight="Bold"
                        HorizontalAlignment="Center"/>
-            <TextBlock Text="{Binding UserName}" 
-                       FontSize="22" FontWeight="Bold"
+
+            <TextBlock Text="{Binding UserName}"
+                       FontSize="24" FontWeight="Bold"
                        HorizontalAlignment="Center"/>
+
+            <TextBlock Text="{Binding Email}"
+                       FontSize="18"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Text="{Binding Phone}"
+                       FontSize="18"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Text="{Binding Role}"
+                       FontSize="18" FontWeight="Bold"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Text="{Binding NewPassword}"
+                       FontSize="18"
+                       Foreground="Red"
+                       HorizontalAlignment="Center"
+                       Margin="10"/>
+        </StackPanel>
+
+        <!-- SWEET TASTY DUBLE A BATTERIES imean BUTTONS -->
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Spacing="10"
+                    HorizontalAlignment="Center"
+                    Margin="10">
+            <Button Content="Promote"
+                    Command="{Binding PromoteUserCommand}" />
+
+            <Button Content="Demote"
+                    Command="{Binding DemoteUserCommand}" />
+
+            <Button Content="Reset Password"
+                    Command="{Binding ResetPasswordCommand}" />
         </StackPanel>
 
         <!-- COMPANIES LABEL -->
-        <TextBlock Grid.Row="1" Text="User's Companies"
-                   FontSize="20" FontWeight="Bold"
+        <TextBlock Grid.Row="2"
+                   Text="User's Companies"
+                   FontSize="20"
+                   FontWeight="Bold"
                    Margin="10"/>
 
         <!-- COMPANIES LIST -->
-        <ScrollViewer Grid.Row="2" Margin="10">
+        <ScrollViewer Grid.Row="3" Margin="10">
             <ItemsControl ItemsSource="{Binding Companies}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -34,12 +72,14 @@
         </ScrollViewer>
 
         <!-- REQUESTS LABEL -->
-        <TextBlock Grid.Row="3" Text="User's Requests"
-                   FontSize="20" FontWeight="Bold"
+        <TextBlock Grid.Row="4"
+                   Text="User's Requests"
+                   FontSize="20"
+                   FontWeight="Bold"
                    Margin="10"/>
 
         <!-- REQUESTS LIST -->
-        <ScrollViewer Grid.Row="4" Margin="10">
+        <ScrollViewer Grid.Row="5" Margin="10">
             <ItemsControl ItemsSource="{Binding Requests}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -51,4 +91,3 @@
 
     </Grid>
 </Window>
-

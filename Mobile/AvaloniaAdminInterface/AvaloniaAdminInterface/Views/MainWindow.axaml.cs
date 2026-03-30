@@ -16,5 +16,6 @@ public partial class MainWindow : Window
         NavigationService navigation = new NavigationService(this);
         TheModel _model = new TheModel(session);
         DataContext = new MainViewModel(_model,navigation);
+
     }
 }

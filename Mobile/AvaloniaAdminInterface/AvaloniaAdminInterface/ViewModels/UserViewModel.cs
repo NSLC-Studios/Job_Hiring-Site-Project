@@ -11,18 +11,13 @@ namespace AvaloniaAdminInterface.ViewModels
 {
     public class UserViewModel : ViewModelBase
     {
+        private readonly MainViewModel _parent;
 
         public User Model { get; }
 
-        public string UserName
-        {
-            get => Model.UserName;
-            set
-            {
-                Model.UserName = value;
-                this.RaisePropertyChanged(nameof(UserName)); // or RaiseAndSetIfChanged with a backing field if you want
-            }
-        }
+        public int UserId => Model.UserId;
+        public string UserName => Model.UserName;
+        public User.TheRoles Role => Model.Role;
 
         public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
         public ReactiveCommand<Unit, Unit> ExpandCommand { get; }
@@ -30,17 +25,17 @@ namespace AvaloniaAdminInterface.ViewModels
         public UserViewModel(User model, MainViewModel parent)
         {
             Model = model;
+            _parent = parent;
 
             DeleteCommand = ReactiveCommand.CreateFromTask(
-                () => parent.DeleteUserAsync(this)
+                () => _parent.DeleteUserAsync(this)
             );
 
             ExpandCommand = ReactiveCommand.Create(
-                () => parent.ExpandUser(this)
+                () => _parent.ExpandUser(this)
             );
         }
-
-
-
     }
+
 }
+

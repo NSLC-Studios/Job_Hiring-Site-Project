@@ -24,13 +24,19 @@ public class MainViewModel : ViewModelBase
 
     public ReactiveCommand<Unit, Unit> LoadUsersCommand { get; }
 
+    public UserViewModel? SelectedUser { get; set; }
+
+    public string SearchByUserId { get; set; }
+    public ReactiveCommand<Unit, Unit> LookUpUserCommand { get; }
+    public ObservableCollection<UserViewModel> SelectedUserList { get; }
+
     public MainViewModel(TheModel model, INavigationService nav)
     {
         _model = model;
         _nav = nav;
 
         LoadUsersCommand = ReactiveCommand.CreateFromTask(LoadUsersAsync);
-        LoadUsersCommand.Execute().Subscribe();
+        //LoadUsersCommand.Execute().Subscribe();
     }
 
     public async Task DeleteUserAsync(UserViewModel vm)
@@ -38,11 +44,18 @@ public class MainViewModel : ViewModelBase
         await _model.DeleteUser(vm.Model.UserId);
         Users.Remove(vm);
     }
-
     public void ExpandUser(UserViewModel vm)
     {
-        _nav.OpenWindow(new LookUpUserDetailsViewModel(_model, vm.Model.UserId));
+        var detailsVm = new LookUpUserDetailsViewModel(_model, vm.Model.UserId);
+
+        var window = new LookUpUserDetailsWindow
+        {
+            DataContext = detailsVm
+        };
+
+        window.Show();
     }
+
 
     async Task LoadUsersAsync()
     {
