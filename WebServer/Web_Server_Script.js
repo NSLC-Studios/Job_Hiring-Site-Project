@@ -106,6 +106,10 @@ http.createServer((req, res) => {
             target = "Faq";
             type = ".html";
             break;
+        case "profile" :
+            target = "Profile";
+            type = ".html";
+            break;
         case "styles" :
             target = `Styles/${query[2].replace(".css", "")}`
             type = ".css";

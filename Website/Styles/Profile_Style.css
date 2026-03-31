@@ -1,0 +1,45 @@
+.banner {
+    background-image: url("/Images/Default_Backdrop.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#main-profile {
+    position: relative;
+    min-height: 15em;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+main {
+    margin-left: 12em;
+    margin-right: 12em;
+}
+
+#profile-bottom {
+    height: 45%;
+    width: 100%;
+    flex: 1;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+
+#back-pfp {
+    position: absolute;
+    left: 55px;
+    top: -75px;
+    border-radius: 40%;
+    width: 100px;
+    height: 100px;
+}
+
+#pfp {
+    position: relative;
+    left: 5px;
+    top: 5px;
+    border-radius: 45%;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+}

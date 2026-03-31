@@ -40,3 +40,8 @@
     background: #eee;
     margin-top: 20px;
 }
+
+main {
+    flex: 1;
+    margin-bottom: 1em;
+}
