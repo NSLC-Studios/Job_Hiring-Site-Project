@@ -217,8 +217,8 @@ async function Login(){
     }
 
     try{
-        sign_button.disabled = true;
-        sign_button.innerText = "Logging in...";
+        log_button.disabled = true;
+        log_button.innerText = "Logging in...";
         const response = await fetch(`https://localhost:7142/api/User/login?username=${log_user.value}&password=${log_pass.value}`, { 
             method: "POST", 
             headers: { "Content-Type": "application/json" },

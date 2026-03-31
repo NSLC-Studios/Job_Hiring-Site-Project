@@ -111,7 +111,7 @@ async function GetCompanies(event, skip = 0, take = 24) {
                 const card = template.querySelector(".company-card");
 
                 template.querySelector(".card-owner").textContent = element.ownerName;
-                template.querySelector(".card-owner").href = `/User/${element.ownerID}`;
+                template.querySelector(".card-owner").href = `/Profile/${element.ownerID}`;
                 template.querySelector(".card-company").textContent = element.companyName;
                 template.querySelector(".card-description").textContent = element.description;
                 template.querySelector(".card-button").href = `/Company/${element.id}`;

@@ -11,9 +11,52 @@
     border-radius: 15px;
 }
 
+#profile-description {
+    position: relative;
+    margin-top: 25px;
+    min-height: 4em;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+#description {
+    padding-left: 10px;
+    padding-right: 10px;
+    min-height: 2em;
+}
+
+.description {
+    min-height: 3em;
+    height: 3em;
+}
+
+#company-summary {
+    position: absolute;
+    left: 10px;
+    bottom: 2px;
+}
+
+#profile-email {
+    position: absolute;
+    top: 2px;
+    right: 20px;
+    text-align: right;
+}
+
+#profile-phone {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    text-align: right;
+}
+
 main {
-    margin-left: 12em;
-    margin-right: 12em;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+h2 {
+    text-align: left;
 }
 
 #profile-bottom {
@@ -27,7 +70,7 @@ main {
 
 #back-pfp {
     position: absolute;
-    left: 55px;
+    left: 35px;
     top: -75px;
     border-radius: 40%;
     width: 100px;
@@ -42,4 +85,51 @@ main {
     width: 90px;
     height: 90px;
     overflow: hidden;
+}
+
+#profile-name {
+    position: absolute;
+    left: 135px;
+    top: 0px;
+}
+
+#profile-username {
+    position: absolute;
+    left: 100px;
+    top: 28px;
+}
+
+#profile-role {
+    position: absolute;
+    right: 15px;
+    top: 0px;
+    text-align: right;
+}
+
+#edit-desc-group {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}
+
+#edit-profile-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 7px;
+}
+
+.input-group-sm {
+    transform: scale(0.8);
+    transform-origin: left center;
+}
+
+#profile-email .input-group-sm,
+#profile-phone .input-group-sm {
+    transform: scale(0.8);
+    transform-origin: right center;
+}
+
+#lastname,
+#firstname {
+    max-width: 150px;
 }
