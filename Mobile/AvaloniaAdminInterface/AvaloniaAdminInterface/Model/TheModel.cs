@@ -257,4 +257,6 @@ namespace AvaloniaAdminInterface.Model
     //2 days of peace
     // 3 am rewrote main view model and remade user model + added userViewModel
     // 4 am debug hell wisit 2 hours of sleep all i will get :/
+    //2:25 major bug fixes :)
+
 }

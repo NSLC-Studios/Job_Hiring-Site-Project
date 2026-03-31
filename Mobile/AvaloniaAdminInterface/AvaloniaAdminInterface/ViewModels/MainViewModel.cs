@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
+using static AvaloniaAdminInterface.Model.User;
 
 namespace AvaloniaAdminInterface.ViewModels;
 
@@ -36,21 +37,21 @@ public class MainViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _searchByUserId, value);
     }
 
-
-
-  
-
-
     public MainViewModel(TheModel model, INavigationService nav)
     {
         _model = model;
         _nav = nav;
+ 
+        Users = new ObservableCollection<UserViewModel>();
+        SelectedUserList = new ObservableCollection<UserViewModel>();
+
         LookUpUserCommand = ReactiveCommand.Create(LookUpUser);
         LoadUsersCommand = ReactiveCommand.CreateFromTask(LoadUsersAsync);
-        
-
-        //LoadUsersCommand.Execute().Subscribe();
     }
+
+
+       
+    
 
     public async Task DeleteUserAsync(UserViewModel vm)
     {
@@ -87,18 +88,21 @@ public class MainViewModel : ViewModelBase
             Users.Add(new UserViewModel(user, this));
         }
     }
+   
 
     private void LookUpUser()
     {
+
         SelectedUserList.Clear();
 
         if (int.TryParse(SearchByUserId, out int id))
-        {
-            var match = Users.FirstOrDefault(u => u.Model.UserId == id);
+        {   
+            var match = Users.Where(x => x.UserId == id).FirstOrDefault();
             if (match != null)
                 SelectedUserList.Add(match);
         }
     }
+
 
     static User.TheRoles ConvertRole(string role) => role switch
     {

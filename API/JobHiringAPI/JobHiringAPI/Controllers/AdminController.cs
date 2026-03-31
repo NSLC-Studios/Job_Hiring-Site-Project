@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace JobHiringAPI.Controllers
+namespace JobHiringAPI.Controllers2
 {
     [Route("api/[controller]")]
     [ApiController]

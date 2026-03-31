@@ -1,4 +1,6 @@
 ﻿using AvaloniaAdminInterface.Model;
+using AvaloniaAdminInterface.ViewModels;
+using JobHiringAPI.Dtos;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,13 @@ namespace AvaloniaAdminInterface.ViewModels
 
         public int UserId => Model.UserId;
         public string UserName => Model.UserName;
-        public User.TheRoles Role => Model.Role;
+
+        // UI-friendly string
+        public string Role => Model.Role.ToString();
+
+        // Logic-friendly enum
+        public User.TheRoles RoleEnum => Model.Role;
+        //public User.TheRoles Role => Model.Role;
 
         public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
         public ReactiveCommand<Unit, Unit> ExpandCommand { get; }
@@ -26,6 +34,8 @@ namespace AvaloniaAdminInterface.ViewModels
         {
             Model = model;
             _parent = parent;
+
+
 
             DeleteCommand = ReactiveCommand.CreateFromTask(
                 () => _parent.DeleteUserAsync(this)
@@ -38,4 +48,5 @@ namespace AvaloniaAdminInterface.ViewModels
     }
 
 }
+
 

@@ -21,6 +21,8 @@ namespace AvaloniaAdminInterface.Model
 
         public TheRoles Role { get; set; } //= TheRoles.DefaultUser; not sure i need it
 
+
+
     }
 
 }

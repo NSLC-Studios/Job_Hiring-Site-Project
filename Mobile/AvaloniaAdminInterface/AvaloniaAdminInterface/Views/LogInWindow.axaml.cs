@@ -30,6 +30,7 @@ public partial class LoginWindow : Window
     {
         var main = new MainWindow();
         var nav = new NavigationService(main);
+        var session = new ApiSession("https://localhost:7142/");
 
         main.DataContext = new MainViewModel(_model, nav);
 
