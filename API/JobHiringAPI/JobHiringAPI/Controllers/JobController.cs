@@ -22,6 +22,9 @@ namespace JobHiringAPI.Controllers
         {
             try
             {
+                if (skip < 0) skip = 0;
+                if (take < 0) take = 0;
+
                 return Ok(await _model.GetJobs(skip, take));
             }
             catch
@@ -51,6 +54,10 @@ namespace JobHiringAPI.Controllers
         {
             try
             {
+                if (pay < 0) pay = 0;
+                if (skip < 0) skip = 0;
+                if (take < 0) take = 0;
+
                 return Ok(await _model.GetFilteredJobs(pay, language, country, county, city, work, company, description, skip, take));
             }
             catch
@@ -64,6 +71,9 @@ namespace JobHiringAPI.Controllers
         {
             try
             {
+                if (skip < 0) skip = 0;
+                if (take < 0) take = 0;
+
                 return Ok(await _model.GetSearchedJobs(description, skip, take));
             }
             catch

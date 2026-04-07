@@ -18,6 +18,7 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
     }
 
+    static ApiSession session;
     public override void OnFrameworkInitializationCompleted()
     {
         Session = new ApiSession("https://localhost:7142/");
