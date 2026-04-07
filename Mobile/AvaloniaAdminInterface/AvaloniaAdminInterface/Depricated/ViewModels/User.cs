@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 
 namespace AvaloniaAdminInterface.ViewModels
 {
@@ -21,28 +23,35 @@ namespace AvaloniaAdminInterface.ViewModels
         public string CompanyName { get; set; }
         public TheRoles Role { get; set; } //= TheRoles.DefaultUser; not sure i need it
 
+        public ICommand DeleteThisUser { get; }
+        public ICommand ExpandCommand { get; }
         public User(int id,
             string username,
-            string firstname,
-             string lastname,
-             string email,
-             string phone,
-             string pass,
+            //string firstname,
+            // string lastname,
+            // string email,
+            // string phone,
+            // string pass,
              TheRoles role,
-             string companyName,
-             int companyId
+           //  string companyName,
+           //  int companyId,
+             Action<User> deleteAction,
+             Action<User> expandAction
             )
         {
             UserId = id;
             UserName = username;
-            FirstName = firstname;
-            LastName = lastname;
-            Email = email;
-            PhoneNumber = phone;
-            Password = pass;
+           // FirstName = firstname;
+           // LastName = lastname;
+          //  Email = email;
+           // PhoneNumber = phone;
+           // Password = pass;
             Role = role;
-            CompanyName = companyName;
-            CompanyId =companyId;
+           // CompanyName = companyName;
+            //CompanyId =companyId;
+
+            DeleteThisUser = new RelayCommand(() => deleteAction(this));
+            ExpandCommand = new RelayCommand(() => expandAction(this));
 
         }
 

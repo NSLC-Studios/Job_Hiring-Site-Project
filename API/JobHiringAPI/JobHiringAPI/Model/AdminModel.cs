@@ -62,6 +62,22 @@ namespace JobHiringAPI.Model
                 });
         }
 
+        // Fox Hole
+
+        public async Task<IEnumerable<BaseCompanyDto>> GetCompaniesExtended(int ownerId)
+        {
+            return _company.GetOwnedCompanies(ownerId).Result
+                .Select(x => new BaseCompanyDto
+                {
+                    ID = x.ID,
+                    OwnerID = x.OwnerID,
+                    CompanyName = x.CompanyName,
+                    Description = x.Description
+                });
+        }
+
+        // Fox Cave Ended
+
         public async Task Demote(int id)
         {
             if (_context.Users.Any(x => x.UserID == id && x.Role == "User")) throw new UnauthorizedAccessException("User is already a User");
@@ -152,12 +168,12 @@ namespace JobHiringAPI.Model
         {
             return await _request.GetEnquires(id);
         }
-        
+
         public async Task<IEnumerable<BaseRequestDto>> GetUserRequests(int id)
         {
             return await _request.GetRequests(id);
         }
-        
+
         public async Task<IEnumerable<BaseReceivedCompanyRequestDto>> GetCompanyRequests(int id)
         {
             return await _request.GetCompanyEnquires(id);

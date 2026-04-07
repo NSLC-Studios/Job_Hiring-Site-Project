@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         x:Class="AvaloniaAdminInterface.LoginWindow"
         Title="Login"
-        Width="200" Height="300">
+        Width="100" Height="200">
 	
     <StackPanel Margin="20">
         <TextBox Watermark="Username" Text="{Binding Username}" />

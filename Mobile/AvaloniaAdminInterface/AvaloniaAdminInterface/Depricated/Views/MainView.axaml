@@ -20,17 +20,16 @@
     <Grid.ColumnDefinitions>
 	    <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
-	<TextBox Text="{Binding SearchByUserId}" Watermark="User ID" Grid.Column="0" Grid.Row="0" Margin="-300,20,20,20" Width="130" VerticalAlignment="Center"  FontSize="30" />
+	<TextBox Text="{Binding SearchByUserId}" Watermark="User ID" Grid.Column="0" Grid.Row="0" Margin="-300,20,20,20" Width="20" VerticalAlignment="Center"  FontSize="40" />
 	
     <Button Command="{Binding LookUpUserCommand}" Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Center" VerticalAlignment="Center" Content="Look Up" FontSize="40" IsEnabled="True" />
-    
-    <Button Command="{Binding LoadUsersCommand}" Grid.Column="0" Grid.Row="0" Margin="500,10,40,10" HorizontalAlignment="Center"  VerticalAlignment="Center" Content="Reload" FontSize="40" IsEnabled="True" />
+    <Button Command="{Binding DeleteUser}" Grid.Column="0" Grid.Row="0" Margin="500,15,40,10" HorizontalAlignment="Center"  VerticalAlignment="Center" Content="Delete User" FontSize="40" IsEnabled="True" />
 
     <StackPanel Grid.Row="1">
     <ItemsControl ItemsSource="{Binding SelectedUserList}">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Views:UserControl1 DataContext="{Binding}"/>
+                <Views:UserControl1/>
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>
@@ -42,7 +41,7 @@
             <ItemsControl ItemsSource="{Binding Users}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Views:UserControl1 DataContext="{Binding}"/>
+                        <Views:UserControl1/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

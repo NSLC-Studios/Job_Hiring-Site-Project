@@ -31,7 +31,7 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-
+       
         [Authorize(Roles = "Admin")]
         [HttpGet("users")]
         public async Task<ActionResult<IEnumerable<BaseUserDto>>> GetUsers()
@@ -59,6 +59,24 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
+
+        // Fox Hole
+        
+        [Authorize(Roles = "Admin")]
+        [HttpGet("companies/extended")]
+        public async Task<ActionResult<IEnumerable<BaseCompanyDto>>> GetCompaniesExtended([FromQuery] int ownerId)
+        {
+            try
+            {
+                return Ok(await _model.GetCompaniesExtended(ownerId));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        // Fox Cave Ended
 
         [Authorize(Roles = "Admin")]
         [HttpGet("jobs")]

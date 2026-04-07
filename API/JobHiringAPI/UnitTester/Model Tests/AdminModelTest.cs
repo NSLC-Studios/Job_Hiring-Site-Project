@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace UnitTester
 {
+   
     public class AdminModelTest
     {
 
@@ -20,26 +21,51 @@ namespace UnitTester
             _adminmodel = new AdminModel(_context);
         }
 
+
         [Fact]
         public void TestGetAllUsers()
         {
+            _context.Database.EnsureCreated();
+
             var users = _adminmodel.GetUsers();
             Assert.NotNull(users);
             Assert.IsType<List<BaseUserDto>>(users);
+
+            _context.Database.EnsureDeleted();
         }
+        
         [Fact]
         public void TestGetAllUsersEmpty()
         {
+            _context.Database.EnsureCreated();
+
             var result = _adminmodel.GetUsers();
             Assert.NotNull(result);
             Assert.IsType<List<BaseUserDto>>(result);
+
+            _context.Database.EnsureDeleted();
         }
         [Fact]
         public void TestGetAllJobs()
         {
+            _context.Database.EnsureCreated();
+
             var result = _adminmodel.GetJobs(2);
             Assert.NotNull(result);
             Assert.IsType<List<BaseJobDto>>(result);
+
+            _context.Database.EnsureDeleted();
+        }
+        [Fact]
+        public void TestGetAllJobsNull()
+        {
+            _context.Database.EnsureCreated();
+
+            var result = _adminmodel.GetJobs(2);
+            Assert.NotNull(result);
+            Assert.IsType<List<BaseJobDto>>(result);
+
+            _context.Database.EnsureDeleted();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using AvaloniaAdminInterface.Dtos;
-using JobHiringAPI.Dtos;
+﻿using JobHiringAPI.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,16 +21,9 @@ namespace AvaloniaAdminInterface.Model
 
         private void EnsureAdmin()
         {
-            if (_session == null)
-                throw new Exception("_session is not created yet");
-
-            if (_session.Role == null)
-                throw new Exception("_session.Role is NULL");
-
             if (!string.Equals(_session.Role, "Admin"))
                 throw new UnauthorizedAccessException("Current user is not an admin");
         }
-
 
         // --------------Log in/out-------------
         // GET api/user/login
@@ -80,66 +72,47 @@ namespace AvaloniaAdminInterface.Model
                 $"api/admin/username?id={id}");
         }
 
-        //GET api/user?id=123
-        public async Task<ExtendedUserDto?> GetUserExpandedInfo(int id)
-        {
-            EnsureAdmin();
-            return await _session._client.GetFromJsonAsync<ExtendedUserDto>(
-                $"api/user?id={id}");
-            
 
-        }
+
+
 
         // GET api/admin/companies?id=123
-        //_company.GetOwnedCompanies(id)
-        public async Task<List<AdminCompanyDto>> GetCompanies(int ownerId)
+        public async Task<List<AdminCompanyDto>> GetCompanies(int id)
         {
             EnsureAdmin();
             return await _session._client.GetFromJsonAsync<List<AdminCompanyDto>>(
-                $"api/admin/companies?id={ownerId}");
-        }
-
-        // GET api/admin/companies/extended?ownerId=123
-
-        //BaseCompanyDto
-        public async Task<List<BaseCompanyDto>> GetCompaniesExtended(int ownerId)
-        {
-            EnsureAdmin();
-            return await _session._client.GetFromJsonAsync<List<BaseCompanyDto>>(
-                $"api/admin/companies/extended?ownerId={ownerId}"
-);
+                $"api/admin/companies?id={id}");
         }
 
         // GET api/admin/jobs?id=123
-        public async Task<List<BaseJobDto>> GetJobs(int id)
+        public async Task<List<AdminCompanyDto>> GetJobs(int id)
         {
             EnsureAdmin();
-            return await _session._client.GetFromJsonAsync<List<BaseJobDto>>(
+            return await _session._client.GetFromJsonAsync<List<AdminCompanyDto>>(
                 $"api/admin/jobs?id={id}");
         }
 
         // GET api/admin/requests?id=123
-        public async Task<List<BaseRequestDto>> GetRequestsByJobId(int id)
+        public async Task<List<AdminCompanyDto>> GetRequestsByJobId(int id)
         {
             EnsureAdmin();
-            return await _session._client.GetFromJsonAsync<List<BaseRequestDto>>(
+            return await _session._client.GetFromJsonAsync<List<AdminCompanyDto>>(
                 $"api/admin/requests?id={id}");
         }
 
         // GET api/admin/requests/user?id=123
-        public async Task<List<BaseRequestDto>> GetRequestsByUserId(int id)
+        public async Task<List<AdminCompanyDto>> GetRequestsByUserId(int id)
         {
             EnsureAdmin();
-            return await _session._client.GetFromJsonAsync<List<BaseRequestDto>>(
+            return await _session._client.GetFromJsonAsync<List<AdminCompanyDto>>(
                 $"api/admin/requests/user?id={id}");
         }
 
         // GET api/admin/requests/company?id=123
-        //deprecated
-        public async Task<List<BaseRequestDto>> GetRequestsByCompanyId(int id)
+        public async Task<List<AdminCompanyDto>> GetRequestsByCompanyId(int id)
         {
             EnsureAdmin();
-            return await _session._client.GetFromJsonAsync<List<BaseRequestDto>>(
+            return await _session._client.GetFromJsonAsync<List<AdminCompanyDto>>(
                 $"api/admin/requests/company?id={id}");
         }
     
@@ -156,7 +129,7 @@ namespace AvaloniaAdminInterface.Model
             response.EnsureSuccessStatusCode();
         }
         //-----------Promote to admin demote to user-----
-        //(kinda security concern but hey employes can be fired and prosicuted hackers not as easily)
+        //(kinda security concern but hey employes can be fired and prosicuted hackers npot as easily)
 
         // PUT api/admin/user/promote?id=123
         public async Task PromoteUser(int id)
@@ -236,27 +209,8 @@ namespace AvaloniaAdminInterface.Model
 
             response.EnsureSuccessStatusCode();
         }
-        //Forgot DeleteRequest
-        //DELETE api/request/delete?id=123
-        public async Task DeleteRequest(int id)
-        {
-            EnsureAdmin();
-            var response = await _session._client.DeleteAsync(
-                $"DELETE api/request/delete?id={id}");
-
-            response.EnsureSuccessStatusCode();
-        }
     }
     //2 am insanity
     //4am torture
     //3am 3rd day in a row of not sleeping enough
-    //2am 4th day still must fix dtos
-    //5am bug fixes
-    //2am shenanigans
-    //not much
-    //2 days of peace
-    // 3 am rewrote main view model and remade user model + added userViewModel
-    // 4 am debug hell wisit 2 hours of sleep all i will get :/
-    //2:25 major bug fixes :)
-
 }

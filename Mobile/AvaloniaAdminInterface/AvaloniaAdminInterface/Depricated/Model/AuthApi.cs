@@ -23,6 +23,8 @@ namespace AvaloniaAdminInterface.Model
             var response = await _session._client.PostAsJsonAsync<BaseUserDto>($"api/user/login?username={user2}&password={pass}", null);
             response.EnsureSuccessStatusCode();
 
+
+
             // Read and deserialize the response body
             var user = await response.Content.ReadFromJsonAsync<BaseUserDto>();
 

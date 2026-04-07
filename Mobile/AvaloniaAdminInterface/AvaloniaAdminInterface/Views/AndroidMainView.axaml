@@ -1,0 +1,44 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:views="clr-namespace:AvaloniaAdminInterface.Views"
+        xmlns:views2="clr-namespace:AvaloniaAdminInterface"
+        x:Class="AvaloniaAdminInterface.AndroidMainView"
+        Title="AndroidMainView"
+        >
+
+    <StackPanel Margin="20" Spacing="20">
+
+        <!-- Search Section -->
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <TextBox Width="150"
+                     Watermark="User ID"
+                     Text="{Binding SearchByUserId}" />
+
+            <Button Content="Look Up"
+                    Command="{Binding LookUpUserCommand}" />
+        </StackPanel>
+
+        <!-- Selected User (single row) -->
+        <ContentControl Content="{Binding SelectedUser}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <views:UserControl1 DataContext="{Binding}" />
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+
+        <!-- Expanded Details -->
+        <ContentControl Content="{Binding ExpandedUserDetails}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <views2:UserDetailsControl DataContext="{Binding}" />
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+
+    </StackPanel>
+
+</Window>
