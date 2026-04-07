@@ -19,13 +19,9 @@ namespace AvaloniaAdminInterface.ViewModels
 
         public int UserId => Model.UserId;
         public string UserName => Model.UserName;
-
-        // UI-friendly string
         public string Role => Model.Role.ToString();
 
-        // Logic-friendly enum
         public User.TheRoles RoleEnum => Model.Role;
-        //public User.TheRoles Role => Model.Role;
 
         public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
         public ReactiveCommand<Unit, Unit> ExpandCommand { get; }

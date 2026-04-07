@@ -66,7 +66,8 @@ namespace AvaloniaAdminInterface.ViewModels
 
             try
             {
-                // DEVELOPMENT BYPASS
+                // DEVELOPMENT BYPASS Depracated
+                /*
                 if (Username == "admin" && Password == "0000")
                 {
                     LoginSucceeded?.Invoke(new UserLoginDto
@@ -77,6 +78,7 @@ namespace AvaloniaAdminInterface.ViewModels
                     });
                     return;
                 }
+                */
 
                 // API LOGIN 
                 var user = await _model.Log_in(Username, Password);

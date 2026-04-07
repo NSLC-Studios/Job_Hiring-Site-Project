@@ -60,7 +60,7 @@
                    FontWeight="Bold"
                    Margin="10"/>
 
-        <!-- COMPANIES LIST -->
+        <!-- COMPANIES LIST Bugged-->
         <ScrollViewer Grid.Row="3" Margin="10">
             <ItemsControl ItemsSource="{Binding Companies}">
                 <ItemsControl.ItemTemplate>

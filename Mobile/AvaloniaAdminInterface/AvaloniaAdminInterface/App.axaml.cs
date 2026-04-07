@@ -25,7 +25,7 @@ public partial class App : Application
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            // 2. Show login window FIRST
+            // Show Login Window FIRST Do NotTuch Or Molest
             desktop.MainWindow = new LoginWindow(Model);
         }
 

@@ -34,7 +34,14 @@ public class MainViewModel : ViewModelBase
     public string? SearchByUserId
     {
         get => _searchByUserId;
-        set => this.RaiseAndSetIfChanged(ref _searchByUserId, value);
+        set
+        {
+            if (_searchByUserId != value)
+            {
+                _searchByUserId = value;
+                OnPropertyChanged(nameof(SearchByUserId));
+            }
+        }
     }
 
     public MainViewModel(TheModel model, INavigationService nav)
