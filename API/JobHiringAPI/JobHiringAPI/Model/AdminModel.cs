@@ -61,7 +61,9 @@ namespace JobHiringAPI.Model
                     Name = x.CompanyName 
                 });
         }
-        
+
+        // Fox Hole
+
         public async Task<IEnumerable<BaseCompanyDto>> GetCompaniesExtended(int ownerId)
         {
             return _company.GetOwnedCompanies(ownerId).Result
@@ -71,9 +73,10 @@ namespace JobHiringAPI.Model
                     OwnerID = x.OwnerID,
                     CompanyName = x.CompanyName,
                     Description = x.Description
-                    
                 });
         }
+
+        // Fox Cave Ended
 
         public async Task Demote(int id)
         {

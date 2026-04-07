@@ -1,0 +1,19 @@
+{
+  "name": "webserver",
+  "version": "1.0.0",
+  "description": "WebServer for Job Hiring Site",
+  "main": "Web_Server_Script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Server",
+    "NodeJS",
+    "Html",
+    "http",
+    "Website"
+  ],
+  "author": "NSLC Studios",
+  "license": "MIT",
+  "bin": "Web_Server_Script.js"
+}

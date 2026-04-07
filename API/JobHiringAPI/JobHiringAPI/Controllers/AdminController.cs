@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace JobHiringAPI.Controllers2
+namespace JobHiringAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -59,6 +59,8 @@ namespace JobHiringAPI.Controllers2
                 return BadRequest();
             }
         }
+
+        // Fox Hole
         
         [Authorize(Roles = "Admin")]
         [HttpGet("companies/extended")]
@@ -73,6 +75,8 @@ namespace JobHiringAPI.Controllers2
                 return BadRequest();
             }
         }
+
+        // Fox Cave Ended
 
         [Authorize(Roles = "Admin")]
         [HttpGet("jobs")]

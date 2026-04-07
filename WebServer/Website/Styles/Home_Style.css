@@ -1,0 +1,70 @@
+.job-card {
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    height: 230px;
+    overflow: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.card-backdrop {
+    background-image: url("/Images/Default_Backdrop.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.card-button {
+    position: absolute;
+    right: 15px;
+    left: 15px;
+    bottom: 15px;
+    height: 40px;
+    justify-content: center;
+    font-size: 80%;
+}
+
+.card-language {
+    position: absolute;
+    right: 15px;
+    top: 2px;
+}
+
+.card-workhour {
+    position: absolute;
+    right: 15px;
+    top: 2px;
+}
+
+.card-pay {
+    position: absolute;
+    right: 15px;
+    top: 30px;
+}
+
+.card-address {
+    position: absolute;
+    left: 15px;
+    top: 50px;
+}
+
+.card-description {
+    position: absolute;
+    width: 50%;
+    left: 15px;
+    top: 2px;
+}
+
+.card-company {
+    position: absolute;
+    left: 15px;
+    bottom: 140px;
+}
+
+.card-bottom {
+    height: 60%;
+    width: 100%;
+    flex: 1;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
