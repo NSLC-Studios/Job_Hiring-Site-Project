@@ -139,13 +139,17 @@ async function GetJobs(event, skip = 0, take = 12) {
             });
         } else{
             if (event != null) {
-                page_counter.classList.add("hidden");
+                page_tab.classList.add("hidden");
             }
 
             container.innerHTML = "";
             check.innerText = "No Jobs found!";
         }
     } catch (e){
+        if (event != null) {
+            page_tab.classList.add("hidden");
+        }
+
         console.log("LOAD JOBS");
         console.log(e);
     }
@@ -207,13 +211,17 @@ async function GetSearch(event, skip = 0, take = 12) {
             });
         } else{
             if (event != null) {
-                page_counter.classList.add("hidden");
+                page_tab.classList.add("hidden");
             }
 
             container.innerHTML = "";
             check.innerText = "No Jobs found!";
         }
     } catch (e){
+        if (event != null) {
+            page_tab.classList.add("hidden");
+        }
+        
         console.log("SEARCH JOBS");
         console.log(e);
     }
@@ -275,13 +283,17 @@ async function GetFilter(event, skip = 0, take = 12) {
             });
         } else{
             if (event != null) {
-                page_counter.classList.add("hidden");
+                page_tab.classList.add("hidden");
             }
 
             container.innerHTML = "";
             check.innerText = "No Jobs found!";
         }
     } catch (e){
+        if (event != null) {
+            page_tab.classList.add("hidden");
+        }
+        
         console.log("SEARCH JOBS");
         console.log(e);
     }

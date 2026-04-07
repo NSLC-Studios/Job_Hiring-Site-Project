@@ -25,7 +25,7 @@ function ReplyError(sender, error = "Not Specified"){
 function SendEmpty(sender){
     sender.writeHead(404, {"Content-Type": "text/html"}); // 530
             
-    fs.readFile(`../Website/Empty.html`, (err, payload) =>{
+    fs.readFile(`Website/Empty.html`, (err, payload) =>{
         if(err){
             ReplyError(sender, err.message);
             return;
@@ -37,7 +37,7 @@ function SendEmpty(sender){
 }
 
 function SendResponse(sender, target, type){
-    fs.readFile(`../Website/${target}${type}`, (err, payload) =>{
+    fs.readFile(`Website/${target}${type}`, (err, payload) =>{
         if(err){
             //throw err;
             //console.log(err)

@@ -87,30 +87,30 @@
                                 </div>
                             </div>
                             <div id="profile-name" class="dark fw-bold fs-4">
-                                <label id="name-label" for="name" class="hidden form-label">Actual Test Name</label>
-                                <div id="name-group" class="input-group input-group-sm" role="group">
+                                <label id="name-label" for="name" class="form-label">Actual Test Name</label>
+                                <div id="name-group" class="input-group input-group-sm hidden" role="group">
                                     <input id="firstname" name="name" class="form-control" type="text">
                                     <input id="lastname" name="name" class="form-control" type="text">
                                     <button id="name-btn" class="btn btn-success">Save</button>
                                 </div>
                             </div>
                             <div id="profile-username" class="dark fs-5">
-                                <label id="username-label" for="username" class="hidden form-label">@termalman</label>
-                                <div id="username-group" class="input-group input-group-sm" role="group">
+                                <label id="username-label" for="username" class="form-label">@termalman</label>
+                                <div id="username-group" class="input-group input-group-sm hidden" role="group">
                                     <input id="username" name="username" class="form-control" type="text">
                                     <button id="username-btn" class="btn btn-success">Save</button>
                                 </div>
                             </div>
                             <div id="profile-email" class="dark fs-5">
-                                <label id="email-label" for="email" class="hidden form-label">test@mail.fox</label>
-                                <div id="email-group" class="input-group input-group-sm" role="group">
+                                <label id="email-label" for="email" class="form-label">test@mail.fox</label>
+                                <div id="email-group" class="input-group input-group-sm hidden" role="group">
                                     <input placeholder="Email..." id="email" name="email" class="form-control" type="text">
                                     <button id="email-btn" class="btn btn-success">Save</button>
                                 </div>
                             </div>
                             <div id="profile-phone" class="dark fs-5">
-                                <label id="phone-label" for="phone" class="hidden form-label">-123456848</label>
-                                <div id="phone-group" class="input-group input-group-sm" role="group">
+                                <label id="phone-label" for="phone" class="form-label">-123456848</label>
+                                <div id="phone-group" class="input-group input-group-sm hidden" role="group">
                                     <input id="phone" name="phone" class="form-control" type="text">
                                     <button id="phone-btn" class="btn btn-success">Save</button>
                                 </div>
@@ -118,14 +118,14 @@
                             <div id="company-summary" class="dark fs-6">
                                 Proud owner of:
                             </div>
-                            <button id="edit-profile-btn" class="btn btn-outline-secondary">Edit Profile</button>
+                            <button id="edit-profile-btn" class="btn btn-outline-secondary hidden">Edit Profile</button>
                         </div>
                     </div>
 
                     <div id="profile-description" class="shadow dark_background banner">
-                        <h2 class="dark">About me!</h2>
-                        <div id="edit-desc-group" class="btn-group" role="group">
-                            <button id="save-desc-btn" class="btn btn-success">Save</button>
+                        <h2>About me!</h2>
+                        <div id="edit-desc-group" class="btn-group hidden" role="group">
+                            <button id="save-desc-btn" class="btn btn-success hidden">Save</button>
                             <button id="edit-desc-btn" class="btn btn-outline-secondary">Edit Description</button>
                         </div>
                         <div id="description">
@@ -138,14 +138,24 @@
                 <div class="col-md-4 col-12 col-lg-4">
                     
                     <template id="card-template">
-                        
+                        <div class="m-4">
+                            <div class="card-backdrop dark fs-4 company-card rounded">
+                                <a class="card-owner nav-link text-start">Owner</a>
+                                
+                                <div class="card-bottom dark_background">
+                                    <div class="card-company text-start">Description</div>
+                                    <div class="card-description text-start fs-6">Address</div>
+                                    <a class="card-button fw-bold btn btn-success">Check out!</a>
+                                </div>
+                            </div>
+                        </div>
                     </template>
                     
-                    <div class="shadow text-center rounded content-design">
+                    <div class="shadow text-center rounded content-design pb-1">
                         <h2 class="dark text-center">Companies!</h2>
                         <span id="company-check" class="dark tw-bold fs-4">User has no companies!</span>
                         <div id="company-container">
-
+                            
                         </div>
                     </div>
                 </div>

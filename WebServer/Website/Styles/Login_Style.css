@@ -1,0 +1,11 @@
+/*----sign up and log in----- */
+input {
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.buttons {
+    width: 100%;
+    border: 1px solid black;
+    box-shadow: 2px 2px 5px black;
+}
