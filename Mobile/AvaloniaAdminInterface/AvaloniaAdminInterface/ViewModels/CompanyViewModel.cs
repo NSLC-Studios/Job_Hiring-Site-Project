@@ -11,34 +11,26 @@ using System.Threading.Tasks;
 
 namespace AvaloniaAdminInterface.ViewModels
 {
-    public class UserViewModel : ViewModelBase
+    public class CompanyViewModel : ViewModelBase
     {
         private readonly MainViewModel _parent;
 
-        public User Model { get; }
+        public Company Model { get; }
 
-        public int UserId => Model.UserId;
-        public string UserName => Model.UserName;
-        public string Role => Model.Role.ToString();
-
-        //public User.TheRoles RoleEnum => Model.Role;
+        public int ID => Model.ID;
+        public int UserId => Model.OwnerID;
+        public string OwnerName => Model.OwnerName;
+        public string CompanyName => Model.CompanyName;
+        public string Description => Model.Description;
 
         public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
-        public ReactiveCommand<Unit, Unit> ExpandCommand { get; }
-
-        public UserViewModel(User model, MainViewModel parent)
+        public CompanyViewModel(Company model, MainViewModel parent)
         {
             Model = model;
             _parent = parent;
 
-
-
             DeleteCommand = ReactiveCommand.CreateFromTask(
-                () => _parent.DeleteUserAsync(this)
-            );
-
-            ExpandCommand = ReactiveCommand.Create(
-                () => _parent.ExpandUser(this)
+                () => _parent.DeleteCompanyAsync(this)
             );
         }
     }

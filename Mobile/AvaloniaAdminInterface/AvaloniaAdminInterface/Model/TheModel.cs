@@ -90,13 +90,13 @@ namespace AvaloniaAdminInterface.Model
 
         }
 
-        // GET api/admin/companies?id=123
-        //_company.GetOwnedCompanies(id)
-        public async Task<List<AdminCompanyDto>> GetCompanies(int ownerId)
+        // GET api/admin/allcompanies?start=0,end=24
+        //_company.GetAllCompanies (0 to 24 by default)
+        public async Task<List<BaseCompanyDto>> GetCompanies(int start,int end)
         {
             EnsureAdmin();
-            return await _session._client.GetFromJsonAsync<List<AdminCompanyDto>>(
-                $"api/admin/companies?id={ownerId}");
+            return await _session._client.GetFromJsonAsync<List<BaseCompanyDto>>(
+                $"api/admin/allcompanies?start={start},end={end}");
         }
 
         // GET api/admin/companies/extended?ownerId=123
@@ -106,8 +106,7 @@ namespace AvaloniaAdminInterface.Model
         {
             EnsureAdmin();
             return await _session._client.GetFromJsonAsync<List<BaseCompanyDto>>(
-                $"api/admin/companies/extended?ownerId={ownerId}"
-);
+                $"api/admin/companies/extended?ownerId={ownerId}");
         }
 
         // GET api/admin/jobs?id=123

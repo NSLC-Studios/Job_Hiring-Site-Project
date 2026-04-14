@@ -22,13 +22,16 @@ public class MainViewModel : ViewModelBase
     private readonly INavigationService _nav;
 
     public ObservableCollection<UserViewModel> Users { get; } = new();
-
     public ReactiveCommand<Unit, Unit> LoadUsersCommand { get; }
-
-    public UserViewModel? SelectedUser { get; set; }
-
     public ReactiveCommand<Unit, Unit> LookUpUserCommand { get; }
     public ObservableCollection<UserViewModel> SelectedUserList { get; }
+
+
+
+    public ReactiveCommand<Unit, Unit> LaoadCompaniesCommand { get; }
+    public ObservableCollection<CompanyViewModel> Companies { get; } = new();
+    public ReactiveCommand<Unit, Unit> LookUpCompanyCommand { get; }
+    public ObservableCollection<CompanyViewModel> SelectedCompanyList { get; }
 
     private string? _searchByUserId;
     public string? SearchByUserId
@@ -43,28 +46,72 @@ public class MainViewModel : ViewModelBase
             }
         }
     }
+    private string? _searchByCompanyId;
+    public string? SearchByCompanyId
+    {
+        get => _searchByCompanyId;
+        set
+        {
+            if (_searchByCompanyId != value)
+            {
+                _searchByCompanyId = value;
+                OnPropertyChanged(nameof(SearchByCompanyId));
+            }
+        }
+    }
+    private int _start;
+    public int Start
+    {
+        get => _start;
+        set
+        {
+            if (_start != value)
+            {
+                _start = value;
+                OnPropertyChanged(nameof(Start));
+            }
+        }
+    }
+    private int _end;
+    public int End
+    {
+        get => _end;
+        set
+        {
+            if (_end != value)
+            {
+                _end = value;
+                OnPropertyChanged(nameof(End));
+            }
+        }
+    }
 
     public MainViewModel(TheModel model, INavigationService nav)
     {
         _model = model;
         _nav = nav;
- 
         Users = new ObservableCollection<UserViewModel>();
         SelectedUserList = new ObservableCollection<UserViewModel>();
 
         LookUpUserCommand = ReactiveCommand.Create(LookUpUser);
         LoadUsersCommand = ReactiveCommand.CreateFromTask(LoadUsersAsync);
+
+        LookUpCompanyCommand = ReactiveCommand.Create(LookUpCompany);
+        LaoadCompaniesCommand = ReactiveCommand.CreateFromTask(LoadCompaniesAsync());
     }
 
-
-       
-    
 
     public async Task DeleteUserAsync(UserViewModel vm)
     {
         await _model.DeleteUser(vm.Model.UserId);
         Users.Remove(vm);
     }
+    public async Task DeleteCompanyAsync(CompanyViewModel cvm)
+    {
+        await _model.DeleteCompany(cvm.Model.ID);
+        Companies.Remove(cvm);
+    }
+    //
     public void ExpandUser(UserViewModel vm)
     {
         var detailsVm = new LookUpUserDetailsViewModel(_model, vm.Model.UserId);
@@ -89,13 +136,32 @@ public class MainViewModel : ViewModelBase
             {
                 UserId = dto.ID,
                 UserName = dto.UserName,
-                Role = ConvertRole(dto.Role)
+                //Role = ConvertRole(dto.Role)
+                Role = dto.Role
             };
 
             Users.Add(new UserViewModel(user, this));
         }
     }
-   
+    //async Task LoadCompaniesAsync(int start,int end)
+    async Task LoadCompaniesAsync(int start=0,int end=50)
+    {
+        var dtos = await _model.GetCompanies(start,end);
+        Companies.Clear();
+        foreach (var dto in dtos)
+        {
+            var company = new Company
+            {
+                ID = dto.ID,
+                OwnerID = dto.OwnerID,
+                OwnerName = dto.OwnerName,
+                CompanyName = dto.CompanyName,
+                Description = dto.Description
+            };
+            Companies.Add(new CompanyViewModel(company, this));
+        }
+    }
+
 
     private void LookUpUser()
     {
@@ -110,13 +176,23 @@ public class MainViewModel : ViewModelBase
         }
     }
 
+    private void LookUpCompany() 
+    {
+        SelectedCompanyList.Clear();
+        if (int.TryParse(SearchByCompanyId, out int id))
+        {
+            var found = Companies.Where(x => x.ID == id).FirstOrDefault();
+            SelectedCompanyList.Add(found);
+        }
+    }
 
-    static User.TheRoles ConvertRole(string role) => role switch
+
+    /*static User.TheRoles ConvertRole(string role) => role switch
     {
         "Admin" => User.TheRoles.Admin,
-        "Company" => User.TheRoles.Company,
+        //"Company" => User.TheRoles.Company,
         _ => User.TheRoles.DefaultUser
-    };
+    };*/
 }
 
 
