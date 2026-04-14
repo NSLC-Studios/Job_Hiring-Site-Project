@@ -106,7 +106,8 @@ h2 {
     text-align: right;
 }
 
-#edit-desc-group {
+#edit-desc-group,
+#edit-desc-btn {
     position: absolute;
     right: 15px;
     top: 10px;

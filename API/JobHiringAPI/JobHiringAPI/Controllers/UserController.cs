@@ -156,6 +156,21 @@ namespace JobHiringAPI.Controllers
         }
 
         [Authorize]
+        [HttpPut("update/about")]
+        public async Task<ActionResult> UpdateUserAbout([FromBody] UpdateUserAboutDto dto)
+        {
+            try
+            {
+                await _model.UpdateAbout(dto);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [Authorize]
         [HttpPut("update/username")]
         public async Task<ActionResult> UpdateUserName([FromBody] UpdateUserNameDto dto)
         {

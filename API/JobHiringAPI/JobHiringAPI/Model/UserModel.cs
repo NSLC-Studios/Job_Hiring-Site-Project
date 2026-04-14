@@ -115,6 +115,9 @@ namespace JobHiringAPI.Model
                     LastName = x.LastName,
                     Email = x.Email,
                     Phone = x.Phone,
+                    About = x.About == null 
+                        ? "User has no description." 
+                        : x.About,
                     Company = _context.Companies
                         .Any(x => x.OwnerID == id),
                     Companies = _context.Companies
@@ -153,6 +156,21 @@ namespace JobHiringAPI.Model
                     .Where(x => x.UserID == dto.ID)
                     .ExecuteUpdateAsync(setters => 
                         setters.SetProperty(x => x.Password, HashPassword(dto.Password)));
+                await _context.SaveChangesAsync();
+                await trx.CommitAsync();
+            }
+
+            await Task.CompletedTask;
+        }
+
+        public async Task UpdateAbout(UpdateUserAboutDto dto)
+        {
+            using var trx = _context.Database.BeginTransaction();
+            {
+                await _context.Users
+                    .Where(x => x.UserID == dto.ID)
+                    .ExecuteUpdateAsync(setters =>
+                        setters.SetProperty(x => x.About, dto.About));
                 await _context.SaveChangesAsync();
                 await trx.CommitAsync();
             }

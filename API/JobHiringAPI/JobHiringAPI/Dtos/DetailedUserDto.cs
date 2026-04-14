@@ -8,6 +8,7 @@
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public string About { get; set; }
         public bool Company { get; set; }
         public string ?Companies { get; set; }
         public string Role { get; set; }
