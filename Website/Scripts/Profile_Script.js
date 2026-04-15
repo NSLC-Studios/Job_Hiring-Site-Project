@@ -2,168 +2,175 @@ const card_template = document.getElementById("card-template");
 const container = document.getElementById("company-container");
 const check = document.getElementById("company-check");
 
-// LABELS
 const name_label = document.getElementById("name-label");
 const username_label = document.getElementById("username-label");
 const email_label = document.getElementById("email-label");
 const phone_label = document.getElementById("phone-label");
 
-// GROUPS
 const name_group = document.getElementById("name-group");
 const username_group = document.getElementById("username-group");
 const email_group = document.getElementById("email-group");
 const phone_group = document.getElementById("phone-group");
 
-// PROFILE BUTTON
 const edit_profile_btn = document.getElementById("edit-profile-btn");
 
-// DESCRIPTION UI
-const edit_desc_btn = document.getElementById("edit-desc-btn");
-const desc_group = document.getElementById("edit-desc-group");
-const save_desc_btn = document.getElementById("save-desc-btn");
-const close_desc_btn = document.getElementById("close-desc-btn");
-const area_description = document.getElementById("area-description");
-const text_description = document.getElementById("text-description");
+const edit_about_btn = document.getElementById("edit-desc-btn");
+const about_group = document.getElementById("edit-desc-group");
+const save_about_btn = document.getElementById("save-desc-btn");
+const close_about_btn = document.getElementById("close-desc-btn");
 
-// INPUTS
+const about_area = document.getElementById("area-description");
+const about_text = document.getElementById("text-description");
+
 const firstname = document.getElementById("firstname");
 const lastname = document.getElementById("lastname");
 const username = document.getElementById("username");
 const email = document.getElementById("email");
 const phone = document.getElementById("phone");
 
-// STATE
-let edit_mode = false;
-let desc_edit_mode = false;
+const summary = document.getElementById("company-summary");
 
-// IMPORTANT: profile being viewed
+const btn_update_name = document.getElementById("name-btn");
+const btn_update_username = document.getElementById("username-btn");
+const btn_update_contact = document.getElementById("cont-btn");
+
+let edit_mode = false;
+let about_edit_mode = false;
 let profileUserId = 0;
 
-// EVENTS
 window.addEventListener("load", Init);
 
-edit_profile_btn.addEventListener("click", ToggleEdit);
+edit_profile_btn.addEventListener("click", ToggleEditMode);
 
-edit_desc_btn.addEventListener("click", EnterDescriptionEdit);
-save_desc_btn.addEventListener("click", SaveDescription);
-close_desc_btn.addEventListener("click", CloseDescriptionEdit);
+edit_about_btn.addEventListener("click", EnterAboutEdit);
+save_about_btn.addEventListener("click", SaveAbout);
+close_about_btn.addEventListener("click", CloseAboutEdit);
 
-// PROFILE UPDATE BUTTONS (FIXED — THIS WAS MISSING BEFORE)
-document.getElementById("name-btn").addEventListener("click", UpdateName);
-document.getElementById("username-btn").addEventListener("click", UpdateUsername);
-document.getElementById("email-btn").addEventListener("click", UpdateContact);
-document.getElementById("phone-btn").addEventListener("click", UpdateContact);
+btn_update_name.addEventListener("click", UpdateUserName);
+btn_update_username.addEventListener("click", UpdateUserUsername);
+btn_update_contact.addEventListener("click", UpdateUserContact);
 
-// INIT
 async function Init() {
     await UserSession();
 
     profileUserId = GetProfileUserIdFromUrl();
 
-    await GetUser();
-    await GetCompanies();
+    await GetProfile();
 }
 
-// GET PROFILE ID FROM URL
 function GetProfileUserIdFromUrl() {
     const parts = window.location.pathname.split("/");
     return parseInt(parts[parts.length - 1]);
 }
 
-// =====================
-// USER
-// =====================
+async function GetProfile() {
+    const user = await GetUser();
+    const companies = await GetUserCompanies();
+
+    RenderUserProfile(user);
+    RenderCompanyCards(companies);
+}
+
 async function GetUser() {
     try {
         const response = await fetch(
             `https://localhost:7142/api/User?id=${profileUserId}`
         );
 
-        if (!response.ok) return;
+        if (!response.ok) {
+            console.log("GET USER — BAD RESPONSE");
+            return null;
+        }
 
-        const data = await response.json();
-
-        name_label.innerText = `${data.firstName} ${data.lastName}`;
-        username_label.innerText = `@${data.userName}`;
-        email_label.innerText = data.email;
-        phone_label.innerText = data.phone;
-
-        document.getElementById("profile-role").innerText = data.role;
-
-        firstname.value = data.firstName;
-        lastname.value = data.lastName;
-        username.value = data.userName;
-        email.value = data.email;
-        phone.value = data.phone;
-
-        text_description.innerText =
-            data.about && data.about.length > 0
-                ? data.about
-                : "No description set yet.";
-
-        area_description.value = data.about ?? "";
-
-        const isOwner = UserContainer.UserID === profileUserId;
-
-        edit_profile_btn.classList.toggle("hidden", !isOwner);
-        edit_desc_btn.classList.toggle("hidden", !isOwner);
+        return await response.json();
     } catch (e) {
-        console.log("GET USER", e);
+        console.log("GET USER ERROR");
+        console.log(e);
+        return null;
     }
 }
 
-// =====================
-// COMPANIES
-// =====================
-async function GetCompanies() {
+async function GetUserCompanies() {
     try {
         const response = await fetch(
             `https://localhost:7142/api/Company/companies/user?id=${profileUserId}`
         );
 
-        if (!response.ok) return;
-
-        const data = await response.json();
-
-        container.innerHTML = "";
-
-        const summary = document.getElementById("company-summary");
-
-        if (!data || data.length === 0) {
-            summary.classList.add("hidden");
-            summary.innerText = "";
-            check.innerText = "";
-            return;
+        if (!response.ok) {
+            console.log("GET COMPANIES — BAD RESPONSE");
+            return [];
         }
 
-        summary.classList.remove("hidden");
-        summary.innerText = "Proud owner of:";
-
-        check.innerText = "";
-
-        data.forEach((element) => {
-            const template = card_template.content.cloneNode(true);
-
-            template.querySelector(".card-owner").textContent =
-                element.ownerName;
-            template.querySelector(".card-company").textContent =
-                element.companyName;
-            template.querySelector(".card-description").textContent =
-                element.description;
-            template.querySelector(".card-button").href =
-                `/Company/${element.id}`;
-
-            container.appendChild(template);
-        });
+        return await response.json();
     } catch (e) {
-        console.log("GET COMPANIES", e);
+        console.log("GET COMPANIES ERROR");
+        console.log(e);
+        return [];
     }
 }
 
-// =====================
-// PROFILE EDIT TOGGLE
-// =====================
-function ToggleEdit() {
+function RenderUserProfile(data) {
+    if (!data) return;
+
+    name_label.innerText = `${data.firstName} ${data.lastName}`;
+    username_label.innerText = `@${data.userName}`;
+    email_label.innerText = data.email;
+    phone_label.innerText = data.phone;
+
+    firstname.value = data.firstName;
+    lastname.value = data.lastName;
+    username.value = data.userName;
+    email.value = data.email;
+    phone.value = data.phone;
+
+    about_text.innerText =
+        data.about && data.about.length > 0
+            ? data.about
+            : "No description set yet.";
+
+    about_area.value = data.about ?? "";
+
+    document.getElementById("profile-role").innerText = data.role;
+
+    const isOwner = UserContainer.UserID === profileUserId;
+
+    edit_profile_btn.classList.toggle("hidden", !isOwner);
+    edit_about_btn.classList.toggle("hidden", !isOwner);
+}
+
+function RenderCompanyCards(data) {
+    container.innerHTML = "";
+
+    if (!data || data.length === 0) {
+        summary.classList.add("hidden");
+        summary.innerText = "";
+        check.innerText = "";
+        return;
+    }
+
+    summary.classList.remove("hidden");
+    summary.innerText = `Proud owner of: ${data.map(c => c.companyName).join(", ")}`;
+    check.innerText = "";
+
+    data.forEach(element => {
+        const template = card_template.content.cloneNode(true);
+        const card = template.querySelector(".company-card");
+
+        template.querySelector(".card-owner").textContent = element.ownerName;
+        template.querySelector(".card-company").textContent = element.companyName;
+        template.querySelector(".card-description").textContent = element.description;
+        template.querySelector(".card-button").href = `/Company/${element.id}`;
+
+        card.style.opacity = 0;
+        container.appendChild(template);
+
+        setTimeout(() => {
+            card.style.opacity = 1;
+        }, 1);
+    });
+}
+
+function ToggleEditMode() {
     edit_mode = !edit_mode;
 
     name_group.classList.toggle("hidden");
@@ -181,32 +188,29 @@ function ToggleEdit() {
         : "Edit Profile";
 }
 
-// =====================
-// DESCRIPTION
-// =====================
-function EnterDescriptionEdit() {
-    desc_edit_mode = true;
+function EnterAboutEdit() {
+    about_edit_mode = true;
 
-    edit_desc_btn.classList.add("hidden");
-    desc_group.classList.remove("hidden");
+    edit_about_btn.classList.add("hidden");
+    about_group.classList.remove("hidden");
 
-    text_description.classList.add("hidden");
-    area_description.classList.remove("hidden");
+    about_text.classList.add("hidden");
+    about_area.classList.remove("hidden");
 
-    area_description.value = text_description.innerText;
+    about_area.value = about_text.innerText;
 }
 
-function CloseDescriptionEdit() {
-    desc_edit_mode = false;
+function CloseAboutEdit() {
+    about_edit_mode = false;
 
-    edit_desc_btn.classList.remove("hidden");
-    desc_group.classList.add("hidden");
+    edit_about_btn.classList.remove("hidden");
+    about_group.classList.add("hidden");
 
-    text_description.classList.remove("hidden");
-    area_description.classList.add("hidden");
+    about_text.classList.remove("hidden");
+    about_area.classList.add("hidden");
 }
 
-async function SaveDescription() {
+async function SaveAbout() {
     try {
         const response = await fetch(
             `https://localhost:7142/api/User/update/about`,
@@ -216,25 +220,25 @@ async function SaveDescription() {
                 credentials: "include",
                 body: JSON.stringify({
                     id: profileUserId,
-                    about: area_description.value,
+                    about: about_area.value,
                 }),
             }
         );
 
         if (response.ok) {
-            text_description.innerText = area_description.value;
+            about_text.innerText = about_area.value;
+        } else {
+            console.log("SAVE ABOUT — BAD RESPONSE");
         }
     } catch (e) {
-        console.log("SAVE DESCRIPTION", e);
+        console.log("SAVE ABOUT ERROR");
+        console.log(e);
     }
 
-    CloseDescriptionEdit();
+    CloseAboutEdit();
 }
 
-// =====================
-// UPDATES (FIXED)
-// =====================
-async function UpdateName() {
+async function UpdateUserName() {
     try {
         const response = await fetch(
             `https://localhost:7142/api/User/update/name`,
@@ -252,13 +256,16 @@ async function UpdateName() {
 
         if (response.ok) {
             name_label.innerText = `${firstname.value} ${lastname.value}`;
+        } else {
+            console.log("UPDATE NAME — BAD RESPONSE");
         }
     } catch (e) {
-        console.log("UPDATE NAME", e);
+        console.log("UPDATE NAME ERROR");
+        console.log(e);
     }
 }
 
-async function UpdateUsername() {
+async function UpdateUserUsername() {
     try {
         const response = await fetch(
             `https://localhost:7142/api/User/update/username`,
@@ -275,13 +282,16 @@ async function UpdateUsername() {
 
         if (response.ok) {
             username_label.innerText = `@${username.value}`;
+        } else {
+            console.log("UPDATE USERNAME — BAD RESPONSE");
         }
     } catch (e) {
-        console.log("UPDATE USERNAME", e);
+        console.log("UPDATE USERNAME ERROR");
+        console.log(e);
     }
 }
 
-async function UpdateContact() {
+async function UpdateUserContact() {
     try {
         const response = await fetch(
             `https://localhost:7142/api/User/update/contact`,
@@ -300,8 +310,11 @@ async function UpdateContact() {
         if (response.ok) {
             email_label.innerText = email.value;
             phone_label.innerText = phone.value;
+        } else {
+            console.log("UPDATE CONTACT — BAD RESPONSE");
         }
     } catch (e) {
-        console.log("UPDATE CONTACT", e);
+        console.log("UPDATE CONTACT ERROR");
+        console.log(e);
     }
 }
