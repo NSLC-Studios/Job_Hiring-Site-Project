@@ -1,4 +1,4 @@
-
+﻿
 
  <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -56,6 +56,36 @@
     <TextBox Text="{Binding SearchByCompanyId}" Watermark="Company ID" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Width="100" VerticalAlignment="Center"  FontSize="30" />
 	
     <Button Command="{Binding LookUpCompanyCommand}" Grid.Column="0" Grid.Row="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Content="Look Up Company" FontSize="40" IsEnabled="True" />
+    
+    <StackPanel Grid.Row="3"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Margin="20"
+            Spacing="10">
+
+    <TextBlock Text="Page Range"
+               FontSize="20"
+               HorizontalAlignment="Center"/>
+
+    <TextBlock Text="{Binding Start}"
+               FontSize="24"
+               HorizontalAlignment="Center"/>
+
+    <TextBlock Text="{Binding End}"
+               FontSize="24"
+               HorizontalAlignment="Center"/>
+
+    <Button Content="Up"
+            FontSize="14"
+            Width="60"
+            Command="{Binding Increase_range}"/>
+
+    <Button Content="Down"
+            FontSize="14"
+            Width="60"
+            Command="{Binding Decrease_range}"/>
+
+</StackPanel>
 
     <StackPanel Grid.Row="4">
     <ItemsControl ItemsSource="{Binding SelectedCompanyList}">

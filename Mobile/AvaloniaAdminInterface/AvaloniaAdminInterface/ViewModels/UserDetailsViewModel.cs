@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Threading.Tasks;
 
-public class LookUpUserDetailsViewModel : ViewModelBase
+public class UserDetailsViewModel : ViewModelBase
 {
     private readonly TheModel _model;
 
@@ -107,7 +107,7 @@ public class LookUpUserDetailsViewModel : ViewModelBase
 
 
 
-    public LookUpUserDetailsViewModel(TheModel model, int userId)
+    public UserDetailsViewModel(TheModel model, int userId)
     {
         _model = model;
         UserId = userId;

@@ -6,16 +6,16 @@ using System.Reactive.Linq;
 
 namespace AvaloniaAdminInterface;
 
-public partial class LookUpUserDetailsWindow : Window
+public partial class UserDetailsViewModel : Window
 {
 
-    public LookUpUserDetailsWindow()
+    public UserDetailsViewModel()
     {
         InitializeComponent();
         //yes it passes an empty event
         this.Opened += (_, __) =>
         {
-            if (DataContext is LookUpUserDetailsViewModel vm)
+            if (DataContext is UserDetailsViewModel vm)
             {
                 //vm.LoadCommand.Execute().Subscribe();
                 vm.LoadAsync();//pain

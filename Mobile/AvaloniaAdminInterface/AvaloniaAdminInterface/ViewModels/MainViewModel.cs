@@ -33,6 +33,10 @@ public class MainViewModel : ViewModelBase
     public ReactiveCommand<Unit, Unit> LookUpCompanyCommand { get; }
     public ObservableCollection<CompanyViewModel> SelectedCompanyList { get; }
 
+    public ReactiveCommand<Unit, Unit> IncreaseRange { get; }
+    public ReactiveCommand<Unit, Unit> DecreaseRange { get; }
+
+
     private string? _searchByUserId;
     public string? SearchByUserId
     {
@@ -59,45 +63,39 @@ public class MainViewModel : ViewModelBase
             }
         }
     }
-    private int _start;
-    public int Start
-    {
-        get => _start;
-        set
-        {
-            if (_start != value)
-            {
-                _start = value;
-                OnPropertyChanged(nameof(Start));
-            }
-        }
-    }
-    private int _end;
-    public int End
-    {
-        get => _end;
-        set
-        {
-            if (_end != value)
-            {
-                _end = value;
-                OnPropertyChanged(nameof(End));
-            }
-        }
-    }
+    public int Start { get; set; }
+    public int End { get; set; }
 
     public MainViewModel(TheModel model, INavigationService nav)
     {
         _model = model;
         _nav = nav;
         Users = new ObservableCollection<UserViewModel>();
+
         SelectedUserList = new ObservableCollection<UserViewModel>();
+        SelectedCompanyList = new ObservableCollection<CompanyViewModel>();
+
 
         LookUpUserCommand = ReactiveCommand.Create(LookUpUser);
         LoadUsersCommand = ReactiveCommand.CreateFromTask(LoadUsersAsync);
 
         LookUpCompanyCommand = ReactiveCommand.Create(LookUpCompany);
-        LaoadCompaniesCommand = ReactiveCommand.CreateFromTask(LoadCompaniesAsync());
+        LaoadCompaniesCommand = ReactiveCommand.CreateFromTask(LoadCompaniesAsync);
+
+        IncreaseRange = ReactiveCommand.Create(() =>
+        {
+            Start += 100;
+            End += 100;
+        });
+
+        DecreaseRange = ReactiveCommand.Create(() =>
+        {
+            if (Start >= 100)
+            {
+                Start -= 100;
+                End -= 100;
+            }
+        });
     }
 
 
@@ -144,23 +142,24 @@ public class MainViewModel : ViewModelBase
         }
     }
     //async Task LoadCompaniesAsync(int start,int end)
-    async Task LoadCompaniesAsync(int start=0,int end=50)
+    async Task LoadCompaniesAsync()
     {
-        var dtos = await _model.GetCompanies(start,end);
+        var dtos = await _model.GetCompanies(Start, End);
+
         Companies.Clear();
         foreach (var dto in dtos)
         {
-            var company = new Company
+            Companies.Add(new CompanyViewModel(new Company
             {
                 ID = dto.ID,
                 OwnerID = dto.OwnerID,
                 OwnerName = dto.OwnerName,
                 CompanyName = dto.CompanyName,
                 Description = dto.Description
-            };
-            Companies.Add(new CompanyViewModel(company, this));
+            }, this));
         }
     }
+
 
 
     private void LookUpUser()
@@ -182,7 +181,11 @@ public class MainViewModel : ViewModelBase
         if (int.TryParse(SearchByCompanyId, out int id))
         {
             var found = Companies.Where(x => x.ID == id).FirstOrDefault();
-            SelectedCompanyList.Add(found);
+            if (found != null)
+            {
+                SelectedCompanyList.Add(found);
+            }
+
         }
     }
 
