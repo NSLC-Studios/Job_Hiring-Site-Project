@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AvaloniaAdminInterface"
         mc:Ignorable="d"
-        x:Class="AvaloniaAdminInterface.LookUpUserDetailsWindow">
+        x:Class="AvaloniaAdminInterface.UserDetailsWindow">
 
     <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto,*">
 

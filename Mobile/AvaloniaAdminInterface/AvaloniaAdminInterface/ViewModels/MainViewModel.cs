@@ -112,9 +112,9 @@ public class MainViewModel : ViewModelBase
     //
     public void ExpandUser(UserViewModel vm)
     {
-        var detailsVm = new LookUpUserDetailsViewModel(_model, vm.Model.UserId);
+        var detailsVm = new UserDetailsViewModel(_model, vm.Model.UserId);
 
-        var window = new LookUpUserDetailsWindow
+        var window = new UserDetailsWindow
         {
             DataContext = detailsVm
         };

@@ -30,11 +30,11 @@
             </ContentControl.ContentTemplate>
         </ContentControl>
 
-        <!-- Expanded Details -->
+        <!-- Future selected company -->
         <ContentControl Content="{Binding ExpandedUserDetails}">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
-                    <views2:UserDetailsControl DataContext="{Binding}" />
+                    <views2:CompanyControl DataContext="{Binding}" />
                 </DataTemplate>
             </ContentControl.ContentTemplate>
         </ContentControl>

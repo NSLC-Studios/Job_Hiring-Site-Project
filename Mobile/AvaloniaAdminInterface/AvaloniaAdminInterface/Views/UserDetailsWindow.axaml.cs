@@ -6,10 +6,10 @@ using System.Reactive.Linq;
 
 namespace AvaloniaAdminInterface;
 
-public partial class UserDetailsViewModel : Window
+public partial class UserDetailsWindow : Window
 {
 
-    public UserDetailsViewModel()
+    public UserDetailsWindow()
     {
         InitializeComponent();
         //yes it passes an empty event
