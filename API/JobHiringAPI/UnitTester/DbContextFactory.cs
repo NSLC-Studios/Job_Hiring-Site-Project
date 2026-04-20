@@ -10,94 +10,58 @@ using System.Threading.Tasks;
 
 namespace UnitTester
 {
-    public class DbContextFactory
+    public static class DbContextFactory
     {
-        public DbContextFactory() { }
-        private static readonly SqliteConnection _connection =
-         new SqliteConnection("Data Source=:memory:");
-
-        private static bool _initialized = false;
-
-        public static JobDatabaseContext Create()
+        public static JobDatabaseContext Create(bool seed = true)
         {
-            if (_connection.State != ConnectionState.Open)
-                _connection.Open();
+            // Each test gets its own isolated in-memory DB
+            var connection = new SqliteConnection("Data Source=:memory:");
+            connection.Open();
 
             var options = new DbContextOptionsBuilder<JobDatabaseContext>()
-                .UseSqlite(_connection)
+                .UseSqlite(connection)
                 .EnableSensitiveDataLogging()
                 .Options;
 
             var context = new JobDatabaseContext(options);
 
-            if (!_initialized)
-            {
-                context.Database.EnsureCreated();
+            context.Database.EnsureCreated();
+
+            if (seed)
                 DbSeeder.Seed(context);
-                _initialized = true;
-            }
 
             return context;
         }
 
         public static JobDatabaseContext CreateEmpty()
         {
-            if (_connection.State != ConnectionState.Open)
-                _connection.Open();
-
-            var options = new DbContextOptionsBuilder<JobDatabaseContext>()
-                .UseSqlite(_connection)
-                .EnableSensitiveDataLogging()
-                .Options;
-
-            var context = new JobDatabaseContext(options);
-
-            if (!_initialized)
-            {
-                context.Database.EnsureCreated();
-                _initialized = true;
-            }
-
-            return context;
+            return Create(seed: false);
         }
     }
 }
-    /*
-    public static JobDatabaseContext Create()
-    {
-
-        var connection = new SqliteConnection("Data Source=:memory:");
-
-        connection.Open();
-
-        var options = new DbContextOptionsBuilder<JobDatabaseContext>().UseSqlite(connection).EnableSensitiveDataLogging().Options;
-
-        var context = new JobDatabaseContext(options);
-
-        context.Database.EnsureCreated();
-
-        DbSeeder.Seed(context);
-
-        return context;
-    }*/
-
-
 
     /*
-    public static JobDatabaseContext CreateEmpty()
+    deprecated 
+
+    //to make testing easier
+    public static void Reset()
     {
-        var connection = new SqliteConnection("Data Source=:memory:");
+        if (_connection != null)
+        {
+            try
+            {
+                if (_connection.State == ConnectionState.Open)
+                    _connection.Close();
+            }
+            catch { }
 
-        connection.Open(); 
+            _connection.Dispose();
+        }
 
-        var options = new DbContextOptionsBuilder<JobDatabaseContext>().UseSqlite(connection).EnableSensitiveDataLogging().Options;
+        _connection = new SqliteConnection("Data Source=:memory:");
+        _initialized = false;
+    }
 
-        var context = new JobDatabaseContext(options);
-
-        context.Database.EnsureCreated();
-        // DbSeeder.Seed(context);g// not seeding for empty database
-
-        return context;
-    }*/
+    */
 
 
