@@ -98,18 +98,26 @@ public class MainViewModel : ViewModelBase
         });
     }
 
-
     public async Task DeleteUserAsync(UserViewModel vm)
     {
         await _model.DeleteUser(vm.Model.UserId);
         Users.Remove(vm);
     }
+    /*
     public async Task DeleteCompanyAsync(CompanyViewModel cvm)
     {
         await _model.DeleteCompany(cvm.Model.ID);
         Companies.Remove(cvm);
+    }*/
+    public async Task DeleteCompanyAsync(CompanyViewModel compvm)
+    {
+        if (compvm == null)
+            return;
+
+        await _model.DeleteCompany(compvm.Model.ID);
+        Companies.Remove(compvm);
     }
-    //
+
     public void ExpandUser(UserViewModel vm)
     {
         var detailsVm = new UserDetailsViewModel(_model, vm.Model.UserId);
@@ -144,7 +152,7 @@ public class MainViewModel : ViewModelBase
     //async Task LoadCompaniesAsync(int start,int end)
     async Task LoadCompaniesAsync()
     {
-        var dtos = await _model.GetCompanies(Start, End);
+        var dtos = await _model.GetAllCompanies(Start, End);
 
         Companies.Clear();
         foreach (var dto in dtos)

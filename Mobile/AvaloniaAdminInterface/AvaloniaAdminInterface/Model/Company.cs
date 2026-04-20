@@ -20,5 +20,7 @@ namespace AvaloniaAdminInterface.Model
         {
             DeleteThis = new RelayCommand(() => deleteAction(this));
         }*/
+
+
     }
 }

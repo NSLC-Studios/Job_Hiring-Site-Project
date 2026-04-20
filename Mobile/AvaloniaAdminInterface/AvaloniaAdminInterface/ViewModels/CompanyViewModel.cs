@@ -18,21 +18,26 @@ namespace AvaloniaAdminInterface.ViewModels
         public Company Model { get; }
 
         public int ID => Model.ID;
-        public int UserId => Model.OwnerID;
-        public string OwnerName => Model.OwnerName;
+        public int OwnerId => Model.OwnerID;
         public string CompanyName => Model.CompanyName;
         public string Description => Model.Description;
 
         public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
+
         public CompanyViewModel(Company model, MainViewModel parent)
         {
             Model = model;
             _parent = parent;
 
-            DeleteCommand = ReactiveCommand.CreateFromTask(
-                () => _parent.DeleteCompanyAsync(this)
-            );
+            DeleteCommand = ReactiveCommand.CreateFromTask(DeleteAsync);
         }
+
+        private Task DeleteAsync()
+        {
+            return _parent.DeleteCompanyAsync(this);
+        }
+
+
     }
 
 }

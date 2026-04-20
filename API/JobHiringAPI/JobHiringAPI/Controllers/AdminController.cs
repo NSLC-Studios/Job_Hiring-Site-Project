@@ -64,7 +64,7 @@ namespace JobHiringAPI.Controllers
         //company/companies exist but why not this
         [Authorize(Roles = "Admin")]
         [HttpGet("allcompanies")]
-        public async Task<ActionResult<IEnumerable<BaseCompanyDto>>> GetCompanies([FromQuery] int start,int end)
+        public async Task<ActionResult<IEnumerable<BaseCompanyDto>>> GetAllCompanies([FromQuery] int start,int end)
         {
             try
             {
@@ -163,7 +163,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPut("user/promote")]
         public async Task<ActionResult> Promote([FromQuery] int id)
         {
