@@ -1,0 +1,213 @@
+.banner {
+    background-image: url("/Images/Default_Backdrop.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#main-profile {
+    position: relative;
+    min-height: 15em;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+#company-description {
+    position: relative;
+    min-height: 20rem;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+#description {
+    padding-left: 10px;
+    padding-right: 10px;
+    min-height: 2em;
+}
+
+.description {
+    min-height: 3em;
+}
+
+#card-address {
+    position: absolute;
+    left: 20px;
+    bottom: 10px;
+}
+
+#company-email {
+    position: absolute;
+    top: 2px;
+    right: 20px;
+    text-align: right;
+}
+
+#company-phone {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    text-align: right;
+}
+
+main {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+h2 {
+    text-align: left;
+}
+
+#company-bottom {
+    height: 45%;
+    width: 100%;
+    flex: 1;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+
+#back-pfp {
+    position: absolute;
+    left: 35px;
+    top: -75px;
+    border-radius: 40%;
+    width: 100px;
+    height: 100px;
+}
+
+#pfp {
+    position: relative;
+    left: 5px;
+    top: 5px;
+    border-radius: 45%;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+}
+
+#profile-name {
+    position: absolute;
+    left: 135px;
+    top: 0px;
+}
+
+#company-owner {
+    position: absolute;
+    left: 100px;
+    top: 28px;
+}
+
+#profile-role {
+    position: absolute;
+    right: 15px;
+    top: 0px;
+    text-align: right;
+}
+
+#edit-desc-group,
+#edit-desc-btn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}
+
+#edit-profile-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 7px;
+}
+
+.input-group-sm {
+    transform: scale(0.8);
+    transform-origin: left center;
+}
+
+#profile-email .input-group-sm,
+#profile-phone .input-group-sm {
+    transform: scale(0.8);
+    transform-origin: right center;
+}
+
+#lastname,
+#firstname {
+    max-width: 150px;
+}
+
+h2 {
+    color: rgb(180, 180, 180);
+}
+
+.job-card {
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    height: 230px;
+    overflow: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.card-backdrop {
+    background-image: url("/Images/Default_Backdrop.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.card-button {
+    position: absolute;
+    right: 15px;
+    left: 15px;
+    bottom: 15px;
+    height: 40px;
+    justify-content: center;
+    font-size: 80%;
+}
+
+.card-language {
+    position: absolute;
+    right: 15px;
+    top: 2px;
+}
+
+.card-workhour {
+    position: absolute;
+    right: 15px;
+    top: 2px;
+}
+
+.card-pay {
+    position: absolute;
+    right: 15px;
+    top: 30px;
+}
+
+.card-address {
+    position: absolute;
+    left: 15px;
+    top: 50px;
+}
+
+.card-description {
+    position: absolute;
+    width: 50%;
+    left: 15px;
+    top: 2px;
+}
+
+.card-company {
+    position: absolute;
+    left: 15px;
+    bottom: 140px;
+}
+
+#job-element {
+    margin-top: 25px;
+}
+
+.card-bottom {
+    height: 60%;
+    width: 100%;
+    flex: 1;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}

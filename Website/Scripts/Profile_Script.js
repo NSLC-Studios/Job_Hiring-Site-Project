@@ -27,6 +27,7 @@ const lastname = document.getElementById("lastname");
 const username = document.getElementById("username");
 const email = document.getElementById("email");
 const phone = document.getElementById("phone");
+const user_role = document.getElementById("profile-role");
 
 const summary = document.getElementById("company-summary");
 
@@ -36,7 +37,7 @@ const btn_update_contact = document.getElementById("cont-btn");
 
 let edit_mode = false;
 let about_edit_mode = false;
-let profileUserId = 0;
+let UserId = 0;
 
 window.addEventListener("load", Init);
 
@@ -53,38 +54,45 @@ btn_update_contact.addEventListener("click", UpdateUserContact);
 async function Init() {
     await UserSession();
 
-    profileUserId = GetProfileUserIdFromUrl();
-
-    await GetProfile();
-}
-
-function GetProfileUserIdFromUrl() {
-    const parts = window.location.pathname.split("/");
-    return parseInt(parts[parts.length - 1]);
-}
-
-async function GetProfile() {
-    const user = await GetUser();
-    const companies = await GetUserCompanies();
-
-    RenderUserProfile(user);
-    RenderCompanyCards(companies);
+    const temp = window.location.pathname.split("/");
+    UserId =parseInt(temp[temp.length - 1]);
+    
+    await GetUser();
+    await GetUserCompanies();
 }
 
 async function GetUser() {
     try {
         const response = await fetch(
-            `https://localhost:7142/api/User?id=${profileUserId}`
+            `https://localhost:7142/api/User?id=${UserId}`
         );
 
-        if (!response.ok) {
-            console.log("GET USER — BAD RESPONSE");
+        if (response.ok) {
+            const data = await response.json();
+
+            name_label.innerText = `${data.firstName} ${data.lastName}`;
+            username_label.innerText = `@${data.userName}`;
+            email_label.innerText = data.email;
+            phone_label.innerText = data.phone;
+
+            firstname.value = data.firstName;
+            lastname.value = data.lastName;
+            username.value = data.userName;
+            email.value = data.email;
+            phone.value = data.phone;
+
+            about_text.innerText = data.about && data.about.length > 0 ? data.about : "No description set yet.";
+            about_area.value = data.about ?? "";
+            user_role.innerText = data.role;
+            const owner = UserContainer.UserID === UserId;
+            edit_profile_btn.classList.toggle("hidden", !owner);
+            edit_about_btn.classList.toggle("hidden", !owner);
+        } else{
+            console.log("GET USER - BAD RESPONSE");
             return null;
         }
-
-        return await response.json();
     } catch (e) {
-        console.log("GET USER ERROR");
+        console.log("GET USER");
         console.log(e);
         return null;
     }
@@ -93,49 +101,20 @@ async function GetUser() {
 async function GetUserCompanies() {
     try {
         const response = await fetch(
-            `https://localhost:7142/api/Company/companies/user?id=${profileUserId}`
+            `https://localhost:7142/api/Company/companies/user?id=${UserId}`
         );
 
         if (!response.ok) {
-            console.log("GET COMPANIES — BAD RESPONSE");
+            console.log("GET COMPANIES - BAD RESPONSE");
             return [];
         }
 
-        return await response.json();
+        RenderCompanyCards(await response.json());
     } catch (e) {
-        console.log("GET COMPANIES ERROR");
+        console.log("GET COMPANIES");
         console.log(e);
         return [];
     }
-}
-
-function RenderUserProfile(data) {
-    if (!data) return;
-
-    name_label.innerText = `${data.firstName} ${data.lastName}`;
-    username_label.innerText = `@${data.userName}`;
-    email_label.innerText = data.email;
-    phone_label.innerText = data.phone;
-
-    firstname.value = data.firstName;
-    lastname.value = data.lastName;
-    username.value = data.userName;
-    email.value = data.email;
-    phone.value = data.phone;
-
-    about_text.innerText =
-        data.about && data.about.length > 0
-            ? data.about
-            : "No description set yet.";
-
-    about_area.value = data.about ?? "";
-
-    document.getElementById("profile-role").innerText = data.role;
-
-    const isOwner = UserContainer.UserID === profileUserId;
-
-    edit_profile_btn.classList.toggle("hidden", !isOwner);
-    edit_about_btn.classList.toggle("hidden", !isOwner);
 }
 
 function RenderCompanyCards(data) {
@@ -219,7 +198,7 @@ async function SaveAbout() {
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify({
-                    id: profileUserId,
+                    id: UserId,
                     about: about_area.value,
                 }),
             }
@@ -228,10 +207,10 @@ async function SaveAbout() {
         if (response.ok) {
             about_text.innerText = about_area.value;
         } else {
-            console.log("SAVE ABOUT — BAD RESPONSE");
+            console.log("SAVE ABOUT - BAD RESPONSE");
         }
     } catch (e) {
-        console.log("SAVE ABOUT ERROR");
+        console.log("SAVE ABOUT");
         console.log(e);
     }
 
@@ -247,7 +226,7 @@ async function UpdateUserName() {
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify({
-                    id: profileUserId,
+                    id: UserId,
                     firstName: firstname.value,
                     lastName: lastname.value,
                 }),
@@ -257,10 +236,10 @@ async function UpdateUserName() {
         if (response.ok) {
             name_label.innerText = `${firstname.value} ${lastname.value}`;
         } else {
-            console.log("UPDATE NAME — BAD RESPONSE");
+            console.log("UPDATE NAME - BAD RESPONSE");
         }
     } catch (e) {
-        console.log("UPDATE NAME ERROR");
+        console.log("UPDATE NAME");
         console.log(e);
     }
 }
@@ -274,7 +253,7 @@ async function UpdateUserUsername() {
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify({
-                    id: profileUserId,
+                    id: UserId,
                     userName: username.value,
                 }),
             }
@@ -283,10 +262,10 @@ async function UpdateUserUsername() {
         if (response.ok) {
             username_label.innerText = `@${username.value}`;
         } else {
-            console.log("UPDATE USERNAME — BAD RESPONSE");
+            console.log("UPDATE USERNAME - BAD RESPONSE");
         }
     } catch (e) {
-        console.log("UPDATE USERNAME ERROR");
+        console.log("UPDATE USERNAME");
         console.log(e);
     }
 }
@@ -300,7 +279,7 @@ async function UpdateUserContact() {
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify({
-                    id: profileUserId,
+                    id: UserId,
                     email: email.value,
                     phone: phone.value,
                 }),
@@ -311,10 +290,10 @@ async function UpdateUserContact() {
             email_label.innerText = email.value;
             phone_label.innerText = phone.value;
         } else {
-            console.log("UPDATE CONTACT — BAD RESPONSE");
+            console.log("UPDATE CONTACT - BAD RESPONSE");
         }
     } catch (e) {
-        console.log("UPDATE CONTACT ERROR");
+        console.log("UPDATE CONTACT");
         console.log(e);
     }
 }

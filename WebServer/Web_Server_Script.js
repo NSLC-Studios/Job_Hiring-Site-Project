@@ -69,6 +69,11 @@ http.createServer((req, res) => {
             target = "Home";
             type = ".html";
             break;
+        case "home" :
+            // redirect to actual home page
+            res.writeHead(302, { Location: "/" });
+            res.end();
+            return
         case "contact" :
             target = "Contact";
             type = ".html";
