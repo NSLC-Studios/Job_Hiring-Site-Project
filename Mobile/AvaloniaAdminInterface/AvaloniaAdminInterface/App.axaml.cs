@@ -32,7 +32,7 @@ public partial class App : Application
 
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new LoginWindow(Model);
+            singleViewPlatform.MainView = new AndroidView();
         }
 
         base.OnFrameworkInitializationCompleted();
