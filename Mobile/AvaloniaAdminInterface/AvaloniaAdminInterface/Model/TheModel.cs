@@ -258,5 +258,8 @@ namespace AvaloniaAdminInterface.Model
     // 4 am debug hell wisit 2 hours of sleep all i will get :/
     //2:25 major bug fixes :)
     //3:18 Oh The misery also gotta buy a lot of strong black tea...
+    //1:50 New avalonia view
+    //2:50 Avalaonia why wont you work right?! Emulator broken.... 
+
 
 }

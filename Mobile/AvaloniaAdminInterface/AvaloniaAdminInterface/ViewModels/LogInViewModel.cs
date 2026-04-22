@@ -82,7 +82,13 @@ namespace AvaloniaAdminInterface.ViewModels
                 }
 
                 LoginSucceeded?.Invoke(user);
-                
+
+                LoginSucceeded += user =>
+                {
+                    LoggedInUser = user;
+                    IsLoggedIn = true;
+                };
+
 
             }
             catch
@@ -95,7 +101,27 @@ namespace AvaloniaAdminInterface.ViewModels
             }
         }
 
+        private bool _isLoggedIn;
+        public bool IsLoggedIn
+        {
+            get => _isLoggedIn;
+            set { _isLoggedIn = value; OnPropertyChanged(); }
+        }
 
+        private UserLoginDto _loggedInUser;
+        public UserLoginDto LoggedInUser
+        {
+            get => _loggedInUser;
+            set { _loggedInUser = value; OnPropertyChanged(); }
+        }
+
+        /*
+    public class UserLoginDto
+    {
+        public int UserID { get; set; }
+        public string UserName { get; set; }
+        public string Role { get; set; }
+    }*/
     }
 }
 

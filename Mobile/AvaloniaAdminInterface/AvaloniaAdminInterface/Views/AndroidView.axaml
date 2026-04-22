@@ -2,24 +2,57 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="850"
              xmlns:views="clr-namespace:AvaloniaAdminInterface.Views"
              xmlns:views2="clr-namespace:AvaloniaAdminInterface"
              x:Class="AvaloniaAdminInterface.AndroidView">
- 
-  <StackPanel Margin="20" Spacing="20">
+ <StackPanel>
 
+        <StackPanel Margin="20" Spacing="10" HorizontalAlignment="Center" Orientation="Horizontal">
+       
+            <TextBox Watermark="Username" Text="{Binding Username}" />
+            <TextBox Text="{Binding Password}"  Watermark="Password" />
+
+            <Button Content="Login" Command="{Binding LoginCommand}" />
+            <TextBlock Foreground="Red" Text="{Binding ErrorMessage}" />
+         </StackPanel>
+
+     <!-- To HideIt -->
+     <StackPanel IsVisible="{Binding IsLoggedIn}">
         <!-- Search Section -->
-        <StackPanel Orientation="Horizontal" Spacing="10">
+        <StackPanel Orientation="Horizontal" Spacing="40" HorizontalAlignment="Center">
             <TextBox Width="150"
                      Watermark="User ID"
                      Text="{Binding SearchByUserId}" />
 
-            <Button Content="Look Up"
+            <Button Content="Look Up User"
+                    Command="{Binding LookUpUserCommand}" />
+
+            </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Spacing="10"
+                    HorizontalAlignment="Center">
+            <TextBox Width="150"
+                     Watermark="Company ID"
+                     Text="{Binding SearchByUserId}" />
+
+            <Button Content="Look Up Company"
+                    Command="{Binding LookUpUserCommand}" />
+            </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Spacing="40"
+                    HorizontalAlignment="Center" >
+            <TextBox Width="150"
+                     Watermark="Job ID"
+                     Text="{Binding SearchByUserId}" />
+
+            <Button Content="Look Up Jobs"
                     Command="{Binding LookUpUserCommand}" />
         </StackPanel>
 
         <!-- Selected User (single row) -->
+        <Label> Selected User </Label>
+
         <ContentControl Content="{Binding SelectedUser}">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
@@ -28,7 +61,55 @@
             </ContentControl.ContentTemplate>
         </ContentControl>
 
-        <!-- Future selected company -->
+        <StackPanel>
+            <StackPanel Margin="10" HorizontalAlignment="Center" Spacing="4">
+            <TextBlock Text="{Binding UserId}"
+                       FontSize="28" FontWeight="Bold"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Text="{Binding UserName}"
+                       FontSize="24" FontWeight="Bold"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Text="{Binding Email}"
+                       FontSize="18"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Text="{Binding Phone}"
+                       FontSize="18"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Text="{Binding Role}"
+                       FontSize="18" FontWeight="Bold"
+                       HorizontalAlignment="Center"/>
+            </StackPanel>
+        
+           
+        
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Spacing="10"
+                    HorizontalAlignment="Center"
+                    Margin="10">
+            <Button Content="Promote"
+                    Command="{Binding PromoteUserCommand}" />
+
+            <Button Content="Demote"
+                    Command="{Binding DemoteUserCommand}" />
+
+            <Button Content="Reset Password"
+                    Command="{Binding ResetPasswordCommand}" />
+             <TextBlock Text="{Binding NewPassword}"
+                       FontSize="18"
+                       Foreground="Red"
+                       HorizontalAlignment="Center"
+                       Margin="10"/>
+        </StackPanel>
+        
+
+        
+        <!-- Selected company -->
+        <Label> Selected Company </Label>
         <ContentControl Content="{Binding ExpandedUserDetails}">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
@@ -36,7 +117,16 @@
                 </DataTemplate>
             </ContentControl.ContentTemplate>
         </ContentControl>
-
+        <!-- Selected Job -->
+        <Label> Selected Job </Label>
+        <ContentControl Content="{Binding ExpandedUserDetails}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <views2:CompanyControl DataContext="{Binding}" />
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
     </StackPanel>
-
+    </StackPanel>
+    </StackPanel>
 </UserControl>
