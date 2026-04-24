@@ -33,8 +33,6 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        /* 
-        // Reserved for Admin Model
         [HttpGet("jobs/company")]
         public async Task<ActionResult<IEnumerable<BaseJobDto>>> GetCompanyJobs([FromQuery] int id)
         {
@@ -47,7 +45,6 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        */
 
         [HttpGet("jobs/filter")]
         public async Task<ActionResult<IEnumerable<BaseJobDto>>> GetFilteredJobs([FromQuery] int pay = 0, [FromQuery] string language = "", [FromQuery] string country = "", [FromQuery] string county = "", [FromQuery] string city = "", [FromQuery] string work = "", [FromQuery] string company = "", [FromQuery] string description = "", [FromQuery] int skip = 0, [FromQuery] int take = 12)

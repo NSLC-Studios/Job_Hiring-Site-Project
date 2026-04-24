@@ -55,8 +55,9 @@ async function Init() {
     await UserSession();
 
     const temp = window.location.pathname.split("/");
-    UserId =parseInt(temp[temp.length - 1]);
-    
+    //UserId = parseInt(temp.filter(x => x).pop());
+    UserId = parseInt(temp[2]);
+
     await GetUser();
     await GetUserCompanies();
 }
@@ -84,7 +85,7 @@ async function GetUser() {
             about_text.innerText = data.about && data.about.length > 0 ? data.about : "No description set yet.";
             about_area.value = data.about ?? "";
             user_role.innerText = data.role;
-            const owner = UserContainer.UserID === UserId;
+            const owner = UserContainer.UserID == UserId;
             edit_profile_btn.classList.toggle("hidden", !owner);
             edit_about_btn.classList.toggle("hidden", !owner);
         } else{
