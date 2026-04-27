@@ -33,7 +33,7 @@
         <StackPanel Orientation="Horizontal" Spacing="10"
                     HorizontalAlignment="Center">
             <TextBox Width="150"
-                     Watermark="Company ID"
+                     Watermark="Company Owner ID"
                      Text="{Binding SearchByUserId}" />
 
             <Button Content="Look Up Company"
@@ -108,7 +108,7 @@
         
 
         
-        <!-- Selected company -->
+        <!-- Selected companys -->
         <Label> Selected Company </Label>
         <ContentControl Content="{Binding ExpandedUserDetails}">
             <ContentControl.ContentTemplate>
@@ -117,6 +117,7 @@
                 </DataTemplate>
             </ContentControl.ContentTemplate>
         </ContentControl>
+
         <!-- Selected Job -->
         <Label> Selected Job </Label>
         <ContentControl Content="{Binding ExpandedUserDetails}">

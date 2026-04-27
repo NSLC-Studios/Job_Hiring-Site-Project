@@ -89,7 +89,8 @@ namespace AvaloniaAdminInterface.Model
             
 
         }
-
+        /*
+        nope...not gonna use it here too conversome for android user to controll 
         // GET api/admin/allcompanies?start=0,end=24
         //_company.GetAllCompanies (0 to 24 by default)
         public async Task<List<BaseCompanyDto>> GetCompanies(int start,int end)
@@ -97,7 +98,7 @@ namespace AvaloniaAdminInterface.Model
             EnsureAdmin();
             return await _session._client.GetFromJsonAsync<List<BaseCompanyDto>>(
                 $"api/admin/allcompanies?start={start},end={end}");
-        }
+        }*/
 
         // GET api/admin/companies/extended?ownerId=123
 
