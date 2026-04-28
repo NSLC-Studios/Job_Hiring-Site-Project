@@ -11,7 +11,29 @@ using System;
 
 namespace AvaloniaAdminInterface;
 
+public partial class LoginWindow : Window
+{
+    public event Action<UserLoginDto>? LoginSucceeded;
 
+    public LoginWindow(TheModel model)
+    {
+        InitializeComponent();
+
+        if (DataContext is LogInViewModel vm)
+        {
+            vm.LoginSucceeded += user => LoginSucceeded?.Invoke(user);
+        }
+        else
+        {
+            var vm2 = new LogInViewModel(model);
+            vm2.LoginSucceeded += user => LoginSucceeded?.Invoke(user);
+            DataContext = vm2;
+        }
+
+    }
+}
+
+/*
 public partial class LoginWindow : Window
 {
     private readonly TheModel _model;
@@ -38,7 +60,7 @@ public partial class LoginWindow : Window
         this.Close();
     }
 }
-
+*/
 /*
 
 

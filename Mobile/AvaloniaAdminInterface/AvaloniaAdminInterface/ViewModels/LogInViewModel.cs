@@ -115,13 +115,7 @@ namespace AvaloniaAdminInterface.ViewModels
             set { _loggedInUser = value; OnPropertyChanged(); }
         }
 
-        /*
-    public class UserLoginDto
-    {
-        public int UserID { get; set; }
-        public string UserName { get; set; }
-        public string Role { get; set; }
-    }*/
+
     }
 }
 

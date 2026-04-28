@@ -105,6 +105,7 @@ public class UserDetailsViewModel : ViewModelBase
         }
     }
 
+    public Company? selectedCompany { get; set; }
 
 
     public UserDetailsViewModel(TheModel model, int userId)
@@ -188,9 +189,10 @@ public class UserDetailsViewModel : ViewModelBase
     // companies
     private async Task DeleteCompanyAsync(Company company)
     {
-        await _model.DeleteCompany(company.ID);
+        await _model.DeleteCompany(selectedCompany.ID);
         await LoadAsync();
     }
+
     private async Task DeleteCompanyByIdAsync(int companyId)
     {
         await _model.DeleteCompany(companyId);

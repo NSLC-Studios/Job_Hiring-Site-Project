@@ -50,6 +50,7 @@ public class MainViewModel : ViewModelBase
             }
         }
     }
+
     private string? _searchByCompanyId;
     public string? SearchByCompanyId
     {
@@ -63,6 +64,13 @@ public class MainViewModel : ViewModelBase
             }
         }
     }
+    private UserViewModel? _selectedUser;
+    public UserViewModel? SelectedUser
+    {
+        get => _selectedUser;
+        set => this.RaiseAndSetIfChanged(ref _selectedUser, value);
+    }
+
     public int Start { get; set; }
     public int End { get; set; }
 
@@ -79,10 +87,10 @@ public class MainViewModel : ViewModelBase
         LookUpUserCommand = ReactiveCommand.Create(LookUpUser);
         LoadUsersCommand = ReactiveCommand.CreateFromTask(LoadUsersAsync);
 
-        LookUpCompanyCommand = ReactiveCommand.Create(LookUpCompany);
+        //LookUpCompanyCommand = ReactiveCommand.Create(LookUpCompany);
         LoadCompaniesCommand = ReactiveCommand.CreateFromTask(LoadCompaniesAsync);
 
-        //LoadCompaniesCommand.Execute().Subscribe();
+        LoadCompaniesCommand.Execute().Subscribe();
 
 
         IncreaseRange = ReactiveCommand.Create(() =>
@@ -116,9 +124,10 @@ public class MainViewModel : ViewModelBase
         Companies.Remove(compvm);
     }
 
-    public void ExpandUser(UserViewModel vm)
+    public async Task ExpandUser(UserViewModel vm)
     {
         var detailsVm = new UserDetailsViewModel(_model, vm.Model.UserId);
+        await detailsVm.LoadAsync();
 
         var window = new UserDetailsWindow
         {
@@ -127,6 +136,7 @@ public class MainViewModel : ViewModelBase
 
         window.Show();
     }
+ 
 
 
     async Task LoadUsersAsync()
@@ -150,20 +160,36 @@ public class MainViewModel : ViewModelBase
     //async Task LoadCompaniesAsync(int start,int end)
     async Task LoadCompaniesAsync()
     {
-        var dtos = await _model.GetCompanies(Start, End);
-
-        Companies.Clear();
-        foreach (var dto in dtos)
+        try
         {
-            Companies.Add(new CompanyViewModel(new Company
+            int id = Convert.ToInt32(_searchByCompanyId);
+            var dtos = await _model.GetCompaniesExtended(id);
+            SelectedCompanyList.Clear();
+            Companies.Clear();
+            foreach (var dto in dtos)
             {
-                ID = dto.ID,
-                OwnerID = dto.OwnerID,
-                OwnerName = dto.OwnerName,
-                CompanyName = dto.CompanyName,
-                Description = dto.Description
-            }, this));
+                Companies.Add(new CompanyViewModel(new Company
+                {
+                    ID = dto.ID,
+                    OwnerID = dto.OwnerID,
+                    OwnerName = dto.OwnerName,
+                    CompanyName = dto.CompanyName,
+                    Description = dto.Description
+                }, this));
+               SelectedCompanyList.Add(new CompanyViewModel(new Company
+               {
+                   ID = dto.ID,
+                   OwnerID = dto.OwnerID,
+                   OwnerName = dto.OwnerName,
+                   CompanyName = dto.CompanyName,
+                   Description = dto.Description
+               }, this));
+            }
+            
         }
+        catch { 
+        }
+        
     }
 
 
@@ -174,24 +200,10 @@ public class MainViewModel : ViewModelBase
         SelectedUserList.Clear();
 
         if (int.TryParse(SearchByUserId, out int id))
-        {   
+        {
             var match = Users.Where(x => x.UserId == id).FirstOrDefault();
             if (match != null)
                 SelectedUserList.Add(match);
-        }
-    }
-
-    private void LookUpCompany() 
-    {
-        SelectedCompanyList.Clear();
-        if (int.TryParse(SearchByCompanyId, out int id))
-        {
-            var found = Companies.Where(x => x.ID == id).FirstOrDefault();
-            if (found != null)
-            {
-                SelectedCompanyList.Add(found);
-            }
-
         }
     }
 

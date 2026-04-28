@@ -34,11 +34,11 @@ namespace AvaloniaAdminInterface.ViewModels
 
 
             DeleteCommand = ReactiveCommand.CreateFromTask(
-                () => _parent.DeleteUserAsync(this)
+               async () => await _parent.DeleteUserAsync(this)
             );
 
-            ExpandCommand = ReactiveCommand.Create(
-                () => _parent.ExpandUser(this)
+            ExpandCommand = ReactiveCommand.CreateFromTask(
+               async () => await _parent.ExpandUser(this)
             );
         }
     }

@@ -3,13 +3,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AvaloniaAdminInterface"
+        xmlns:vm="clr-namespace:AvaloniaAdminInterface.ViewModels"
+
+       
         mc:Ignorable="d"
         x:Class="AvaloniaAdminInterface.UserDetailsWindow">
+
 
     <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto,*">
 
         
-        <StackPanel Grid.Row="0" Margin="10" HorizontalAlignment="Center" Spacing="4">
+        <StackPanel Grid.Row="0" Margin="10" HorizontalAlignment="Center" Spacing="4" >
             <TextBlock Text="{Binding UserId}"
                        FontSize="28" FontWeight="Bold"
                        HorizontalAlignment="Center"/>
@@ -61,16 +65,20 @@
                    Margin="10"/>
 
         <!-- COMPANIES LIST Bugged-->
-        <ScrollViewer Grid.Row="3" Margin="10">
-            <ItemsControl ItemsSource="{Binding Companies}">
-                <ItemsControl.ItemTemplate>
+        <StackPanel Grid.Row="3">
+			<Button Command="{Binding DeleteCompanyCommand}" Content="DeleteCompany"></Button>
+        
+        <ScrollViewer  Margin="10">
+            <ListBox ItemsSource="{Binding Companies}" SelectedItem="{Binding selectedCompany}">
+                <ListBox.ItemTemplate>
                     <DataTemplate>
                         <local:CompanyControl/>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ListBox.ItemTemplate>
+            
+            </ListBox>
         </ScrollViewer>
-
+        </StackPanel>
         <!-- REQUESTS LABEL -->
         <TextBlock Grid.Row="4"
                    Text="User's Requests"

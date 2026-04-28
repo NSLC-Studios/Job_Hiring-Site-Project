@@ -12,15 +12,6 @@ public partial class UserDetailsWindow : Window
     public UserDetailsWindow()
     {
         InitializeComponent();
-        //yes it passes an empty event
-        this.Opened += (_, __) =>
-        {
-            if (DataContext is UserDetailsViewModel vm)
-            {
-                //vm.LoadCommand.Execute().Subscribe();
-                vm.LoadAsync();//pain
-            }
-        };
     }
 }
 
