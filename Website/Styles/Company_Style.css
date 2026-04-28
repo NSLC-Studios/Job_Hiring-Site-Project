@@ -28,7 +28,7 @@
     min-height: 3em;
 }
 
-#company-address {
+#profile-address {
     position: absolute;
     left: 20px;
     bottom: 10px;
@@ -46,6 +46,12 @@
     top: 30px;
     right: 20px;
     text-align: right;
+}
+
+#job-container {
+    max-height: 400px;
+    min-height: 0px;
+    overflow-y: auto;
 }
 
 main {

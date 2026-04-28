@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Profile!</title>
+    <title>Companies</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/Styles/Base_Style.css">
-    <link rel="stylesheet" href="/Styles/Company_Style.css">
+    <link rel="stylesheet" href="/Styles/Job_Style.css">
 </head>
 <body class="darkmode_animation">
     <header>
@@ -71,110 +71,113 @@
     <main>
         <div class="container-fluid">
             <div class="row">
+    
                 <div class="col-lg-1 col-md-0 col-0">
-                    <!-- Optional Ad Space-->
+                    <!--Optional ad space-->
                 </div>
 
-                <div class="col-md-8 col-12 col-lg-7">
-                    <div id="main-profile" class="shadow dark_background banner">
-                        <div id="profile-role" class="dark fs-5">
-                            
-                        </div>
-                        <div id="company-bottom" class="dark_background">
-                            <div id="back-pfp" class="shadow dark_background">
-                                <div id="pfp">
+                <div class="col-lg-7 col-md-12 col-12">
+    
+                    <div id="job-profile" class="shadow dark_background banner">
+    
+                        <div id="job-bottom" class="dark_background">
+    
+                            <div id="job-pfp-box" class="shadow dark_background">
+                                <div id="job-pfp">
                                     <img class="shadow" width="100%" height="100%" src="/Images/Icons/logo.ico">
                                 </div>
                             </div>
-                            <div id="profile-name" class="dark fw-bold fs-4">
-                                <label id="name-label" for="name" class="form-label">Company Doesn't Exist</label>
-                                <div id="name-group" class="input-group input-group-sm hidden" role="group">
-                                    <input id="company-name" name="name" class="form-control" type="text">
-                                    <button id="company-btn" class="btn btn-success">Save</button>
-                                </div>
+    
+                            <div id="job-company-area" class="dark fw-bold fs-4">
+                                <a id="job-company-label" class="nav-link">Company Name</a>
                             </div>
-                            <div id="company-owner" class="dark fs-5">
-                                <a id="username-label" class="nav-link">Error</a>
+    
+                            <div id="job-pay-area" class="dark fs-5">
+                                <label id="job-pay-label" class="form-label"></label>
                             </div>
-                            <div>
-                                <div id="company-email" class="dark fs-5">
-                                    <label id="email-label" for="email" class="form-label"></label>
-                                    <div id="email-group" class="input-group-sm hidden" role="group">
-                                        <input placeholder="Email..." id="email" name="email" class="form-control fs-6" type="text">
-                                    </div>
-                                </div>
-                                <div id="company-phone" class="dark fs-5">
-                                    <label id="phone-label" for="phone" class="form-label"></label>
-                                    <div id="phone-group" class="input-group input-group-sm hidden" role="group">
-                                        <input id="phone" name="phone" class="form-control fs-6" type="text">
-                                        <button id="cont-btn" class="btn btn-success">Save</button>
-                                    </div>
-                                </div>
+    
+                            <div id="job-buttons">
+                                <button id="edit-job-btn" class="btn btn-outline-secondary hidden">Edit</button>
+                                <a id="apply-btn-top" class="btn btn-success hidden">Apply</a>
                             </div>
-
-                            <div id="profile-address" class="dark fs-6">
-                                <label id="company-address" for="address"></label>
-
-                                <div id="address-group" class="input-group input-group-sm hidden" role="group">
-                                    <select id="company-location" class="form-select">
-                                        <option selected value="">Choose an area...</option>
-                                    </select>
-                                    <button id="address-btn" class="btn btn-success">Save</button>
-                                </div>
-                            </div>
-                            <button id="edit-profile-btn" class="btn btn-outline-secondary hidden">Edit Profile</button>
+    
+                            <div id="job-address" class="dark fs-6">Address</div>
                         </div>
                     </div>
-
-                    <template id="card-template">
-                        <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                            <div class="card-backdrop dark fs-4 job-card rounded">
-                                <label class="card-company nav-link text-start">Company</label>
-                                <div class="card-language text-end fs-6">Languages</div>
-                                
-                                <div class="card-bottom dark_background">
-                                    <div class="card-description text-start">Description</div>
-                                    <div class="card-address text-start fs-6">Address</div>
-                                    <div class="card-workhour text-end">WorkHour</div>
-                                    <div class="card-pay text-end">Pay</div>
-                                    <a class="card-button fw-bold btn btn-success">Check out!</a>
-                                </div>
-                            </div>
+    
+                    <div id="job-description-box" class="container shadow rounded content-design pb-1">
+                        <h2 class="dark text-start">Description</h2>
+    
+                        <button id="edit-jobdesc-btn" class="btn btn-outline-secondary hidden desc-edit-btn">Edit</button>
+    
+                        <div id="edit-jobdesc-group" class="btn-group hidden desc-edit-group">
+                            <button id="save-jobdesc-btn" class="btn btn-success">Save</button>
+                            <button id="close-jobdesc-btn" class="btn btn-outline-secondary">Finish</button>
                         </div>
-                    </template>
-                    
-                    <div id="job-element" class="container shadow text-center rounded content-design pb-1">
-                        <h2 class="dark text-center">Jobs!</h2>
-                        <span id="job-check" class="dark tw-bold fs-4"></span>
-                        <!--Company has no jobs!-->
-                        <div id="job-container" class="row">
-                            
+    
+                        <div id="job-description">
+                            <textarea id="jobdesc-area" class="description hidden fs-4 form-control"></textarea>
+                            <p id="jobdesc-text" class="description fs-4 smokey-kala"></p>
                         </div>
                     </div>
+    
                 </div>
-                
-                <div class="col-md-4 col-12 col-lg-4">
-                    <div id="company-description" class="shadow dark_background banner">
-                        <h2>About us!</h2>
-                        <button id="edit-desc-btn" class="btn btn-outline-secondary hidden">Edit Description</button>
-                        <div id="edit-desc-group" class="btn-group hidden" role="group">
-                            <button id="save-desc-btn" class="btn btn-success">Save</button>
-                            <button id="close-desc-btn" class="btn btn-outline-secondary">Finish Editing</button>
+    
+                <div class="col-lg-4 col-md-12 col-12">
+    
+                    <div id="job-details-box" class="shadow dark_background rounded">
+    
+                        <h2 class="dark text-center">Job Details</h2>
+    
+                        <div class="detail-row">
+                            <span class="detail-label">Pay:</span>
+                            <label id="job-pay-label-dup" class="detail-value"></label>
                         </div>
-                        <div id="description">
-                            <textarea id="area-description" class="description hidden fs-4 form-control"></textarea>
-                            <p id="text-description" class="description fs-4 smokey-kala"></p>
+    
+                        <div id="job-pay-group" class="input-group input-group-sm hidden">
+                            <input id="job-pay-input" class="form-control" type="number">
+                            <button id="job-pay-btn" class="btn btn-success">Save</button>
                         </div>
-                    </div>
-                </div>
+    
+                        <div class="detail-row">
+                            <span class="detail-label">Work Time:</span>
+                            <label id="job-work-label" class="detail-value"></label>
+                        </div>
+    
+                        <div id="job-work-group" class="input-group input-group-sm hidden">
+                            <input id="job-work-input" class="form-control" type="text">
+                            <button id="job-work-btn" class="btn btn-success">Save</button>
+                        </div>
+    
+                        <div class="detail-row">
+                            <span class="detail-label">Language:</span>
+                            <label id="job-language-label" class="detail-value"></label>
+                        </div>
+    
+                        <div id="job-language-group" class="input-group input-group-sm hidden">
+                            <input id="job-language-input" class="form-control" type="text">
+                            <button id="job-language-btn" class="btn btn-success">Save</button>
+                        </div>
+    
+                        <div class="detail-row">
+                            <span class="detail-label">Location:</span>
+                            <label id="job-address-dup" class="detail-value"></label>
+                        </div>
 
-                <div class="col-lg-0 col-md-0 col-0">
-                    <!-- Optional Ad Space2-->
+                        <div id="job-location-group" class="input-group input-group-sm hidden">
+                            <select id="job-location" class="form-select">
+                                <option selected value="">Choose an area...</option>
+                            </select>
+                            <button id="job-location-btn" class="btn btn-success">Save</button>
+                        </div>
+    
+                        <a id="apply-btn-bottom" class="btn btn-success hidden apply-bottom-btn">Apply</a>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
-
+    
     <footer class="container-fluid">
         <div class="row py-5 border-top">
             <div class="col-sm-12 col-md-3 mb-3">
@@ -206,17 +209,17 @@
                 </ul>
             </div>
             <div class="col-sm-12 col-md-2 mb-3">
-                <h5 class="text-light fw-bold">Contacts!</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a target="_blank" class="nav-link p-0" href="/Contact">Get Support!</a></li>
-                    <li class="nav-item nav-link mb-2 p-0">Phone: [+1] 11 234 5678</li>
-                    <li class="nav-item nav-link mb-2 p-0">Email: support@job-hiring-site.fox</li>
-                    <li class="nav-item mb-2"><a target="_blank" class="nav-link p-0" href="https://www.cvkeskus.ee/">Inspired by...</a></li>
-                </ul> 
-            </div>
+            <h5 class="text-light fw-bold">Contacts!</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a target="_blank" class="nav-link p-0" href="/Contact">Get Support!</a></li>
+                <li class="nav-item nav-link mb-2 p-0">Phone: [+1] 11 234 5678</li>
+                <li class="nav-item nav-link mb-2 p-0">Email: support@job-hiring-site.fox</li>
+                <li class="nav-item mb-2"><a target="_blank" class="nav-link p-0" href="https://www.cvkeskus.ee/">Inspired by...</a></li>
+            </ul> 
         </div>
+    </div>
     </footer>
     <script src="/Scripts/Base_Script.js"></script>
-    <script src="/Scripts/Company_Script.js"></script>
+    <script src="/Scripts/Job_Script.js"></script>
 </body>
 </html>

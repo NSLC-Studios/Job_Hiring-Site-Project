@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Profile!</title>
+    <title>Choose a Company!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/Styles/Base_Style.css">
-    <link rel="stylesheet" href="/Styles/Company_Style.css">
+    <link rel="stylesheet" href="/Styles/SelectCompany_Style.css">
 </head>
 <body class="darkmode_animation">
     <header>
@@ -69,108 +69,30 @@
     </header>
     
     <main>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-1 col-md-0 col-0">
-                    <!-- Optional Ad Space-->
-                </div>
+        <div class="dark text-center">
+            <h2 class="fw-bold">Choose a company</h2>
 
-                <div class="col-md-8 col-12 col-lg-7">
-                    <div id="main-profile" class="shadow dark_background banner">
-                        <div id="profile-role" class="dark fs-5">
-                            
-                        </div>
-                        <div id="company-bottom" class="dark_background">
-                            <div id="back-pfp" class="shadow dark_background">
-                                <div id="pfp">
-                                    <img class="shadow" width="100%" height="100%" src="/Images/Icons/logo.ico">
-                                </div>
-                            </div>
-                            <div id="profile-name" class="dark fw-bold fs-4">
-                                <label id="name-label" for="name" class="form-label">Company Doesn't Exist</label>
-                                <div id="name-group" class="input-group input-group-sm hidden" role="group">
-                                    <input id="company-name" name="name" class="form-control" type="text">
-                                    <button id="company-btn" class="btn btn-success">Save</button>
-                                </div>
-                            </div>
-                            <div id="company-owner" class="dark fs-5">
-                                <a id="username-label" class="nav-link">Error</a>
-                            </div>
-                            <div>
-                                <div id="company-email" class="dark fs-5">
-                                    <label id="email-label" for="email" class="form-label"></label>
-                                    <div id="email-group" class="input-group-sm hidden" role="group">
-                                        <input placeholder="Email..." id="email" name="email" class="form-control fs-6" type="text">
-                                    </div>
-                                </div>
-                                <div id="company-phone" class="dark fs-5">
-                                    <label id="phone-label" for="phone" class="form-label"></label>
-                                    <div id="phone-group" class="input-group input-group-sm hidden" role="group">
-                                        <input id="phone" name="phone" class="form-control fs-6" type="text">
-                                        <button id="cont-btn" class="btn btn-success">Save</button>
-                                    </div>
-                                </div>
-                            </div>
+            <template id="card-template">
+                <div class="w-75 mb-4 m-auto">
+                    <div class="card-backdrop dark fs-4 company-card rounded">
+                        <a class="card-owner nav-link text-start">Owner</a>
+                        
+                        <div class="card-bottom dark_background">
+                            <div class="card-company text-start">Description</div>
+                            <div class="card-description text-start fs-6">Address</div>
 
-                            <div id="profile-address" class="dark fs-6">
-                                <label id="company-address" for="address"></label>
-
-                                <div id="address-group" class="input-group input-group-sm hidden" role="group">
-                                    <select id="company-location" class="form-select">
-                                        <option selected value="">Choose an area...</option>
-                                    </select>
-                                    <button id="address-btn" class="btn btn-success">Save</button>
-                                </div>
+                            <div class="card-button btn-group">
+                                <button class="btn btn-danger fw-bold">Delete</button>
+                                <a class="btn btn-success fw-bold">Check out!</a>
                             </div>
-                            <button id="edit-profile-btn" class="btn btn-outline-secondary hidden">Edit Profile</button>
-                        </div>
-                    </div>
-
-                    <template id="card-template">
-                        <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                            <div class="card-backdrop dark fs-4 job-card rounded">
-                                <label class="card-company nav-link text-start">Company</label>
-                                <div class="card-language text-end fs-6">Languages</div>
-                                
-                                <div class="card-bottom dark_background">
-                                    <div class="card-description text-start">Description</div>
-                                    <div class="card-address text-start fs-6">Address</div>
-                                    <div class="card-workhour text-end">WorkHour</div>
-                                    <div class="card-pay text-end">Pay</div>
-                                    <a class="card-button fw-bold btn btn-success">Check out!</a>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                    
-                    <div id="job-element" class="container shadow text-center rounded content-design pb-1">
-                        <h2 class="dark text-center">Jobs!</h2>
-                        <span id="job-check" class="dark tw-bold fs-4"></span>
-                        <!--Company has no jobs!-->
-                        <div id="job-container" class="row">
-                            
                         </div>
                     </div>
                 </div>
+            </template>
+
+            <span id="company-check" class="fs-3">You don't have any companies!</span>
+            <div id="company-container">
                 
-                <div class="col-md-4 col-12 col-lg-4">
-                    <div id="company-description" class="shadow dark_background banner">
-                        <h2>About us!</h2>
-                        <button id="edit-desc-btn" class="btn btn-outline-secondary hidden">Edit Description</button>
-                        <div id="edit-desc-group" class="btn-group hidden" role="group">
-                            <button id="save-desc-btn" class="btn btn-success">Save</button>
-                            <button id="close-desc-btn" class="btn btn-outline-secondary">Finish Editing</button>
-                        </div>
-                        <div id="description">
-                            <textarea id="area-description" class="description hidden fs-4 form-control"></textarea>
-                            <p id="text-description" class="description fs-4 smokey-kala"></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-0 col-md-0 col-0">
-                    <!-- Optional Ad Space2-->
-                </div>
             </div>
         </div>
     </main>
@@ -217,6 +139,6 @@
         </div>
     </footer>
     <script src="/Scripts/Base_Script.js"></script>
-    <script src="/Scripts/Company_Script.js"></script>
+    <script src="/Scripts/SelectCompany_Script.js"></script>
 </body>
 </html>

@@ -92,8 +92,13 @@ http.createServer((req, res) => {
             type = ".html";
             break;
         case "company" :
-            target = "Company";
-            type = ".html";
+            if (query[2] == undefined || query[2] == "") {
+                target = "SelectCompany";
+                type = ".html";
+            } else{
+                target = "Company";
+                type = ".html";
+            }
             break;
         case "job" :
             target = "Job";
