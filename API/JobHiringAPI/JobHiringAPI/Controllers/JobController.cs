@@ -23,7 +23,7 @@ namespace JobHiringAPI.Controllers
             try
             {
                 if (skip < 0) skip = 0;
-                if (take < 0) take = 0;
+                if (take < 0) take = 12;
 
                 return Ok(await _model.GetJobs(skip, take));
             }
@@ -53,7 +53,7 @@ namespace JobHiringAPI.Controllers
             {
                 if (pay < 0) pay = 0;
                 if (skip < 0) skip = 0;
-                if (take < 0) take = 0;
+                if (take < 0) take = 12;
 
                 return Ok(await _model.GetFilteredJobs(pay, language, country, county, city, work, company, description, skip, take));
             }
@@ -69,7 +69,7 @@ namespace JobHiringAPI.Controllers
             try
             {
                 if (skip < 0) skip = 0;
-                if (take < 0) take = 0;
+                if (take < 0) take = 12;
 
                 return Ok(await _model.GetSearchedJobs(description, skip, take));
             }

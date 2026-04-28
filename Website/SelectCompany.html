@@ -70,7 +70,7 @@
     
     <main>
         <div class="dark text-center container py-4">
-            <h2 class="fw-bold mb-4">Choose a company</h2>
+            <h2 id="page-content-summary" class="fw-bold mb-4">Choose a company</h2>
     
             <template id="card-template">
                 <div class="w-75 mb-4 m-auto">
@@ -83,6 +83,7 @@
     
                             <div class="card-button btn-group">
                                 <button class="btn btn-danger fw-bold">Delete</button>
+                                <a class="btn btn-warning fw-bold">Create a Job!</a>
                                 <a class="btn btn-success fw-bold">Check out!</a>
                             </div>
                         </div>
@@ -90,9 +91,9 @@
                 </div>
             </template>
     
-            <span id="company-check" class="fs-3 d-block my-3">You don't have any companies!</span>
+            <span id="company-check" class="fs-3 my-3">You don't have any companies!</span>
     
-            <div class="my-3">
+            <div id="creation-choice" class="my-3">
                 <label class="text-center me-2">Wanna make a new company?</label>
                 <button id="start-new-company-btn" class="btn btn-primary">Create a new Company</button>
             </div>
@@ -102,7 +103,7 @@
             <div id="create-company-form" class="hidden mt-5 text-start">
     
                 <div id="create-company-name" class="mb-4">
-                    <h3 class="mb-3">Step 1 — Name your company</h3>
+                    <h3 class="mb-3">Step 1 - Name your company</h3>
                     <label class="fs-5 mb-2" for="companyName">What would you like to call your Company?</label>
                     <input id="companyName" type="text" class="form-control mb-3">
                     <div class="d-flex gap-2">
@@ -111,7 +112,7 @@
                 </div>
     
                 <div id="update-company-contacts" class="hidden mb-4">
-                    <h3 class="mb-3">Step 2 — Add contact information</h3>
+                    <h3 class="mb-3">Step 2 - Add contact information</h3>
     
                     <label class="fs-5 mb-2" for="companyEmail">What's your company's e-mail?</label>
                     <input id="companyEmail" type="text" class="form-control mb-3">
@@ -126,7 +127,7 @@
                 </div>
     
                 <div id="update-company-description" class="hidden mb-4">
-                    <h3 class="mb-3">Step 3 — Describe your company</h3>
+                    <h3 class="mb-3">Step 3 - Describe your company</h3>
     
                     <label class="fs-5 mb-2" for="companyDescription">Tell us about your company...</label>
                     <textarea class="form-control mb-3" id="companyDescription"></textarea>
@@ -138,7 +139,7 @@
                 </div>
     
                 <div id="create-new-area" class="hidden mb-4">
-                    <h3 class="mb-3">Step 4 — Create a new location</h3>
+                    <h3 class="mb-3">Step 4 - Create a new location</h3>
     
                     <label class="fs-5 mb-2" for="areaCountry">Country</label>
                     <input id="areaCountry" class="form-control mb-3" type="text">
@@ -162,7 +163,7 @@
                 </div>
     
                 <div id="update-company-area" class="hidden mb-4">
-                    <h3 class="mb-3">Step 5 — Choose an existing location</h3>
+                    <h3 class="mb-3">Step 5 - Choose an existing location</h3>
     
                     <label class="fs-5 mb-2" for="areaSelect">Choose a location</label>
                     <select id="areaSelect" class="form-select mb-3">
@@ -176,7 +177,7 @@
                 </div>
     
                 <div id="company-done" class="hidden mt-4 text-center">
-                    <h2>Company Created Successfully, Please wait for the page to refresh in 5 seconds!</h2>
+                    <h2>Company Created Successfully, Please wait!</h2>
                 </div>
     
             </div>

@@ -206,6 +206,7 @@ h2 {
 }
 
 #job-element {
+    position: relative;
     margin-top: 25px;
 }
 
@@ -216,4 +217,10 @@ h2 {
     position: absolute;
     bottom: 0px;
     left: 0px;
+}
+
+#create-job {
+    position: absolute;
+    right: 12px;
+    top: 5px;
 }

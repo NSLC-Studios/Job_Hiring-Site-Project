@@ -120,6 +120,21 @@ http.createServer((req, res) => {
             target = "Profile";
             type = ".html";
             break;
+        case "createjob" :
+            target = "CreateJob";
+            type = ".html";
+            break;
+        case "cv" :
+            if (query[2] == undefined || query[2] == "") {
+                target = "CVs";
+                type = ".html";
+            } else{
+                target = "Empty";
+                type = ".html";
+            }
+            target = "CVs";
+            type = ".html";
+            break;
         case "styles" :
             target = `Styles/${query[2].replace(".css", "")}`
             type = ".css";

@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Profile!</title>
+    <title>Choose a Job!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/Styles/Base_Style.css">
-    <link rel="stylesheet" href="/Styles/Company_Style.css">
+    <link rel="stylesheet" href="/Styles/CreateJob_Style.css">
 </head>
 <body class="darkmode_animation">
     <header>
@@ -69,108 +69,123 @@
     </header>
     
     <main>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-1 col-md-0 col-0">
-                    <!-- Optional Ad Space-->
-                </div>
+        <div class="dark text-center container py-4">
+            <h2 id="page-content-summary" class="fw-bold mb-4">Choose a Job</h2>
 
-                <div class="col-md-8 col-12 col-lg-7">
-                    <div id="main-profile" class="shadow dark_background banner">
-                        <div id="profile-role" class="dark fs-5">
-                            
-                        </div>
-                        <div id="company-bottom" class="dark_background">
-                            <div id="back-pfp" class="shadow dark_background">
-                                <div id="pfp">
-                                    <img class="shadow" width="100%" height="100%" src="/Images/Icons/logo.ico">
-                                </div>
-                            </div>
-                            <div id="profile-name" class="dark fw-bold fs-4">
-                                <label id="name-label" for="name" class="form-label">Company Doesn't Exist</label>
-                                <div id="name-group" class="input-group input-group-sm hidden" role="group">
-                                    <input id="company-name" name="name" class="form-control" type="text">
-                                    <button id="company-btn" class="btn btn-success">Save</button>
-                                </div>
-                            </div>
-                            <div id="company-owner" class="dark fs-5">
-                                <a id="username-label" class="nav-link">Error</a>
-                            </div>
-                            <div>
-                                <div id="company-email" class="dark fs-5">
-                                    <label id="email-label" for="email" class="form-label"></label>
-                                    <div id="email-group" class="input-group-sm hidden" role="group">
-                                        <input placeholder="Email..." id="email" name="email" class="form-control fs-6" type="text">
-                                    </div>
-                                </div>
-                                <div id="company-phone" class="dark fs-5">
-                                    <label id="phone-label" for="phone" class="form-label"></label>
-                                    <div id="phone-group" class="input-group input-group-sm hidden" role="group">
-                                        <input id="phone" name="phone" class="form-control fs-6" type="text">
-                                        <button id="cont-btn" class="btn btn-success">Save</button>
-                                    </div>
-                                </div>
-                            </div>
+            <template id="card-template">
+                <div class="w-75 mb-4 m-auto">
+                    <div class="card-backdrop dark fs-4 job-card rounded">
+                        <a class="card-owner nav-link text-start fw-semibold">Company</a>
 
-                            <div id="profile-address" class="dark fs-6">
-                                <label id="company-address" for="address"></label>
+                        <div class="card-bottom dark_background mt-2">
+                            <div class="card-company text-start fw-semibold">Description</div>
+                            <div class="card-description text-start fs-6 mb-3">Address</div>
 
-                                <div id="address-group" class="input-group input-group-sm hidden" role="group">
-                                    <select id="company-location" class="form-select">
-                                        <option selected value="">Choose an area...</option>
-                                    </select>
-                                    <button id="address-btn" class="btn btn-success">Save</button>
-                                </div>
-                            </div>
-                            <button id="edit-profile-btn" class="btn btn-outline-secondary hidden">Edit Profile</button>
-                        </div>
-                    </div>
+                            <div class="card-language text-end fs-6">Languages</div>
+                            <div class="card-workhour text-end">WorkHour</div>
+                            <div class="card-pay text-end">Pay</div>
 
-                    <template id="card-template">
-                        <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                            <div class="card-backdrop dark fs-4 job-card rounded">
-                                <label class="card-company nav-link text-start">Company</label>
-                                <div class="card-language text-end fs-6">Languages</div>
-                                
-                                <div class="card-bottom dark_background">
-                                    <div class="card-description text-start">Description</div>
-                                    <div class="card-address text-start fs-6">Address</div>
-                                    <div class="card-workhour text-end">WorkHour</div>
-                                    <div class="card-pay text-end">Pay</div>
-                                    <a class="card-button fw-bold btn btn-success">Check out!</a>
-                                </div>
+                            <div class="card-button btn-group">
+                                <button class="btn btn-danger fw-bold job-delete-btn">Delete</button>
+                                <a class="btn btn-success fw-bold job-checkout-btn">Check out!</a>
                             </div>
-                        </div>
-                    </template>
-                    
-                    <div id="job-element" class="container shadow text-center rounded content-design pb-1">
-                        <h2 class="dark text-center">Jobs!</h2>
-                        <a id="create-job" class="btn btn-success hidden">Create a new Job</a>
-                        <span id="job-check" class="dark tw-bold fs-4"></span>
-                        <!--Company has no jobs!-->
-                        <div id="job-container" class="row">
-                            
                         </div>
                     </div>
                 </div>
+            </template>
+
+            <span id="job-check" class="fs-3 my-3">This company has no jobs!</span>
+
+            <div id="creation-choice" class="my-3">
+                <label class="text-center me-2">Wanna make a new job?</label>
+                <button id="start-new-job-btn" class="btn btn-primary">Create a new Job</button>
+            </div>
+
+            <div id="job-container" class="mt-4">
                 
-                <div class="col-md-4 col-12 col-lg-4">
-                    <div id="company-description" class="shadow dark_background banner">
-                        <h2>About us!</h2>
-                        <button id="edit-desc-btn" class="btn btn-outline-secondary hidden">Edit Description</button>
-                        <div id="edit-desc-group" class="btn-group hidden" role="group">
-                            <button id="save-desc-btn" class="btn btn-success">Save</button>
-                            <button id="close-desc-btn" class="btn btn-outline-secondary">Finish Editing</button>
-                        </div>
-                        <div id="description">
-                            <textarea id="area-description" class="description hidden fs-4 form-control"></textarea>
-                            <p id="text-description" class="description fs-4 smokey-kala"></p>
-                        </div>
+            </div>
+
+            <div id="create-job-form" class="hidden mt-5 text-start">
+
+                <div id="create-job-description" class="mb-4">
+                    <h3 class="mb-3">Step 1 - Describe the job</h3>
+                    <label class="fs-5 mb-2" for="jobDescription">Job description</label>
+                    <textarea id="jobDescription" class="form-control mb-3"></textarea>
+                    <div class="d-flex gap-2">
+                        <button id="save-job-description" class="btn btn-primary">Save</button>
                     </div>
                 </div>
 
-                <div class="col-lg-0 col-md-0 col-0">
-                    <!-- Optional Ad Space2-->
+                <div id="create-job-pay" class="hidden mb-4">
+                    <h3 class="mb-3">Step 2 - Add pay</h3>
+                    <label class="fs-5 mb-2" for="jobPay">Pay</label>
+                    <input id="jobPay" type="number" class="form-control mb-3">
+                    <div class="d-flex gap-2">
+                        <button id="skip-job-pay" class="btn btn-secondary">Skip</button>
+                        <button id="save-job-pay" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+
+                <div id="create-job-worktime" class="hidden mb-4">
+                    <h3 class="mb-3">Step 3 - Add work time</h3>
+                    <label class="fs-5 mb-2" for="jobWorkTime">Work time</label>
+                    <input id="jobWorkTime" type="text" class="form-control mb-3">
+                    <div class="d-flex gap-2">
+                        <button id="skip-job-worktime" class="btn btn-secondary">Skip</button>
+                        <button id="save-job-worktime" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+
+                <div id="create-job-language" class="hidden mb-4">
+                    <h3 class="mb-3">Step 4 - Add languages</h3>
+                    <label class="fs-5 mb-2" for="jobLanguage">Languages</label>
+                    <input id="jobLanguage" type="text" class="form-control mb-3">
+                    <div class="d-flex gap-2">
+                        <button id="skip-job-language" class="btn btn-secondary">Skip</button>
+                        <button id="save-job-language" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+
+                <div id="create-new-area" class="hidden mb-4">
+                    <h3 class="mb-3">Step 5 - Create a new location</h3>
+
+                    <label class="fs-5 mb-2" for="areaCountry">Country</label>
+                    <input id="areaCountry" class="form-control mb-3" type="text">
+
+                    <label class="fs-5 mb-2" for="areaCounty">County</label>
+                    <input id="areaCounty" class="form-control mb-3" type="text">
+
+                    <label class="fs-5 mb-2" for="areaCity">City</label>
+                    <input id="areaCity" class="form-control mb-3" type="text">
+
+                    <label class="fs-5 mb-2" for="areaPostal">Postal Code</label>
+                    <input id="areaPostal" class="form-control mb-3" type="text">
+
+                    <label class="fs-5 mb-2" for="areaAddress">Address</label>
+                    <input id="areaAddress" class="form-control mb-3" type="text">
+
+                    <div class="d-flex gap-2">
+                        <button id="skip-new-area" class="btn btn-secondary">Skip</button>
+                        <button id="save-new-area" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+
+                <div id="create-job-area" class="hidden mb-4">
+                    <h3 class="mb-3">Step 6 - Choose an existing location</h3>
+
+                    <label class="fs-5 mb-2" for="jobAreaSelect">Choose a location</label>
+                    <select id="jobAreaSelect" class="form-select mb-3">
+                        <option value="">Choose an area...</option>
+                    </select>
+
+                    <div class="d-flex gap-2">
+                        <button id="skip-job-area" class="btn btn-secondary">Skip</button>
+                        <button id="save-job-area" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+
+                <div id="job-done" class="hidden mt-4 text-center">
+                    <h2>Job Created Successfully, Please wait!</h2>
                 </div>
             </div>
         </div>
@@ -218,6 +233,6 @@
         </div>
     </footer>
     <script src="/Scripts/Base_Script.js"></script>
-    <script src="/Scripts/Company_Script.js"></script>
+    <script src="/Scripts/CreateJob_Script.js"></script>
 </body>
 </html>

@@ -11,6 +11,7 @@ const phone_group = document.getElementById("phone-group");
 const address_group = document.getElementById("address-group");
 
 const edit_profile_btn = document.getElementById("edit-profile-btn");
+const create_job_btn = document.getElementById("create-job");
 
 const edit_about_btn = document.getElementById("edit-desc-btn");
 const about_group = document.getElementById("edit-desc-group");
@@ -94,6 +95,9 @@ async function GetCompany() {
         const owner = UserContainer.UserID == data.ownerID;
         edit_profile_btn.classList.toggle("hidden", !owner);
         edit_about_btn.classList.toggle("hidden", !owner);
+
+        create_job_btn.href = `/CreateJob/${CompanyId}`;
+        create_job_btn.classList.toggle("hidden", !owner);
 
     } catch (e) {
         console.log("GET COMPANY");

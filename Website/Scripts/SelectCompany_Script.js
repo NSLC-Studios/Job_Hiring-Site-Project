@@ -3,6 +3,8 @@ const API_BASE = "https://localhost:7142";
 const container = document.getElementById("company-container");
 const template = document.getElementById("card-template");
 const noCompanies = document.getElementById("company-check");
+const creationChoice = document.getElementById("creation-choice");
+const pageContentSummary = document.getElementById("page-content-summary");
 
 const form = document.getElementById("create-company-form");
 
@@ -22,7 +24,12 @@ async function Init() {
     await LoadCompanies();
 
     document.getElementById("start-new-company-btn")
-        .addEventListener("click", () => form.classList.remove("hidden"));
+        .addEventListener("click", () => {
+            form.classList.remove("hidden");
+            container.classList.add("hidden")
+            creationChoice.classList.add("hidden");
+            pageContentSummary.innerText = "Create a Company!";
+        });
 
     SetupCreationFlow();
 }
@@ -39,12 +46,11 @@ async function LoadCompanies() {
 
         const companies = await res.json();
 
-        if (companies.length === 0) {
-            noCompanies.style.display = "block";
+        if (companies.length == 0) {
             return;
         }
 
-        noCompanies.style.display = "none";
+        noCompanies.classList.add("hidden");
 
         companies.forEach(company => {
             const clone = template.content.cloneNode(true);
@@ -55,7 +61,8 @@ async function LoadCompanies() {
             clone.querySelector(".card-company").innerText = parts[0];
             clone.querySelector(".card-description").innerText = parts[1] ?? "";
 
-            clone.querySelector(".btn-success").href = `/company/${company.id}`;
+            clone.querySelector(".btn-success").href = `/Company/${company.id}`;
+            clone.querySelector(".btn-warning").href = `/CreateJob/${company.id}`;
 
             const deleteBtn = clone.querySelector(".btn-danger");
             deleteBtn.addEventListener("click", () => DeleteCompany(company.id, deleteBtn));
@@ -80,7 +87,7 @@ async function DeleteCompany(id, deleteBtn) {
         if (!res.ok) throw new Error();
 
         deleteBtn.closest(".w-75").remove();
-        if (container.children.length === 0) noCompanies.style.display = "block";
+        if (container.children.length == 0) noCompanies.style.display = "block";
 
     } catch (err) {
         console.error("DeleteCompany error:", err);
@@ -231,7 +238,7 @@ function SetupCreationFlow() {
             });
 
             NextStep(stepSelectArea, stepDone);
-            setTimeout(() => location.reload(), 5000);
+            setTimeout(() => location.reload(), 1000);
 
         } catch (err) {
             console.error("UpdateArea error:", err);
@@ -240,7 +247,7 @@ function SetupCreationFlow() {
 
     document.getElementById("skip-area").addEventListener("click", () => {
         NextStep(stepSelectArea, stepDone);
-        setTimeout(() => location.reload(), 5000);
+        setTimeout(() => location.reload(), 1000);
     });
 }
 
