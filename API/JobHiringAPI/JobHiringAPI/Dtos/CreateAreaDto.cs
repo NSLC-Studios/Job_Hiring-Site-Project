@@ -2,9 +2,7 @@
 {
     public class CreateAreaDto
     {
-        //public int InitiatorID { get; set; }
         public int UserID { get; set; }
-        //public string HolderType { get; set; }
         public string Country { get; set; }
         public string County { get; set; }
         public string City { get; set; }
