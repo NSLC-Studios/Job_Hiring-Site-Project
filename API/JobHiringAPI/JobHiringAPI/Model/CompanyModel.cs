@@ -125,7 +125,7 @@ namespace JobHiringAPI.Model
                     Email = x.CompanyEmail, 
                     Phone = x.CompanyPhone, 
                     Description = x.Description, 
-                    Owner = $"{x.User.FirstName} {x.User.FirstName}", // {x.User.UserName}
+                    Owner = $"{x.User.FirstName} {x.User.FirstName}",
                     Country = x.Area.Country, 
                     County = x.Area.County, 
                     Postal = x.Area.PostalCode, 

@@ -60,7 +60,7 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        // Fox Hole
+        // Fox Hole Cave
         
         [Authorize(Roles = "Admin")]
         [HttpGet("companies/extended")]

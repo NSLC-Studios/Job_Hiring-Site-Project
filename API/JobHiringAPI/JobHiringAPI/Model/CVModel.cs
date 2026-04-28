@@ -80,9 +80,6 @@ namespace JobHiringAPI.Model
                         .Select(x => string.Join(", ", x.Select(y => y.CompanyName)))
                         .FirstOrDefault() ?? "None"
                 }).First();
-
-            //var user = _context.Users.Where(x => x.UserID == _context.CVs.Where(x => x.CVID == id).First().UserID).First();
-            //var area = _context.Areas.Where(x => x.AreaID == _context.CVs.Where(x => x.CVID == id).First().AreaID).First();
         }
 
         public async Task UpdateSummary(UpdateCVSummaryDto dto)
@@ -128,34 +125,5 @@ namespace JobHiringAPI.Model
 
             await Task.CompletedTask;
         }
-
-        /*
-        // Relic
-        public void ArealUpdate(UserArealUpdateDto dto)
-        {
-            var currentCV = _context.CVs.Where(x => x.CVID == dto.CVID);
-            var currentArea = _context.Areas.Where(x => x.AreaID == currentCV.First().AreaID);
-
-            if (currentArea.Any())
-            {
-                using var trx = _context.Database.BeginTransaction();
-                {
-                    currentArea.ExecuteUpdate(x => x.SetProperty(x => x.Country, dto.Country).SetProperty(x => x.County, dto.County).SetProperty(x => x.City, dto.City).SetProperty(x => x.PostalCode, dto.PostalCode).SetProperty(x => x.Address, dto.Address));
-                    _context.SaveChanges();
-                    trx.Commit();
-                }
-            } else
-            {
-                using var trx = _context.Database.BeginTransaction();
-                {
-                    _context.Areas.Add(new Area { Address = dto.Address, City = dto.City, Country = dto.Country, County = dto.County, PostalCode = dto.PostalCode });
-                    int id = _context.Areas.Last().AreaID;
-                    currentCV.ExecuteUpdate(x => x.SetProperty(x => x.AreaID, id));
-                    _context.SaveChanges();
-                    trx.Commit();
-                }
-            }
-        }
-        */
     }
 }

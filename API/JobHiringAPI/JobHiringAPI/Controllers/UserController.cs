@@ -66,7 +66,6 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        // [Authorize]
         [HttpGet("admins")]
         public async Task<ActionResult<IEnumerable<BaseAdminsDto>>> GetAdmins([FromQuery] int skip = 0, [FromQuery] int take = 3)
         {

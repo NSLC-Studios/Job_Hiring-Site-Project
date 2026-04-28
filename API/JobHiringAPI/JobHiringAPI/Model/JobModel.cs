@@ -111,7 +111,6 @@ namespace JobHiringAPI.Model
         {
             return _context.Jobs.Include(x => x.Area).Include(x => x.Company)
                 .Where(x => x.Pay >= pay
-                /*x.Language.ToLower().Contains(language.ToLower())*/ 
                     && x.Area.Country
                         .ToLower()
                         .Contains(country.ToLower()) 

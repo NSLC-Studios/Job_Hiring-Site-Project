@@ -82,10 +82,6 @@ namespace JobHiringAPI.Model
         private string HashPassword(string password)
         {
             return Convert.ToBase64String(System.Security.Cryptography.SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(password)));
-
-            //using System.Security.Cryptography.SHA256 sha = System.Security.Cryptography.SHA256.Create();
-            //byte[] bytes = Encoding.UTF8.GetBytes(password);
-            //byte[] hash = sha.ComputeHash(bytes);
         }
 
         public async Task<IEnumerable<BaseAdminsDto>> GetAdmins(int skip = 0, int take = 3)
@@ -229,7 +225,6 @@ namespace JobHiringAPI.Model
 
         public async Task DeleteUser(int id)
         {
-            // var trx = await _context.Database.BeginTransactionAsync();
             var trx = _context.Database.BeginTransaction();
             {
                 await _context.Requests
@@ -249,35 +244,6 @@ namespace JobHiringAPI.Model
             }
 
             await Task.CompletedTask;
-
-            //trx.Commit();
-            // REWRITE IN EDUCATION MODEL _context.Educations.Where(x => x.UserID == id).ExecuteDelete();
-            // REWRITE IN REQUESTS MODEL _context.Requests.Where(x =>x.UserID == id).ExecuteDelete();
-            // REWRITE IN CV MODEL _context.CVs.Where(x => x.UserID == id).ExecuteDelete();
-            // REWRITE IN RATING MODEL _context.Rating.Where(x => x.FeedbackUserID == id).ExecuteUpdate(x => x.SetProperty(x => x.FeedbackUserID, -5).SetProperty(x => x.Anonymous, false));
-            // REWRITE IN PREVEMPLOYMENT MODEL _context.PreviuosEmployments.Where(x => x.UserID == id).ExecuteDelete();
-            // // REWRITE IN AREA MODEL _context.AreaCollections.Where(x => x.HolderType == "User" && x.HolderID == id).ForEachAsync(item =>
-            //{
-            //_context.Areas.Where(x => x.AreaID == item.AreaID).ExecuteDelete();
-            //});
-            // REWRITE IN AREA MODEL _context.AreaCollections.Where(x => x.HolderType == "User" && x.HolderID == id).ExecuteDelete();
-
-            //   await _company.DeleteCompany(_context.Companies.Where(x=> x.OwnerID == id).First().CompanyID);
-            //await _context.SaveChangesAsync();
-            //await trx.CommitAsync();
         }
-
-        /*public void DeleteUser(int userid)
-        {
-            var trx = _context.Database.BeginTransaction();
-            _context.Users.Remove(_context.Users.Where(x => x.UserID == userid).First());
-            foreach (var item in _context.Orders.Where(x => x.UserID == userid))
-            {
-                _context.Orders.Remove(item);
-            }
-
-            _context.SaveChanges();
-            trx.Commit();
-        }*/
     }
 }

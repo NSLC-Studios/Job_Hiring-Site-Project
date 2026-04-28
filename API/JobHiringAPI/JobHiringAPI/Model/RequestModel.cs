@@ -148,7 +148,6 @@ namespace JobHiringAPI.Model
             }
 
             await Task.CompletedTask;
-            //return;
         }
 
         public async Task UpdateRequestComment(UpdateRequestCommentDto dto)
@@ -166,7 +165,6 @@ namespace JobHiringAPI.Model
             }
 
             await Task.CompletedTask;
-            //return;
         }
         
         public async Task UpdateRequestStatus(UpdateRequestStatusDto dto)
@@ -184,7 +182,6 @@ namespace JobHiringAPI.Model
             }
 
             await Task.CompletedTask;
-            //return;
         }
 
         public async Task DeleteRequest(int id)
@@ -200,7 +197,6 @@ namespace JobHiringAPI.Model
             }
 
             await Task.CompletedTask;
-            //return;
         }
     }
 }

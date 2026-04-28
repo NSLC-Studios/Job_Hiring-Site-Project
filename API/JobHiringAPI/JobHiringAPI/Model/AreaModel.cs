@@ -31,9 +31,6 @@ namespace JobHiringAPI.Model
             }
 
             await Task.CompletedTask;
-
-            //var currentCompany = _context.Companies.Where(x => x.CompanyID == dto.InitiatorID);
-            // int id = _context.Areas.Last().AreaID;
         }
 
         public async Task<IEnumerable<BaseAreaDto>> GetAreas(int id)
