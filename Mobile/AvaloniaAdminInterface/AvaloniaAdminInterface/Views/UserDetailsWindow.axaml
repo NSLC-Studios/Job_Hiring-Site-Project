@@ -25,35 +25,35 @@
                     <StackPanel Spacing="20" HorizontalAlignment="Center" Orientation="Horizontal">
 
                         <TextBlock Text="{Binding UserId}"
-                                   FontSize="26"
+                                   FontSize="20"
                                    FontWeight="Bold"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"  />
 
                         <TextBlock Text="{Binding UserName}"
-                                   FontSize="22"
+                                   FontSize="20"
                                    FontWeight="Bold"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
 
                         <TextBlock Text="{Binding Email}"
-                                   FontSize="16"
+                                   FontSize="14"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
 
                         <TextBlock Text="{Binding Phone}"
-                                   FontSize="16"
+                                   FontSize="14"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
 
                         <TextBlock Text="{Binding Role}"
-                                   FontSize="18"
+                                   FontSize="14"
                                    FontWeight="Bold"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
 
                         <TextBlock Text="{Binding NewPassword}"
-                                   FontSize="18"
+                                   FontSize="14"
                                    Foreground="Red"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
@@ -86,7 +86,7 @@
                     <StackPanel Spacing="8">
 
                         <TextBlock Text="USER'S COMPANIES"
-                                   FontSize="18"
+                                   FontSize="14"
                                    FontWeight="Bold"
                                    Foreground="#444"/>
 
@@ -97,7 +97,7 @@
 
                         <ScrollViewer Height="200">
                             <ListBox ItemsSource="{Binding Companies}"
-                                     SelectedItem="{Binding selectedCompany}">
+                                     SelectedItem="{Binding SelectedCompany}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <local:CompanyControl/>
@@ -114,20 +114,30 @@
                     <StackPanel Spacing="8">
 
                         <TextBlock Text="USER'S REQUESTS"
-                                   FontSize="18"
+                                   FontSize="14"
                                    FontWeight="Bold"
                                    Foreground="#444"/>
 
-                        <ScrollViewer Height="250">
-                            <ItemsControl ItemsSource="{Binding Requests}">
-                                <ItemsControl.ItemTemplate>
+                        <Button Classes="ind-btn"
+                                Content="DELETE SELECTED REQUESTS"
+                                Command="{Binding DeleteRequestCommand}"
+                                CommandParameter="{Binding SelectedRequest}"
+                                HorizontalAlignment="Left"/>
+
+                        <Button Classes="ind-btn"
+                                Content="DELETE SELECTED REQUESTS"
+                                Command="{Binding DeleteRequestCommand}"
+                                CommandParameter="{Binding SelectedRequest}"
+                                HorizontalAlignment="Left"/>
+
+                        <ListBox ItemsSource="{Binding Requests}"
+                                SelectedItem="{Binding SelectedRequest}">
+                                <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <local:RequestControl/>
                                     </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                     </StackPanel>
                 </Border>
 

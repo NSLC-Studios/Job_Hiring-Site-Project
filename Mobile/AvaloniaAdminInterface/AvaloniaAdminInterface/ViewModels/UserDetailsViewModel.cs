@@ -19,10 +19,11 @@ public class UserDetailsViewModel : ViewModelBase
     public ObservableCollection<Company> Companies { get; } = new();
     public ObservableCollection<Request> Requests { get; } = new();
 
- 
-    public ReactiveCommand<Request, Unit> ChangeStatusCommand { get; }//put 1 reqest under review or approve it 
-    public ReactiveCommand<Request, Unit> DeleteRequestCommand { get; }//to delete 1 reqest
+
     public ReactiveCommand<Company, Unit> DeleteCompanyCommand { get; }//to delete 1 company
+
+    public ReactiveCommand<Request, Unit> DeleteRequestCommand { get; }//to delete 1 reqest
+    public ReactiveCommand<Request, Unit> RewiewRequestCommand { get; }//to rewiew 1 company put 1 reqest under review or approve it 
 
     public ReactiveCommand<Unit, Unit> LoadCommand { get; } // load reqests and stuff 
     public ReactiveCommand<int, Unit> RequestsUnderReviewCommand { get; }//to put under all requests under review
@@ -105,7 +106,9 @@ public class UserDetailsViewModel : ViewModelBase
         }
     }
 
-    public Company? selectedCompany { get; set; }
+    public Company? SelectedCompany { get; set; }
+    public Request? SelectedRequest { get; set; }
+
 
 
     public UserDetailsViewModel(TheModel model, int userId)
@@ -113,9 +116,11 @@ public class UserDetailsViewModel : ViewModelBase
         _model = model;
         UserId = userId;
 
-        ChangeStatusCommand = ReactiveCommand.CreateFromTask<Request>(ChangeStatusAsync);
-        DeleteRequestCommand = ReactiveCommand.CreateFromTask<Request>(DeleteRequestAsync);
+        
         DeleteCompanyCommand = ReactiveCommand.CreateFromTask<Company>(DeleteCompanyAsync);
+
+        RewiewRequestCommand = ReactiveCommand.CreateFromTask<Request>(ChangeStatusAsync);
+        DeleteRequestCommand = ReactiveCommand.CreateFromTask<Request>(DeleteRequestAsync);
 
         LoadCommand = ReactiveCommand.CreateFromTask(LoadAsync);
        
@@ -171,30 +176,35 @@ public class UserDetailsViewModel : ViewModelBase
                 r.Description,
                 r.Response,
                 r.CompanyName,
-                req => DeleteRequestCommand.Execute(req),
-                req => ChangeStatusCommand.Execute(req)
+                req => DeleteRequestCommand.Execute(req).Subscribe(),
+                req => RewiewRequestCommand.Execute(req).Subscribe()
             ));
         }
     }
-    
+
     //requests
     private async Task ChangeStatusAsync(Request req)
     {
-        await _model.PutUnderReview(req.ID);
+
+        await _model.PutUnderReview(SelectedRequest.ID);
         await LoadAsync();
     }
     
+
     private async Task DeleteRequestAsync(Request req)
     {
-        await _model.DeleteRequest(req.ID);
+        await _model.DeleteRequest(SelectedRequest.ID);
         await LoadAsync();
     }
+
+
     // companies
     private async Task DeleteCompanyAsync(Company company)
     {
-        await _model.DeleteCompany(selectedCompany.ID);
+        await _model.DeleteCompany(SelectedCompany.ID);
         await LoadAsync();
     }
+
 
     private async Task DeleteCompanyByIdAsync(int companyId)
     {
