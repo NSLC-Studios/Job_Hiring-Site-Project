@@ -1,74 +1,107 @@
-﻿
+﻿<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:AvaloniaAdminInterface.ViewModels"
+    xmlns:Views="clr-namespace:AvaloniaAdminInterface.Views"
+    xmlns:Views2="clr-namespace:AvaloniaAdminInterface"
+    x:Class="AvaloniaAdminInterface.Views.MainView"
+    x:DataType="vm:MainViewModel"
+    Classes="darkmode-bg">
 
- <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:AvaloniaAdminInterface.ViewModels"
-             xmlns:Views="clr-namespace:AvaloniaAdminInterface.Views"
-             xmlns:Views2="clr-namespace:AvaloniaAdminInterface"
-             xmlns:avaloniaadmininterface="using:AvaloniaAdminInterface"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AvaloniaAdminInterface.Views.MainView"
-             x:DataType="vm:MainViewModel">
+    <Grid RowDefinitions="auto,auto,auto,auto,*" Margin="12">
 
+        <!-- HEADER -->
+        <Border Background="#3b0f2f"
+                Height="56"
+                CornerRadius="0"
+                Padding="16"
+                BorderBrush="#222"
+                BorderThickness="0 0 2 0">
+            <TextBlock Text="ADMIN CONTROL PANEL"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="#E0E0E0"/>
+        </Border>
 
-<Grid>
+        <!-- USER SEARCH -->
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Spacing="8"
+                    Margin="0,12,0,8">
 
-	<Grid.RowDefinitions>
-		<RowDefinition Height="*"/>
-        <RowDefinition Height="*"/>
-        <RowDefinition Height="3*"/>
-        <RowDefinition Height="*"/>
-        <RowDefinition Height="*"/>
+            <TextBox Classes="ind-input"
+                     Text="{Binding SearchByUserId}"
+                     Watermark="User ID"
+                     Width="140"/>
+
+            <Button Classes="ind-btn"
+                    Command="{Binding LookUpUserCommand}"
+                    Content="LOOK UP"/>
+
+            <Button Classes="ind-btn"
+                    Command="{Binding LoadUsersCommand}"
+                    Content="RELOAD"/>
+        </StackPanel>
+
    
-    </Grid.RowDefinitions>
-    <Grid.ColumnDefinitions>
-	    <ColumnDefinition Width="*"/>
-    </Grid.ColumnDefinitions>
-	<TextBox Text="{Binding SearchByUserId}" Watermark="User ID" Grid.Column="0" Grid.Row="0" Margin="-300,20,20,20" Width="130" VerticalAlignment="Center"  FontSize="30" />
-	
-    <Button Command="{Binding LookUpUserCommand}" Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Center" VerticalAlignment="Center" Content="Look Up" FontSize="40" IsEnabled="True" />
-    
-    <Button Command="{Binding LoadUsersCommand}" Grid.Column="0" Grid.Row="0" Margin="500,10,40,10" HorizontalAlignment="Center"  VerticalAlignment="Center" Content="Reload" FontSize="40" IsEnabled="True" />
-
-    <StackPanel Grid.Row="1">
-    <ItemsControl ItemsSource="{Binding SelectedUserList}">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <Views:UserControl1 DataContext="{Binding}"/>
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
-    </StackPanel>
-
-
-    <ScrollViewer Grid.Column="0" Grid.Row="2">
-        <StackPanel>
-            <ItemsControl ItemsSource="{Binding Users}">
+        <Border Grid.Row="2" Classes="ind-panel" Margin="0,0,0,10">
+            <ItemsControl ItemsSource="{Binding SelectedUserList}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Views:UserControl1 DataContext="{Binding}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+        </Border>
+
+        
+        <ScrollViewer Grid.Row="2" Margin="0,120,0,0">
+            <Border Classes="ind-panel">
+                <StackPanel>
+                    <TextBlock Text="ALL USERS"
+                               FontSize="18"
+                               FontWeight="Bold"
+  
+                               Foreground="#B4B4B4"
+                               Margin="0,0,0,8"/>
+
+                    <ItemsControl ItemsSource="{Binding Users}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Views:UserControl1 DataContext="{Binding}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+        <!-- Company Stuff-->
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    Spacing="8"
+                    Margin="0,12,0,8">
+
+            <TextBox Classes="ind-input"
+                     Text="{Binding SearchByCompanyId}"
+                     Watermark="Company ID"
+                     Width="140"/>
+
+            <Button Classes="ind-btn"
+                    Command="{Binding LookUpCompanyCommand}"
+                    Content="LOOK UP COMPANY"/>
         </StackPanel>
-    </ScrollViewer>
 
-	<StackPanel Orientation="Horizontal" Grid.Row="3"  HorizontalAlignment="Center" >
-		<TextBox Text="{Binding SearchByCompanyId}" Watermark="Company ID" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Width="100" VerticalAlignment="Center"  FontSize="30" />
-		<Button Command="{Binding LookUpCompanyCommand}" Grid.Column="0" Grid.Row="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Content="Look Up Company" FontSize="40" IsEnabled="True" />
-	</StackPanel>
+        <Border Grid.Row="4" Classes="ind-panel">
+            <ItemsControl ItemsSource="{Binding SelectedCompanyList}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Views2:CompanyControl DataContext="{Binding}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
 
-    <StackPanel Grid.Row="4">
-    <ItemsControl ItemsSource="{Binding SelectedCompanyList}">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <Views2:CompanyControl DataContext="{Binding}"/>
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
-    </StackPanel>
-   
-  </Grid>
+    </Grid>
+
 </UserControl>

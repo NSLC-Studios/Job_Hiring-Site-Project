@@ -196,14 +196,14 @@ public class MainViewModel : ViewModelBase
     }
     private async Task LookUpCompany()
     {
-
+        SelectedCompanyList.Clear();
         if (int.TryParse(_searchByCompanyId, out int id)) {
             if (id > 0) {
                 try
                 {
                     var dto = await _model.GetCompanyExtended(id);
 
-                    SelectedCompanyList.Clear();
+                    
 
                     if (dto != null)
                     {
