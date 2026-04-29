@@ -55,7 +55,7 @@
 
 	<StackPanel Orientation="Horizontal" Grid.Row="3"  HorizontalAlignment="Center" >
 		<TextBox Text="{Binding SearchByCompanyId}" Watermark="Company ID" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Width="100" VerticalAlignment="Center"  FontSize="30" />
-		<Button Command="{Binding LoadCompaniesCommand}" Grid.Column="0" Grid.Row="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Content="Look Up Company" FontSize="40" IsEnabled="True" />
+		<Button Command="{Binding LookUpCompanyCommand}" Grid.Column="0" Grid.Row="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Content="Look Up Company" FontSize="40" IsEnabled="True" />
 	</StackPanel>
 
     <StackPanel Grid.Row="4">

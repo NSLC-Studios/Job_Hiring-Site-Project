@@ -108,7 +108,8 @@ public partial class App : Application
                 androidView.DataContext = vm;
 
                 vm.LoadUsersCommand.Execute().Subscribe();
-                vm.LoadCompaniesCommand.Execute().Subscribe();
+                //vm.LoadCompaniesCommand.Execute().Subscribe();
+                
             };
 
             androidView.DataContext = loginVm;

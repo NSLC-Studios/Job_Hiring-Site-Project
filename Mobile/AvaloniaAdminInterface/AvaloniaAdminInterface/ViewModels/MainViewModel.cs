@@ -87,10 +87,11 @@ public class MainViewModel : ViewModelBase
         LookUpUserCommand = ReactiveCommand.Create(LookUpUser);
         LoadUsersCommand = ReactiveCommand.CreateFromTask(LoadUsersAsync);
 
-        //LookUpCompanyCommand = ReactiveCommand.Create(LookUpCompany);
+        LookUpCompanyCommand = ReactiveCommand.CreateFromTask(LookUpCompany);
         LoadCompaniesCommand = ReactiveCommand.CreateFromTask(LoadCompaniesAsync);
 
-        LoadCompaniesCommand.Execute().Subscribe();
+        //LoadCompaniesCommand.Execute().Subscribe();
+        
 
 
         IncreaseRange = ReactiveCommand.Create(() =>
@@ -108,6 +109,8 @@ public class MainViewModel : ViewModelBase
             }
         });
     }
+
+   
 
     public async Task DeleteUserAsync(UserViewModel vm)
     {
@@ -191,6 +194,36 @@ public class MainViewModel : ViewModelBase
         }
         
     }
+    private async Task LookUpCompany()
+    {
+
+        if (int.TryParse(_searchByCompanyId, out int id)) {
+            if (id > 0) {
+                try
+                {
+                    var dto = await _model.GetCompanyExtended(id);
+
+                    SelectedCompanyList.Clear();
+
+                    if (dto != null)
+                    {
+                        SelectedCompanyList.Add(new CompanyViewModel(new Company
+                        {
+                            ID = dto.ID,
+                            OwnerID = dto.OwnerID,
+                            OwnerName = dto.OwnerName,
+                            CompanyName = dto.CompanyName,
+                            Description = dto.Description
+                        }, this));
+                    }
+                }
+                catch
+                {
+                }
+            }
+        } 
+    }
+
 
 
 

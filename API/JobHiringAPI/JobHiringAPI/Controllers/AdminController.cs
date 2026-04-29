@@ -91,7 +91,7 @@ namespace JobHiringAPI.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("companies/detaied")]
+        [HttpGet("companies/detailed")]
         public async Task<ActionResult<IEnumerable<BaseCompanyDto>>> GetDetailedCompany([FromQuery] int id)
         {
             try
