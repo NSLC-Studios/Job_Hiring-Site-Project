@@ -67,11 +67,11 @@ namespace JobHiringAPI.Controllers
         }
 
         [HttpGet("admins")]
-        public async Task<ActionResult<IEnumerable<BaseAdminsDto>>> GetAdmins([FromQuery] int skip = 0, [FromQuery] int take = 3)
+        public async Task<ActionResult<IEnumerable<BaseAdminsDto>>> GetAdmins()
         {
             try
             {
-                return Ok(await _model.GetAdmins(skip, take));
+                return Ok(await _model.GetAdmins());
             }
             catch
             {

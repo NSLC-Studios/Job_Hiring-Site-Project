@@ -50,7 +50,18 @@ namespace JobHiringAPI.Model
                     Role = x.Role 
                 });
         }
-        
+
+        public async Task<IEnumerable<AdminCompanyDto>> GetAllCompanies()
+        {
+            return _context.Companies
+                .Select(x => new AdminCompanyDto
+                {
+                    ID = x.CompanyID,
+                    OwnerID = x.OwnerID,
+                    Name = x.CompanyName
+                });
+        }
+
         public async Task<IEnumerable<AdminCompanyDto>> GetCompanies(int id)
         {
             return _company.GetOwnedCompanies(id).Result
@@ -61,8 +72,6 @@ namespace JobHiringAPI.Model
                     Name = x.CompanyName 
                 });
         }
-
-        // Fox Hole
 
         public async Task<IEnumerable<BaseCompanyDto>> GetCompaniesExtended(int ownerId)
         {
@@ -75,8 +84,6 @@ namespace JobHiringAPI.Model
                     Description = x.Description
                 });
         }
-
-        // Fox Cave Ended
 
         public async Task Demote(int id)
         {
