@@ -125,16 +125,13 @@ namespace JobHiringAPI.Model
                     Email = x.CompanyEmail, 
                     Phone = x.CompanyPhone, 
                     Description = x.Description, 
-                    Owner = x.User.UserName, 
+                    Owner = $"{x.User.FirstName} {x.User.FirstName}",
                     Country = x.Area.Country, 
                     County = x.Area.County, 
                     Postal = x.Area.PostalCode, 
                     City = x.Area.City, 
                     Address = x.Area.Address 
                 }).First();
-
-            // var area = _context.Areas.Where(x => x.AreaID == _context.Companies.Where(x => x.CompanyID == id).First().AreaID).First();
-            // var user = _context.Users.Where(x => x.UserID == _context.Companies.Where(x => x.CompanyID == id).First().OwnerID).First();
         }
 
         public async Task UpdateCompanyDescription(UpdateCompanyDescriptionDto dto)
@@ -217,41 +214,6 @@ namespace JobHiringAPI.Model
             }
 
             await Task.CompletedTask;
-
-            // , bool deleteUser = false
-            //_context.SaveChanges();
-            // await _context.Areas.Where(x => x.UserID == _context.Companies.Where(x => x.CompanyID == id).First().OwnerID).ExecuteDeleteAsync();
-            //_context.SaveChanges();
-            // To be Depracated
-            // if (deleteUser) _context.Users.Where(x => x.UserID == _context.Companies.Where(x => x.CompanyID == id).First().OwnerID);
         }
-
-        /*
-        // Relic
-        public void UpdateCompanyArea(CompanyArealUpdate areaDto)
-        {
-            var company = _context.Companies.Where(x => x.CompanyID == areaDto.CompanyId);
-            var currentCompanyInspected = _context.Companies.Where(x =>x.CompanyName == company.First().CompanyName && x.OwnerID == areaDto.UserId);
-
-            if (currentCompanyInspected.Any())
-            {
-                using var trx = _context.Database.BeginTransaction();
-                {
-                    currentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.Area.Country, areaDto.Country).SetProperty(x => x.Area.County, areaDto.County).SetProperty(x => x.Area.City, areaDto.City).SetProperty(x => x.Area.PostalCode, areaDto.PostalCode).SetProperty(x => x.Area.Address, areaDto.Address));
-                    _context.SaveChanges();
-                    trx.Commit();
-                }
-            } else 
-            {
-                using var trx = _context.Database.BeginTransaction();
-                {
-                    currentCompanyInspected.ExecuteUpdate(x => x.SetProperty(x => x.Area, new Area { Country = areaDto.Country, County = areaDto.County, City = areaDto.City, PostalCode = areaDto.PostalCode, Address = areaDto.Address }));
-                    _context.SaveChanges();
-
-                    trx.Commit();
-                }
-            }
-        }
-        */
     }
 }

@@ -60,22 +60,8 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        // Fox Hole
-        //company/companies exist but why not this
-        [Authorize(Roles = "Admin")]
-        [HttpGet("allcompanies")]
-        public async Task<ActionResult<IEnumerable<BaseCompanyDto>>> GetAllCompanies([FromQuery] int start,int end)
-        {
-            try
-            {
-                return Ok(await _model.GetAllCompanies(start,end));
-            }
-            catch
-            {
-                return BadRequest();
-            }
-        }
-
+        // Fox Hole Cave
+        
         [Authorize(Roles = "Admin")]
         [HttpGet("companies/extended")]
         public async Task<ActionResult<IEnumerable<BaseCompanyDto>>> GetCompanieyExtended([FromQuery] int ownerId)

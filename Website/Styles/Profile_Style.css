@@ -27,13 +27,18 @@
 
 .description {
     min-height: 3em;
-    height: 3em;
 }
 
 #company-summary {
     position: absolute;
     left: 10px;
     bottom: 2px;
+    max-width: 81%;
+}
+
+#company-container {
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 #profile-email {
@@ -60,7 +65,7 @@ h2 {
 }
 
 #profile-bottom {
-    height: 45%;
+    min-height: 45%;
     width: 100%;
     flex: 1;
     position: absolute;
@@ -106,7 +111,8 @@ h2 {
     text-align: right;
 }
 
-#edit-desc-group {
+#edit-desc-group,
+#edit-desc-btn {
     position: absolute;
     right: 15px;
     top: 10px;

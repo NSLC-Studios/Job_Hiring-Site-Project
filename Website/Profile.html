@@ -28,13 +28,13 @@
                             <a class="dark" href="/Companies">Our Companies!</a>
                         </div>
                         <div class="nav-link col-sm-6 col-md-4 col-lg-2">
-                            <a class="dark" id="surprise_me">Surprise Me!</a>
+                            <a class="dark" role="button" href="/Home" id="surprise_me">Home</a>
                         </div>
                         <div class="nav-link col-sm-6 col-md-4 col-lg-2">
                             <a class="dark" href="/Contact">Get Support!</a>
                         </div>
                         <div class="nav-link col-sm-6 col-md-4 col-lg-2">
-                            <a class="dark" id="weather-btn">Calm Weather.</a>
+                            <a class="dark" role="button" id="weather-btn">Calm Weather.</a>
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-2" id="mode_switch">
                             <img src="/Images/Vectors/light_dark_mode3.svg" class="img-fluid nav-icon" alt="Light / Dark Mode">
@@ -78,7 +78,7 @@
                 <div class="col-md-8 col-12 col-lg-7">
                     <div id="main-profile" class="shadow dark_background banner">
                         <div id="profile-role" class="dark fs-5">
-                            Regular User at our lovely site!
+                            
                         </div>
                         <div id="profile-bottom" class="dark_background">
                             <div id="back-pfp" class="shadow dark_background">
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                             <div id="profile-name" class="dark fw-bold fs-4">
-                                <label id="name-label" for="name" class="form-label">Actual Test Name</label>
+                                <label id="name-label" for="name" class="form-label">User Doesn't Exist</label>
                                 <div id="name-group" class="input-group input-group-sm hidden" role="group">
                                     <input id="firstname" name="name" class="form-control" type="text">
                                     <input id="lastname" name="name" class="form-control" type="text">
@@ -95,28 +95,31 @@
                                 </div>
                             </div>
                             <div id="profile-username" class="dark fs-5">
-                                <label id="username-label" for="username" class="form-label">@termalman</label>
+                                <label id="username-label" for="username" class="form-label">Error</label>
                                 <div id="username-group" class="input-group input-group-sm hidden" role="group">
-                                    <input id="username" name="username" class="form-control" type="text">
+                                    <input id="username" placeholder="Username..." name="username" class="form-control" type="text">
                                     <button id="username-btn" class="btn btn-success">Save</button>
                                 </div>
                             </div>
-                            <div id="profile-email" class="dark fs-5">
-                                <label id="email-label" for="email" class="form-label">test@mail.fox</label>
-                                <div id="email-group" class="input-group input-group-sm hidden" role="group">
-                                    <input placeholder="Email..." id="email" name="email" class="form-control" type="text">
-                                    <button id="email-btn" class="btn btn-success">Save</button>
+                            <div>
+                                <div id="profile-email" class="dark fs-5">
+                                    <label id="email-label" for="email" class="form-label"></label>
+                                    <div id="email-group" class="input-group input-group-sm hidden" role="group">
+                                        <input placeholder="Email..." id="email" name="email" class="form-control fs-6" type="text">
+                                        <!--<button id="email-btn" class="btn btn-success">Save</button>-->
+                                    </div>
+                                </div>
+                                <div id="profile-phone" class="dark fs-5">
+                                    <label id="phone-label" for="phone" class="form-label"></label>
+                                    <div id="phone-group" class="input-group input-group-sm hidden" role="group">
+                                        <input id="phone" name="phone" class="form-control fs-6" type="text">
+                                        <button id="cont-btn" class="btn btn-success">Save</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div id="profile-phone" class="dark fs-5">
-                                <label id="phone-label" for="phone" class="form-label">-123456848</label>
-                                <div id="phone-group" class="input-group input-group-sm hidden" role="group">
-                                    <input id="phone" name="phone" class="form-control" type="text">
-                                    <button id="phone-btn" class="btn btn-success">Save</button>
-                                </div>
-                            </div>
+                            
                             <div id="company-summary" class="dark fs-6">
-                                Proud owner of:
+                                <!--Proud owner of:-->
                             </div>
                             <button id="edit-profile-btn" class="btn btn-outline-secondary hidden">Edit Profile</button>
                         </div>
@@ -124,13 +127,14 @@
 
                     <div id="profile-description" class="shadow dark_background banner">
                         <h2>About me!</h2>
+                        <button id="edit-desc-btn" class="btn btn-outline-secondary hidden">Edit Description</button>
                         <div id="edit-desc-group" class="btn-group hidden" role="group">
-                            <button id="save-desc-btn" class="btn btn-success hidden">Save</button>
-                            <button id="edit-desc-btn" class="btn btn-outline-secondary">Edit Description</button>
+                            <button id="save-desc-btn" class="btn btn-success">Save</button>
+                            <button id="close-desc-btn" class="btn btn-outline-secondary">Finish Editing</button>
                         </div>
                         <div id="description">
-                            <textarea id="area-description" class="description hidden fs-4 dark form-control"></textarea>
-                            <p id="text-description" class="description fs-4 dark">some textual contemtn</p>
+                            <textarea id="area-description" class="description hidden fs-4 form-control"></textarea>
+                            <p id="text-description" class="description fs-4 smokey-kala"></p>
                         </div>
                     </div>
                 </div>
@@ -151,9 +155,10 @@
                         </div>
                     </template>
                     
-                    <div class="shadow text-center rounded content-design pb-1">
+                    <div class="shadow text-center rounded content-design pb-1 mt-2">
                         <h2 class="dark text-center">Companies!</h2>
-                        <span id="company-check" class="dark tw-bold fs-4">User has no companies!</span>
+                        <span id="company-check" class="dark tw-bold fs-4"></span>
+                        <!--User has no companies!-->
                         <div id="company-container">
                             
                         </div>
@@ -209,5 +214,6 @@
         </div>
     </footer>
     <script src="/Scripts/Base_Script.js"></script>
+    <script src="/Scripts/Profile_Script.js"></script>
 </body>
 </html>

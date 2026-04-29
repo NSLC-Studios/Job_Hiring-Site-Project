@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CV!</title>
+    <link rel="stylesheet" href="/Styles/CV_Style.css">
+</head>
+<body>
+    <div id="page-wrapper">
+        <div id="cv-sheet">
+            <div id="cv-header">
+                <div id="cv-brand">
+                    <img src="/Images/Icons/logo.ico" id="cv-logo" alt="Logo">
+                    <span id="cv-site-name">Job Hiring Site!</span>
+                </div>
+    
+                <div id="cv-user-info">
+                    <h1 id="cv-name"></h1>
+                    <p id="cv-role"></p>
+                    <p id="cv-email"></p>
+                    <p id="cv-phone"></p>
+                </div>
+            </div>
+    
+            <button id="print-btn" onclick="window.print()">Print CV</button>
+    
+            <div class="section">
+                <h2>Location</h2>
+                <p id="cv-location"></p>
+            </div>
+
+            <div class="section">
+                <h2>Summary</h2>
+                <p id="cv-summary"></p>
+            </div>
+    
+            <div class="section">
+                <h2>Companies Owned</h2>
+                <p id="cv-companies"></p>
+            </div>
+    
+            <footer id="cv-footer">
+                <p>© 2026 Job Hiring Site!</p>
+            </footer>
+        </div>
+    </div>
+    
+    <script src="/Scripts/CV_Script.js"></script>
+</body>
+</html>

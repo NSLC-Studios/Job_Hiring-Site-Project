@@ -10,13 +10,9 @@ namespace JobHiringAPI.Persistence
         public DbSet<User> Users { get; set; }
         public DbSet<CV> CVs { get; set; }
         public DbSet<Area> Areas { get; set; }
-      
         public DbSet<Company> Companies { get; set; }
-       
         public DbSet<Job> Jobs { get; set; }
-     
         public DbSet<Request> Requests { get; set; }
-
         public JobDatabaseContext(DbContextOptions<JobDatabaseContext> options) : base(options) { }
     }
 
@@ -32,14 +28,13 @@ namespace JobHiringAPI.Persistence
         public string ?LastName { get; set; }
         public string ?Email { get; set; }
         public string ?Phone { get; set; }
+        public string ?About { get; set; }
         [Required]
         public required string Password { get; set; }
         [Required]
         public string Role { get; set; } = "User";
         public List<CV> CV { get; set; }
-       
         public List<Request> Request { get; set; }
-     
         public List<Company> Company { get; set; }
         public List<Area> Area { get; set; }
     }
@@ -62,10 +57,8 @@ namespace JobHiringAPI.Persistence
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AreaID { get; set; }
         [Required]
-        
         public int UserID { get; set; }
         public User User { get; set; }
-       
         [Required]
         public required string Country { get; set; }
         [Required]
@@ -95,7 +88,6 @@ namespace JobHiringAPI.Persistence
         public User User { get; set; }
         public int ?AreaID { get; set; }
         public Area Area { get; set; }
-        
     }
 
     public class Job
@@ -113,8 +105,6 @@ namespace JobHiringAPI.Persistence
         public Area Area { get; set; }
         public List<Request> Request { get; set; }
     }
-
-
 
     public class Request
     {
@@ -134,19 +124,5 @@ namespace JobHiringAPI.Persistence
         [Required]
         public  required int CVID { get; set; }
         public CV CV { get; set; }
-        //public int CVIDID { get; set;
-        //public int CVIDIDID { get;set; }
-        //public int CVIDIDIDID { get; set; }
-        /*  Fox This           
-        *[~>         <~]
-        *[  >-=====-<  ]
-        *[ <         > ]
-        *[<« O ___ O »>]
-        *<«~~«< T >»~~»>
-        * <« <     > »> 
-        *  <« <   > »>> 
-        */
     }
-
-    
 }

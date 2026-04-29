@@ -47,9 +47,6 @@ namespace JobHiringAPI.Model
                         ? $"{x.Description.Substring(0, 25)}..." 
                         : x.Description 
                 });
-
-            // , int skip = 0, int take = 12
-            // .Skip(skip).Take(take)
         }
 
         public async Task<IEnumerable<BaseJobDto>> GetJobs(int skip = 0, int take = 12)
@@ -114,7 +111,6 @@ namespace JobHiringAPI.Model
         {
             return _context.Jobs.Include(x => x.Area).Include(x => x.Company)
                 .Where(x => x.Pay >= pay
-                /*x.Language.ToLower().Contains(language.ToLower())*/ 
                     && x.Area.Country
                         .ToLower()
                         .Contains(country.ToLower()) 

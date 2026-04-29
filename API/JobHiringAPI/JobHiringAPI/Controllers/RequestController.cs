@@ -60,7 +60,7 @@ namespace JobHiringAPI.Controllers
         }
 
         [Authorize]
-        [HttpGet()] // ("request")
+        [HttpGet()]
         public async Task<ActionResult<DetailedRequestDto>> GetDetailedRequest([FromQuery] int id)
         {
             try

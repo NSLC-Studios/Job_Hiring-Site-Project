@@ -61,7 +61,7 @@ async function UpdateLegalName(){
             headers: { "Content-Type": "application/json" }, 
             credentials: "include",
             body: JSON.stringify({
-                id: UserContainer.userID,
+                id: UserContainer.UserID,
                 firstName: upd_first.value,
                 lastName: upd_last.value
             })
@@ -113,7 +113,7 @@ async function UpdateContacts(){
             headers: { "Content-Type": "application/json" }, 
             credentials: "include",
             body: JSON.stringify({
-                id: UserContainer.userID,
+                id: UserContainer.UserID,
                 phone: upd_phone.value,
                 email: upd_email.value
             })
@@ -254,14 +254,6 @@ async function Login(){
             log_button.innerText = "Log in";
             log_warningbox.innerText = `Please notify an admin! There was a problem. Error: ${response.status}`;
         }
-
-        /*const response = await fetch("https://api.example.com/users", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(userDto)
-        });*/
     }catch (e){
         console.log("LOGIN");
         console.log(e);
