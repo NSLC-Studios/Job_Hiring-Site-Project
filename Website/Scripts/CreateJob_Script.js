@@ -65,9 +65,8 @@ async function LoadJobs() {
             clone.querySelector(".card-pay").innerText = item.pay != null ? `€${item.pay}` : "";
 
             clone.querySelector(".job-checkout-btn").href = `/Job/${item.id}`;
-
-            clone.querySelector(".job-delete-btn")
-                .addEventListener("click", () => DeleteJob(item.id));
+            clone.querySelector(".job-application-btn").href = `/Application/${item.id}`;
+            clone.querySelector(".job-delete-btn").addEventListener("click", () => DeleteJob(item.id));
 
             jobContainer.appendChild(clone);
         });

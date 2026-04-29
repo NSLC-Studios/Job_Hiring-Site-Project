@@ -124,16 +124,39 @@ http.createServer((req, res) => {
             target = "CreateJob";
             type = ".html";
             break;
+        case "apply" :
+            target = "Apply";
+            type = ".html";
+            break;
+        case "request" :
+            if (query[2] == undefined || query[2] == "") {
+                target = "Requests";
+                type = ".html";
+            } else if (query[2] == "job") {
+                target = "JobRequest";
+                type = ".html";
+            } else{
+                target = "Request";
+                type = ".html";
+            }
+            break;
+        case "application" :
+            if (query[2] == "company") {
+                target = "CompanyApplications";
+                type = ".html";
+            } else {
+                target = "Applications";
+                type = ".html";
+            }
+            break;
         case "cv" :
             if (query[2] == undefined || query[2] == "") {
                 target = "CVs";
                 type = ".html";
             } else{
-                target = "Empty";
+                target = "CV";
                 type = ".html";
             }
-            target = "CVs";
-            type = ".html";
             break;
         case "styles" :
             target = `Styles/${query[2].replace(".css", "")}`

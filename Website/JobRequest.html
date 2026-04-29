@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose a CV!</title>
+    <title>Applications!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/Styles/Base_Style.css">
-    <link rel="stylesheet" href="/Styles/CVs_Style.css">
 </head>
 <body class="darkmode_animation">
     <header>
@@ -70,88 +69,72 @@
     
     <main>
         <div class="dark text-center container py-4">
-            <h2 id="page-content-summary" class="fw-bold mb-4">Your CVs</h2>
+            <h2 class="fw-bold mb-4">Application Details</h2>
     
-            <template id="cv-card-template">
-                <div class="w-75 mb-4 m-auto">
-                    <div class="card-backdrop dark fs-4 cv-card rounded p-3">
-                        <a class="cv-summary nav-link text-start fw-semibold">Summary</a>
+            <span id="request-error" class="fs-3 my-3 hidden">Failed to load request.</span>
     
-                        <div class="card-bottom dark_background mt-2">
-                            <div class="cv-location text-start fw-semibold">Location</div>
-    
-                            <div class="card-button btn-group">
-                                <button class="btn btn-danger fw-bold">Delete</button>
-                                <button class="btn btn-warning fw-bold edit-cv-btn">Edit</button>
-                                <a target="_blank" class="btn btn-success fw-bold">Open CV</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </template>
-    
-            <span id="cv-check" class="fs-3 my-3">You don't have any CVs!</span>
-    
-            <div id="creation-choice" class="my-3">
-                <label class="text-center me-2">Wanna create a new CV?</label>
-                <button id="start-new-cv-btn" class="btn btn-primary">Create a new CV</button>
-            </div>
-    
-            <div id="cv-container" class="mt-4"></div>
-    
-            <div id="create-cv-form" class="hidden mt-5 text-start">
-    
-                <div id="cv-step-summary" class="mb-4">
-                    <h3 class="mb-3">Step 1 - Write your summary</h3>
-                    <label class="fs-5 mb-2" for="cvSummary">Tell us about yourself...</label>
-                    <textarea id="cvSummary" class="form-control mb-3"></textarea>
-                    <div class="d-flex gap-2">
-                        <button id="save-cv-summary" class="btn btn-primary">Save</button>
-                    </div>
+            <div id="request-details" class="hidden text-start w-75 m-auto p-4 rounded dark_background">
+                <div class="mb-4">
+                    <h3 id="company-name" class="fw-bold mb-1"></h3>
+                    <p id="job-description" class="mb-2"></p>
                 </div>
     
-                <div id="cv-step-new-area" class="hidden mb-4">
-                    <h3 class="mb-3">Step 2 - Create a new location</h3>
+                <hr>
     
-                    <label class="fs-5 mb-2" for="areaCountry">Country</label>
-                    <input id="areaCountry" class="form-control mb-3" type="text">
+                <div class="mb-4">
+                    <p><strong>Work Time:</strong> <span id="job-worktime"></span></p>
+                    <p><strong>Language:</strong> <span id="job-language"></span></p>
+                    <p><strong>Pay:</strong> <span id="job-pay"></span></p>
+                </div>
     
-                    <label class="fs-5 mb-2" for="areaCounty">County</label>
-                    <input id="areaCounty" class="form-control mb-3" type="text">
+                <div class="mb-4">
+                    <p><strong>Applicant:</strong> <span id="applicant-name"></span></p>
+                    <p><strong>Email:</strong> <span id="applicant-email"></span></p>
+                    <p><strong>Phone:</strong> <span id="applicant-phone"></span></p>
+                </div>
     
-                    <label class="fs-5 mb-2" for="areaCity">City</label>
-                    <input id="areaCity" class="form-control mb-3" type="text">
+                <hr>
     
-                    <label class="fs-5 mb-2" for="areaPostal">Postal Code</label>
-                    <input id="areaPostal" class="form-control mb-3" type="text">
+                <div class="mb-4">
+                    <p class="fw-bold mb-1">Applicant Comment:</p>
+                    <p id="user-comment-label"></p>
+                </div>
     
-                    <label class="fs-5 mb-2" for="areaAddress">Address</label>
-                    <input id="areaAddress" class="form-control mb-3" type="text">
+                <div class="mb-4">
+                    <p class="fw-bold mb-1">Your Response:</p>
     
-                    <div class="d-flex gap-2">
-                        <button id="skip-cv-new-area" class="btn btn-secondary">Skip</button>
-                        <button id="save-cv-new-area" class="btn btn-primary">Save</button>
+                    <p id="company-response-label" class="mb-2"></p>
+                    <input id="company-response-input" type="text" class="form-control mb-2 hidden">
+    
+                    <div class="text-start">
+                        <button id="edit-response" class="btn btn-primary">Edit</button>
                     </div>
                 </div>
     
-                <div id="cv-step-select-area" class="hidden mb-4">
-                    <h3 class="mb-3">Step 3 - Choose an existing location</h3>
+                <div class="mb-4">
+                    <p class="fw-bold mb-1">Status:</p>
     
-                    <label class="fs-5 mb-2" for="cvAreaSelect">Choose a location</label>
-                    <select id="cvAreaSelect" class="form-select mb-3">
-                        <option value="">Choose an area...</option>
+                    <p id="status-label" class="mb-2"></p>
+    
+                    <select id="status-select" class="form-select mb-2 hidden">
+                        <option value="Processing">Processing</option>
+                        <option value="UnderReview">Under Review</option>
+                        <option value="Accepted">Accepted</option>
+                        <option value="Rejected">Rejected</option>
                     </select>
     
-                    <div class="d-flex gap-2">
-                        <button id="skip-cv-area" class="btn btn-secondary">Skip</button>
-                        <button id="save-cv-area" class="btn btn-primary">Save</button>
+                    <div class="text-start">
+                        <button id="edit-status" class="btn btn-primary">Edit</button>
                     </div>
                 </div>
     
-                <div id="cv-done" class="hidden mt-4 text-center">
-                    <h2>CV Created Successfully, Please wait!</h2>
+                <div class="mt-4">
+                    <div class="btn-group w-100" role="group">
+                        <a id="view-cv-bottom" class="btn btn-warning">View CV</a>
+                        <a id="view-profile-bottom" class="btn btn-secondary">View Profile</a>
+                        <a id="view-job-bottom" class="btn btn-success">View Job</a>
+                    </div>
                 </div>
-    
             </div>
         </div>
     </main>
@@ -198,6 +181,6 @@
         </div>
     </footer>
     <script src="/Scripts/Base_Script.js"></script>
-    <script src="/Scripts/CVs_Script.js"></script>
+    <script src="/Scripts/JobRequest_Script.js"></script>
 </body>
 </html>

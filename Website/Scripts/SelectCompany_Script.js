@@ -21,17 +21,23 @@ window.addEventListener("load", Init);
 
 async function Init() {
     await UserSession();
-    await LoadCompanies();
 
-    document.getElementById("start-new-company-btn")
-        .addEventListener("click", () => {
-            form.classList.remove("hidden");
-            container.classList.add("hidden")
-            creationChoice.classList.add("hidden");
-            pageContentSummary.innerText = "Create a Company!";
-        });
+    if (UserContainer.UserID == undefined || UserContainer.UserID == 0){
+        noCompanies.innerText = "You are not logged in!";
+        creationChoice.classList.add("hidden");
+    } else {
+        await LoadCompanies();
 
-    SetupCreationFlow();
+        document.getElementById("start-new-company-btn")
+            .addEventListener("click", () => {
+                form.classList.remove("hidden");
+                container.classList.add("hidden")
+                creationChoice.classList.add("hidden");
+                pageContentSummary.innerText = "Create a Company!";
+            });
+    
+        SetupCreationFlow();
+    }
 }
 
 async function LoadCompanies() {
@@ -63,6 +69,7 @@ async function LoadCompanies() {
 
             clone.querySelector(".btn-success").href = `/Company/${company.id}`;
             clone.querySelector(".btn-warning").href = `/CreateJob/${company.id}`;
+            clone.querySelector(".btn-info").href = `Application/Company/${company.id}`;
 
             const deleteBtn = clone.querySelector(".btn-danger");
             deleteBtn.addEventListener("click", () => DeleteCompany(company.id, deleteBtn));

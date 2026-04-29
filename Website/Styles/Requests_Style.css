@@ -1,5 +1,5 @@
-.cv-card {
-    position: relative;
+.company-card {
+    position: relative; 
     display: flex;
     flex-direction: column;
     height: 230px;
@@ -13,24 +13,6 @@
     background-repeat: no-repeat;
 }
 
-.cv-summary {
-    position: absolute;
-    width: 80%;
-    left: 15px;
-    top: 5px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: white;
-}
-
-.cv-location {
-    position: absolute;
-    left: 15px;
-    top: 55px;
-    font-size: 0.95rem;
-    color: #ddd;
-}
-
 .card-button {
     position: absolute;
     right: 15px;
@@ -41,6 +23,25 @@
     font-size: 80%;
 }
 
+.card-description {
+    position: absolute;
+    left: 15px;
+    top: 50px;
+}
+
+.card-company {
+    position: absolute;
+    width: 50%;
+    left: 15px;
+    top: 2px;
+}
+
+.card-owner {
+    position: absolute;
+    left: 15px;
+    bottom: 140px;
+}
+
 .card-bottom {
     height: 60%;
     width: 100%;
@@ -48,15 +49,4 @@
     position: absolute;
     bottom: 0px;
     left: 0px;
-}
-
-.cv-card:hover {
-    transform: scale(1.02);
-    opacity: 0.95;
-}
-
-#cvSummary {
-    width: 100%;
-    min-height: 180px;
-    resize: vertical;
 }

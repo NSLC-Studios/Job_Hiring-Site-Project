@@ -48,11 +48,11 @@ namespace JobHiringAPI.Model
                     JobID = x.JobID, 
                     Status = x.Status,
                     CompanyName = x.Job.Company.CompanyName,
-                    Response = x.Response.Length > 25 
-                        ? $"{x.Response.Substring(0, 25)}..." 
+                    Response = x.Response.Length > 35 
+                        ? $"{x.Response.Substring(0, 35)}..." 
                         : x.Response, 
-                    Description = x.Job.Description.Length > 25 
-                        ? $"{x.Job.Description.Substring(0, 25)}..." 
+                    Description = x.Job.Description.Length > 35
+                        ? $"{x.Job.Description.Substring(0, 35)}..." 
                         : x.Job.Description
                 });
         }
@@ -68,8 +68,8 @@ namespace JobHiringAPI.Model
                     Applicant = $"{x.User.FirstName} {x.User.LastName}", 
                     Status = x.Status, 
                     Comment = x.Comment.Length <= 0 || x.Comment == null 
-                        ? x.Comment.Length > 25 
-                            ? $"{x.Comment.Substring(0, 25)}..." : "There was no comment from the applicant." 
+                        ? x.Comment.Length > 35
+                            ? $"{x.Comment.Substring(0, 35)}..." : "There was no comment from the applicant." 
                             : x.Comment 
                 });
         }
@@ -86,11 +86,11 @@ namespace JobHiringAPI.Model
                     Status = x.Status, 
                     Comment = x.Comment.Length <= 0 || x.Comment == null
                         ? "There was no comment from the applicant." 
-                        : x.Comment.Length > 25 
-                            ? $"{x.Comment.Substring(0, 25)}..." 
+                        : x.Comment.Length > 35
+                            ? $"{x.Comment.Substring(0, 35)}..." 
                             : x.Comment, 
-                    Description = x.Job.Description.Length > 25 
-                        ? $"{x.Job.Description.Take(25)}..." 
+                    Description = x.Job.Description.Length > 35
+                        ? $"{x.Job.Description.Take(35)}..." 
                         : x.Job.Description 
                 });
         }
@@ -105,6 +105,7 @@ namespace JobHiringAPI.Model
                     CompanyID = x.Job.CompanyID, 
                     JobID = x.JobID, 
                     CVID = x.CVID, 
+                    ApplicantID = x.UserID,
                     Applicant = $"{x.User.FirstName} {x.User.LastName}", 
                     Email = x.User.Email, 
                     Phone = x.User.Phone, 
