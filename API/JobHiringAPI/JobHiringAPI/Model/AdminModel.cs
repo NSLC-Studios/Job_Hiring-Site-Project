@@ -73,26 +73,9 @@ namespace JobHiringAPI.Model
                 });
         }
 
-        // Fox Hole
-
-        public async Task<IEnumerable<BaseCompanyDto>> GetAllCompanies(int start ,int cap)
+        public async Task<IEnumerable<BaseCompanyDto>> GetCompanieyExtended(int id)
         {
-            return _company.GetCompanies(start, cap).Result
-                .Select(x => new BaseCompanyDto
-                {
-                    ID = x.ID,
-                    OwnerID = x.OwnerID,
-                    CompanyName = x.CompanyName,
-                    OwnerName = x.OwnerName,
-                    Description = x.Description
-                    
-                });
-
-        }
-
-        public async Task<IEnumerable<BaseCompanyDto>> GetCompanieyExtended(int ownerId)
-        {
-            return _company.GetOwnedCompanies(ownerId).Result
+            return _company.GetOwnedCompanies(id).Result
                 .Select(x => new BaseCompanyDto
                 {
                     ID = x.ID,
@@ -107,8 +90,6 @@ namespace JobHiringAPI.Model
             return await _company.GetDetailedCompany(compId);
                
         }
-
-        // Fox Cave Ended
 
         public async Task Demote(int id)
         {

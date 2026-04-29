@@ -173,7 +173,6 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin")]//--------------------------------------------------------------
         [HttpPut("user/promote")]
         public async Task<ActionResult> Promote([FromQuery] int id)
         {
