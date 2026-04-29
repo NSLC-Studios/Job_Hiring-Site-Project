@@ -79,7 +79,7 @@ namespace JobHiringAPI.Model
 
         }
 
-        public async Task<IEnumerable<BaseCompanyDto>> GetCompaniesExtended(int ownerId)
+        public async Task<IEnumerable<BaseCompanyDto>> GetCompanieyExtended(int ownerId)
         {
             return _company.GetOwnedCompanies(ownerId).Result
                 .Select(x => new BaseCompanyDto
@@ -89,6 +89,12 @@ namespace JobHiringAPI.Model
                     CompanyName = x.CompanyName,
                     Description = x.Description
                 });
+        }
+
+        public async Task<DetailedCompanyDto> GetDetailedCompany(int compId)
+        {
+            return await _company.GetDetailedCompany(compId);
+               
         }
 
         // Fox Cave Ended

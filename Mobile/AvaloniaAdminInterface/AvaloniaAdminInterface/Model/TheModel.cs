@@ -109,6 +109,12 @@ namespace AvaloniaAdminInterface.Model
             return await _session._client.GetFromJsonAsync<List<BaseCompanyDto>>(
                 $"api/admin/companies/extended?ownerId={ownerId}");
         }
+        public async Task<BaseCompanyDto> GetCompanyExtended(int comp1id)
+        {
+            EnsureAdmin();
+            return await _session._client.GetFromJsonAsync<BaseCompanyDto>(
+                $"api/admin/companies/detaied?Id={comp1id}");
+        }
 
         // GET api/admin/jobs?id=123
         public async Task<List<BaseJobDto>> GetJobs(int id)
