@@ -1,0 +1,143 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AvaloniaAdminInterface"
+        xmlns:vm="clr-namespace:AvaloniaAdminInterface.ViewModels"
+
+       
+        mc:Ignorable="d"
+        x:Class="AvaloniaAdminInterface.UserDetailsWindow">
+
+
+     <Grid RowDefinitions="auto,*,*">
+
+        <!-- HEADER -->
+        <Border Classes="top-nav">
+            <TextBlock Classes="top-nav-title"
+                       Text="USER DETAILS"
+                       VerticalAlignment="Center"/>
+        </Border>
+
+    
+            <StackPanel Spacing="16" Grid.Row="1" Margin="12">
+                <Border Classes="ind-panel">
+                    <StackPanel Spacing="20" HorizontalAlignment="Center" Orientation="Horizontal">
+
+                        <TextBlock Text="{Binding UserId}"
+                                   FontSize="26"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"  />
+
+                        <TextBlock Text="{Binding UserName}"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+
+                        <TextBlock Text="{Binding Email}"
+                                   FontSize="16"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+
+                        <TextBlock Text="{Binding Phone}"
+                                   FontSize="16"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+
+                        <TextBlock Text="{Binding Role}"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+
+                        <TextBlock Text="{Binding NewPassword}"
+                                   FontSize="18"
+                                   Foreground="Red"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Margin="10"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- ACTION BUTTONS -->
+                <Border Classes="ind-panel">
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="10"
+                                HorizontalAlignment="Center">
+
+                        <Button Classes="ind-btn"
+                                Content="PROMOTE"
+                                Command="{Binding PromoteUserCommand}"/>
+
+                        <Button Classes="ind-btn"
+                                Content="DEMOTE"
+                                Command="{Binding DemoteUserCommand}"/>
+
+                        <Button Classes="ind-btn"
+                                Content="RESET PASSWORD"
+                                Command="{Binding ResetPasswordCommand}"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- COMPANIES SECTION -->
+                <Border Classes="ind-panel">
+                    <StackPanel Spacing="8">
+
+                        <TextBlock Text="USER'S COMPANIES"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="#444"/>
+
+                        <Button Classes="ind-btn"
+                                Content="DELETE SELECTED COMPANY"
+                                Command="{Binding DeleteCompanyCommand}"
+                                HorizontalAlignment="Left"/>
+
+                        <ScrollViewer Height="200">
+                            <ListBox ItemsSource="{Binding Companies}"
+                                     SelectedItem="{Binding selectedCompany}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <local:CompanyControl/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </ScrollViewer>
+
+                    </StackPanel>
+                </Border>
+
+                <!-- REQUESTS SECTION -->
+                <Border Classes="ind-panel">
+                    <StackPanel Spacing="8">
+
+                        <TextBlock Text="USER'S REQUESTS"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="#444"/>
+
+                        <ScrollViewer Height="250">
+                            <ItemsControl ItemsSource="{Binding Requests}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <local:RequestControl/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+    
+        <Border Grid.Row="2" Padding="8" HorizontalAlignment="Center">
+            <TextBlock Text="Admin Interface"
+                       Foreground="#888"
+                       FontSize="12"/>
+        </Border>
+
+    </Grid>
+</Window>

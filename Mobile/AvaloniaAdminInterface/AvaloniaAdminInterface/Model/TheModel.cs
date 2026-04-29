@@ -89,15 +89,16 @@ namespace AvaloniaAdminInterface.Model
             
 
         }
-
-        // GET api/admin/companies?id=123
-        //_company.GetOwnedCompanies(id)
-        public async Task<List<AdminCompanyDto>> GetCompanies(int ownerId)
+        /*
+        nope...not gonna use it here too conversome for android user to controll 
+        // GET api/admin/allcompanies?start=0,end=24
+        //_company.GetAllCompanies (0 to 24 by default)
+        public async Task<List<BaseCompanyDto>> GetCompanies(int start,int end)
         {
             EnsureAdmin();
-            return await _session._client.GetFromJsonAsync<List<AdminCompanyDto>>(
-                $"api/admin/companies?id={ownerId}");
-        }
+            return await _session._client.GetFromJsonAsync<List<BaseCompanyDto>>(
+                $"api/admin/allcompanies?start={start},end={end}");
+        }*/
 
         // GET api/admin/companies/extended?ownerId=123
 
@@ -106,8 +107,15 @@ namespace AvaloniaAdminInterface.Model
         {
             EnsureAdmin();
             return await _session._client.GetFromJsonAsync<List<BaseCompanyDto>>(
-                $"api/admin/companies/extended?ownerId={ownerId}"
-);
+                $"api/admin/companies/extended?ownerId={ownerId}");
+        }
+
+        //GET api/admin/companies/detailed?id=123
+        public async Task<BaseCompanyDto> GetCompanyExtended(int comp1id)
+        {
+            EnsureAdmin();
+            return await _session._client.GetFromJsonAsync<BaseCompanyDto>(
+                $"api/admin/companies/detailed?id={comp1id}");
         }
 
         // GET api/admin/jobs?id=123
@@ -258,5 +266,9 @@ namespace AvaloniaAdminInterface.Model
     // 3 am rewrote main view model and remade user model + added userViewModel
     // 4 am debug hell wisit 2 hours of sleep all i will get :/
     //2:25 major bug fixes :)
+    //3:18 Oh The misery also gotta buy a lot of strong black tea...
+    //1:50 New avalonia view
+    //2:50 Avalaonia why wont you work right?! Emulator broken.... 
+
 
 }

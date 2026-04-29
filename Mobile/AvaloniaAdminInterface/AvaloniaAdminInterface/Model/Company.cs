@@ -8,10 +8,10 @@ namespace AvaloniaAdminInterface.Model
     {
         public int ID { get; set; }
         public int OwnerID { get; set; }
+        public string OwnerName { get; set; }
         public string CompanyName { get; set; }
         public string Description { get; set; }
-
-        // optional delete command
+        /*
         public ICommand DeleteThis { get; private set; }
 
         public Company() { }
@@ -19,6 +19,8 @@ namespace AvaloniaAdminInterface.Model
         public void AttachDeleteAction(Action<Company> deleteAction)
         {
             DeleteThis = new RelayCommand(() => deleteAction(this));
-        }
+        }*/
+
+
     }
 }

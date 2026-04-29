@@ -5,11 +5,11 @@ namespace AvaloniaAdminInterface.Model.Services
 {
     public class NavigationService : INavigationService
     {
-        private Window _mainWindow;
+        private readonly object _host;
 
-        public NavigationService(Window mainWindow)
+        public NavigationService(object host)
         {
-            _mainWindow = mainWindow;
+            _host = host;
         }
 
         public void OpenWindow(ViewModelBase viewModel)
@@ -26,12 +26,22 @@ namespace AvaloniaAdminInterface.Model.Services
 
         public void NavigateTo(ViewModelBase viewModel)
         {
-            _mainWindow.DataContext = viewModel;
+            switch (_host)
+            {
+                case Window w:
+                    w.DataContext = viewModel;
+                    break;
+
+                case UserControl uc:
+                    uc.DataContext = viewModel;
+                    break;
+            }
         }
 
         public void CloseCurrent()
         {
-            _mainWindow.Close();
+            if (_host is Window w)
+                w.Close();
         }
     }
 

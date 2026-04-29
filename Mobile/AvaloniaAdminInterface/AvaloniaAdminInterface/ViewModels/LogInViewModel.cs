@@ -66,20 +66,6 @@ namespace AvaloniaAdminInterface.ViewModels
 
             try
             {
-                // DEVELOPMENT BYPASS Depracated
-                /*
-                if (Username == "admin" && Password == "0000")
-                {
-                    LoginSucceeded?.Invoke(new UserLoginDto
-                    {
-                        UserID = 99,
-                        UserName = "DeveloperAdmin",
-                        Role = "Admin"
-                    });
-                    return;
-                }
-                */
-
                 // API LOGIN 
                 var user = await _model.Log_in(Username, Password);
 
@@ -96,7 +82,13 @@ namespace AvaloniaAdminInterface.ViewModels
                 }
 
                 LoginSucceeded?.Invoke(user);
-                
+
+                LoginSucceeded += user =>
+                {
+                    LoggedInUser = user;
+                    IsLoggedIn = true;
+                };
+
 
             }
             catch
@@ -109,61 +101,21 @@ namespace AvaloniaAdminInterface.ViewModels
             }
         }
 
+        private bool _isLoggedIn;
+        public bool IsLoggedIn
+        {
+            get => _isLoggedIn;
+            set { _isLoggedIn = value; OnPropertyChanged(); }
+        }
+
+        private UserLoginDto _loggedInUser;
+        public UserLoginDto LoggedInUser
+        {
+            get => _loggedInUser;
+            set { _loggedInUser = value; OnPropertyChanged(); }
+        }
+
 
     }
 }
-
-    /*
-     //before api connection
-    public class LogInViewModel : ViewModelBase
-    {
-        readonly TheModel _model;
-       
-        private readonly IAuthService _authService;
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string ErrorMessage { get; set; }
-        public ReactiveCommand<Unit, Unit> LoginCommand { get; }
-
-        public event Action LoginSucceeded;
-
-        public LogInViewModel(IAuthService authService,TheModel model)
-        {
-            _authService = authService;
-            _model = model;
-
-            LoginCommand = ReactiveCommand.Create(ExecuteLogin);
-        }
-
-        private void ExecuteLogin()
-        {
-            if (_authService.Login(Username, Password))
-            {
-                LoginSucceeded?.Invoke();
-            }
-            else
-            {
-                ErrorMessage = "Invalid username or password";
-                this.RaisePropertyChanged(nameof(ErrorMessage));
-            }
-        }
-    }
-    public interface IAuthService
-    {
-        bool Login(string username, string password);
-    }
-
-    public class AuthService : IAuthService
-    {
-        public bool Login(string username, string password)
-        {
-            //Template pass make it use [HttpPost("login")] and reconfigure everithing to run with database
-
-            return username == "admin" && password == "0000";
-        }
-    }
-
-
-}
-    */
 

@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Threading.Tasks;
 
-public class LookUpUserDetailsViewModel : ViewModelBase
+public class UserDetailsViewModel : ViewModelBase
 {
     private readonly TheModel _model;
 
@@ -105,9 +105,10 @@ public class LookUpUserDetailsViewModel : ViewModelBase
         }
     }
 
+    public Company? selectedCompany { get; set; }
 
 
-    public LookUpUserDetailsViewModel(TheModel model, int userId)
+    public UserDetailsViewModel(TheModel model, int userId)
     {
         _model = model;
         UserId = userId;
@@ -117,7 +118,7 @@ public class LookUpUserDetailsViewModel : ViewModelBase
         DeleteCompanyCommand = ReactiveCommand.CreateFromTask<Company>(DeleteCompanyAsync);
 
         LoadCommand = ReactiveCommand.CreateFromTask(LoadAsync);
-        RequestsUnderReviewCommand = ReactiveCommand.CreateFromTask<int>(PutCompanyUnderReviewAsync);
+       
         DeleteCompaniesCommand = ReactiveCommand.CreateFromTask<int>(DeleteCompanyByIdAsync);
 
         PromoteUserCommand = ReactiveCommand.CreateFromTask(PromoteUserAsync);
@@ -126,6 +127,9 @@ public class LookUpUserDetailsViewModel : ViewModelBase
 
 
     }
+
+    
+
     // private async Task LoadAsync()
     //changed visibility
     public async Task LoadAsync()
@@ -173,11 +177,7 @@ public class LookUpUserDetailsViewModel : ViewModelBase
         }
     }
     
-    private async Task GetMoreDetails(int id)
-    {
-        await _model.GetUserExpandedInfo(id);
-    }
-
+    //requests
     private async Task ChangeStatusAsync(Request req)
     {
         await _model.PutUnderReview(req.ID);
@@ -189,16 +189,10 @@ public class LookUpUserDetailsViewModel : ViewModelBase
         await _model.DeleteRequest(req.ID);
         await LoadAsync();
     }
-
+    // companies
     private async Task DeleteCompanyAsync(Company company)
     {
-        await _model.DeleteCompany(company.ID);
-        await LoadAsync();
-    }
-
-    private async Task PutCompanyUnderReviewAsync(int companyId)
-    {
-        await _model.PutUnderReview(companyId);
+        await _model.DeleteCompany(selectedCompany.ID);
         await LoadAsync();
     }
 
@@ -207,16 +201,29 @@ public class LookUpUserDetailsViewModel : ViewModelBase
         await _model.DeleteCompany(companyId);
         await LoadAsync();
     }
+    //User
     private async Task PromoteUserAsync()
     {
-        await _model.PromoteUser(UserId);
-        await LoadAsync();
+        if (Role.Contains("User"))
+        {
+            await _model.PromoteUser(UserId);
+            await LoadAsync();
+
+            OnPropertyChanged(nameof(Role));
+        }
     }
     private async Task DemoteUserAsync()
     {
-        await _model.DemoteUser(UserId);
-        await LoadAsync();
+        if (!Role.Contains("User"))
+        {
+            await _model.DemoteUser(UserId);
+            await LoadAsync();
+
+            OnPropertyChanged(nameof(Role));
+        }
+            
     }
+
     private async Task ResetPasswordAsync()
     {
         await _model.ResetPassword(UserId);
