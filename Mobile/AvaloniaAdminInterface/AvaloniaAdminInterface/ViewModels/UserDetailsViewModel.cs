@@ -118,7 +118,7 @@ public class UserDetailsViewModel : ViewModelBase
         DeleteCompanyCommand = ReactiveCommand.CreateFromTask<Company>(DeleteCompanyAsync);
 
         LoadCommand = ReactiveCommand.CreateFromTask(LoadAsync);
-        //RequestsUnderReviewCommand = ReactiveCommand.CreateFromTask<int>(PutCompanyUnderReviewAsync);
+       
         DeleteCompaniesCommand = ReactiveCommand.CreateFromTask<int>(DeleteCompanyByIdAsync);
 
         PromoteUserCommand = ReactiveCommand.CreateFromTask(PromoteUserAsync);
@@ -127,6 +127,9 @@ public class UserDetailsViewModel : ViewModelBase
 
 
     }
+
+    
+
     // private async Task LoadAsync()
     //changed visibility
     public async Task LoadAsync()

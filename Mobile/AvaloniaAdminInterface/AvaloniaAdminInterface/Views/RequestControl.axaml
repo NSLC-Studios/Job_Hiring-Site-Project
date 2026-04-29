@@ -12,7 +12,7 @@
         <TextBlock Grid.Column="2" Text="{Binding Status}" />
 
         <Button Grid.Column="3" Content="Under Review"
-                Command="{Binding DataContext.PutJobUnderReviewCommand,
+                Command="{Binding ChangeStatusCommand,
                 RelativeSource={RelativeSource AncestorType=Window}}"
                 CommandParameter="{Binding JobID}"/>
 

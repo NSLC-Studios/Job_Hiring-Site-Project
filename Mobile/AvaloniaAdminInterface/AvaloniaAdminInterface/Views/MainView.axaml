@@ -12,7 +12,9 @@
              x:Class="AvaloniaAdminInterface.Views.MainView"
              x:DataType="vm:MainViewModel">
 
+
 <Grid>
+
 	<Grid.RowDefinitions>
 		<RowDefinition Height="*"/>
         <RowDefinition Height="*"/>
