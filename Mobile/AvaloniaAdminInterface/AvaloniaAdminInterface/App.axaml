@@ -8,11 +8,11 @@
 
   
     <Style Selector="Window">
-        <Setter Property="Background" Value="#F0F0F0"/> <!-- Light gray like Windows -->
+        <Setter Property="Background" Value="#F0F0F0"/> 
     </Style>
 
     <Style Selector="Border.top-nav">
-        <Setter Property="Background" Value="#3b0f2f"/>  <!-- your theme color -->
+        <Setter Property="Background" Value="#3b0f2f"/>  
         <Setter Property="BorderBrush" Value="#2a0b22"/>
         <Setter Property="BorderThickness" Value="0 0 1 0"/>
         <Setter Property="Padding" Value="12"/>
