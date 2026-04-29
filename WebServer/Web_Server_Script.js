@@ -25,7 +25,7 @@ function ReplyError(sender, error = "Not Specified"){
 function SendEmpty(sender){
     sender.writeHead(404, {"Content-Type": "text/html"}); // 530
             
-    fs.readFile(`Website/Empty.html`, (err, payload) =>{
+    fs.readFile(`../Website/Empty.html`, (err, payload) =>{
         if(err){
             ReplyError(sender, err.message);
             return;
@@ -37,7 +37,7 @@ function SendEmpty(sender){
 }
 
 function SendResponse(sender, target, type){
-    fs.readFile(`Website/${target}${type}`, (err, payload) =>{
+    fs.readFile(`../Website/${target}${type}`, (err, payload) =>{
         if(err){
             //throw err;
             //console.log(err)
@@ -69,6 +69,11 @@ http.createServer((req, res) => {
             target = "Home";
             type = ".html";
             break;
+        case "home" :
+            // redirect to actual home page
+            res.writeHead(302, { Location: "/" });
+            res.end();
+            return
         case "contact" :
             target = "Contact";
             type = ".html";
@@ -87,8 +92,13 @@ http.createServer((req, res) => {
             type = ".html";
             break;
         case "company" :
-            target = "Company";
-            type = ".html";
+            if (query[2] == undefined || query[2] == "") {
+                target = "SelectCompany";
+                type = ".html";
+            } else{
+                target = "Company";
+                type = ".html";
+            }
             break;
         case "job" :
             target = "Job";
@@ -109,6 +119,44 @@ http.createServer((req, res) => {
         case "profile" :
             target = "Profile";
             type = ".html";
+            break;
+        case "createjob" :
+            target = "CreateJob";
+            type = ".html";
+            break;
+        case "apply" :
+            target = "Apply";
+            type = ".html";
+            break;
+        case "request" :
+            if (query[2] == undefined || query[2] == "") {
+                target = "Requests";
+                type = ".html";
+            } else if (query[2] == "job") {
+                target = "JobRequest";
+                type = ".html";
+            } else{
+                target = "Request";
+                type = ".html";
+            }
+            break;
+        case "application" :
+            if (query[2] == "company") {
+                target = "CompanyApplications";
+                type = ".html";
+            } else {
+                target = "Applications";
+                type = ".html";
+            }
+            break;
+        case "cv" :
+            if (query[2] == undefined || query[2] == "") {
+                target = "CVs";
+                type = ".html";
+            } else{
+                target = "CV";
+                type = ".html";
+            }
             break;
         case "styles" :
             target = `Styles/${query[2].replace(".css", "")}`

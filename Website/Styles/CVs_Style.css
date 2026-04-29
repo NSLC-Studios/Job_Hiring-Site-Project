@@ -1,0 +1,62 @@
+.cv-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 230px;
+    overflow: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.card-backdrop {
+    background-image: url("/Images/Default_Backdrop.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.cv-summary {
+    position: absolute;
+    width: 80%;
+    left: 15px;
+    top: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+}
+
+.cv-location {
+    position: absolute;
+    left: 15px;
+    top: 55px;
+    font-size: 0.95rem;
+    color: #ddd;
+}
+
+.card-button {
+    position: absolute;
+    right: 15px;
+    left: 15px;
+    bottom: 15px;
+    height: 40px;
+    justify-content: center;
+    font-size: 80%;
+}
+
+.card-bottom {
+    height: 60%;
+    width: 100%;
+    flex: 1;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+
+.cv-card:hover {
+    transform: scale(1.02);
+    opacity: 0.95;
+}
+
+#cvSummary {
+    width: 100%;
+    min-height: 180px;
+    resize: vertical;
+}

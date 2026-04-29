@@ -1,0 +1,117 @@
+#job-profile {
+    position: relative;
+    min-height: 15em;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.banner {
+    background-image: url("/Images/Default_Backdrop.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#job-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 45%;
+    width: 100%;
+    border-radius: 0;
+    padding: 10px;
+}
+
+#job-pfp-box {
+    position: absolute;
+    left: 35px;
+    top: -75px;
+    width: 100px;
+    height: 100px;
+    border-radius: 40%;
+}
+
+#job-pfp {
+    position: relative;
+    left: 5px;
+    top: 5px;
+    width: 90px;
+    height: 90px;
+    border-radius: 45%;
+    overflow: hidden;
+}
+
+#job-company-area {
+    position: absolute;
+    left: 135px;
+    top: 0;
+}
+
+#job-pay-area {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    text-align: right;
+}
+
+#job-buttons {
+    position: absolute;
+    right: 15px;
+    bottom: 7px;
+    display: flex;
+    gap: 10px;
+}
+
+#job-address {
+    position: absolute;
+    left: 20px;
+    bottom: 10px;
+}
+
+#job-description-box {
+    margin-top: 25px;
+    padding: 20px;
+    position: relative;
+}
+
+.desc-edit-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+main {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.desc-edit-group {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+#job-details-box {
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: rgb(200, 200, 200);
+}
+
+.detail-value {
+    color: rgb(230, 230, 230);
+}
+
+.apply-bottom-btn {
+    width: 100%;
+    margin-top: 20px;
+}

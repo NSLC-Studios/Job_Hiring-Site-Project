@@ -1,0 +1,468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="JobHiringAPI.Dtos.AdminCompanyDto">
+    <Position X="13.75" Y="7.25" Width="1.5" />
+    <AssociationLine Name="Name" Type="System.String" ManuallyRouted="true">
+      <Path>
+        <Point X="15.25" Y="8.031" />
+        <Point X="15.326" Y="8.031" />
+        <Point X="15.326" Y="6.692" />
+        <Point X="14.728" Y="6.692" />
+        <Point X="14.728" Y="3.515" />
+        <Point X="17.597" Y="3.515" />
+        <Point X="17.597" Y="13.657" />
+        <Point X="21.75" Y="13.657" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAiAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\AdminCompanyDto.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Name" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.AdminUpdateRequestStatusDto" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\AdminUpdateRequestStatusDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.BaseAdminsDto" Collapsed="true">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAgAAAAAAAAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Dtos\BaseAdminsDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.BaseAreaDto" Collapsed="true">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\BaseAreaDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.BaseCompanyDto" Collapsed="true">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAgiAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\BaseCompanyDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.BaseCVDto" Collapsed="true">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\BaseCVDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.BaseJobDto" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAACAIgggAIAAAAAAQAAAoAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\BaseJobDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.BaseReceivedCompanyRequestDto" Collapsed="true">
+    <Position X="2.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAEAAAgkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\BaseReceivedCompanyRequestDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.BaseReceivedRequestDto" Collapsed="true">
+    <Position X="3.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAEAAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\BaseReceivedRequestDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.BaseRequestDto" Collapsed="true">
+    <Position X="5.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAEAABgkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\BaseRequestDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.BaseUserDto" Collapsed="true">
+    <Position X="7.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAEAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Dtos\BaseUserDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.BaseUsernameDto" Collapsed="true">
+    <Position X="9" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Dtos\BaseUsernameDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.CreateAreaDto" Collapsed="true">
+    <Position X="10.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIIAAAAAwAAAIAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\CreateAreaDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.CreateCompanyDto" Collapsed="true">
+    <Position X="12.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\CreateCompanyDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.CreateRequestDto" Collapsed="true">
+    <Position X="2" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAgAAAAAAAAAgAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Dtos\CreateRequestDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.DetailedAreaDto" Collapsed="true">
+    <Position X="3.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAIAAAAAAwAAAIAAAACAAAAAAABAAA=</HashCode>
+      <FileName>Dtos\DetailedAreaDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.DetailedCompanyDto" Collapsed="true">
+    <Position X="5.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAACAgiAAIAAAAAAQAAAIAAAACAAAAIAABAAA=</HashCode>
+      <FileName>Dtos\DetailedCompanyDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.DetailedCVDto" Collapsed="true">
+    <Position X="7.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAEAAACAAgAAIEAAAAAwAAAIgAAACAQAAIAABAAg=</HashCode>
+      <FileName>Dtos\DetailedCVDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.DetailedJobDto" Collapsed="true">
+    <Position X="9" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAACAIgggAIAAAAAAQAAAoAAAACAAAAAAABAAA=</HashCode>
+      <FileName>Dtos\DetailedJobDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.DetailedRequestDto" Collapsed="true">
+    <Position X="10.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACYAAECCJgkgAAAAIAAAAAAAgAAAACAgAAIAAAAAA=</HashCode>
+      <FileName>Dtos\DetailedRequestDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.DetailedUserDto" Collapsed="true">
+    <Position X="12.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAgAEAEAAAAAAAAAAgAAAAAQAAJAAAAAg=</HashCode>
+      <FileName>Dtos\DetailedUserDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.LoginDetailsDto" Collapsed="true">
+    <Position X="2" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQAAAAAAAAA=</HashCode>
+      <FileName>Dtos\LoginDetailsDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateAreaDto" Collapsed="true">
+    <Position X="3.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAIIAAAAAQAAAIAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateAreaDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateCompanyAreaDto" Collapsed="true">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateCompanyAreaDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateCompanyContactsDto" Collapsed="true">
+    <Position X="7.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAgAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateCompanyContactsDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateCompanyDescriptionDto" Collapsed="true">
+    <Position X="9" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateCompanyDescriptionDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateCompanyNameDto" Collapsed="true">
+    <Position X="10.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateCompanyNameDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateCVArealDto" Collapsed="true">
+    <Position X="12.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateCVArealDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateCVSummaryDto" Collapsed="true">
+    <Position X="2" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateCVSummaryDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateJobAreaDto" Collapsed="true">
+    <Position X="3.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateJobAreaDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateJobDescriptionDto" Collapsed="true">
+    <Position X="5.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateJobDescriptionDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateJobLanguageDto" Collapsed="true">
+    <Position X="7.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateJobLanguageDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateJobPayDto" Collapsed="true">
+    <Position X="9" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateJobPayDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateJobWorkTimeDto" Collapsed="true">
+    <Position X="10.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateJobWorkTimeDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateRequestCommentDto" Collapsed="true">
+    <Position X="12.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateRequestCommentDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateRequestResponseDto" Collapsed="true">
+    <Position X="2" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAABAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateRequestResponseDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateRequestStatusDto" Collapsed="true">
+    <Position X="3.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateRequestStatusDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateUserAboutDto" Collapsed="true">
+    <Position X="5.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateUserAboutDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateUserContactDto" Collapsed="true">
+    <Position X="7.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAgAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateUserContactDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateUserLegalNameDto" Collapsed="true">
+    <Position X="9" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Dtos\UpdateUserLegalNameDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateUserNameDto" Collapsed="true">
+    <Position X="10.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateUserNameDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UpdateUserPasswordDto" Collapsed="true">
+    <Position X="12.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UpdateUserPasswordDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UserDto" Collapsed="true">
+    <Position X="2" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAEAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UserDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UserLoginDto" Collapsed="true">
+    <Position X="3.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAgAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UserLoginDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Dtos.UserRegistrationDto" Collapsed="true">
+    <Position X="5.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Dtos\UserRegistrationDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Controllers.AdminController">
+    <Position X="24.25" Y="4.25" Width="1.5" />
+    <AssociationLine Name="_model" Type="JobHiringAPI.Model.AdminModel" ManuallyRouted="true">
+      <Path>
+        <Point X="25.75" Y="5.701" />
+        <Point X="26.328" Y="5.701" />
+        <Point X="26.328" Y="6.685" />
+        <Point X="26.803" Y="6.685" />
+        <Point X="26.803" Y="4.466" />
+        <Point X="27.161" Y="4.466" />
+        <Point X="27.161" Y="7.846" />
+        <Point X="27.379" Y="7.846" />
+        <Point X="27.379" Y="5.701" />
+        <Point X="27.5" Y="5.701" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IAAAAEAEAABAAAAGAwgAAADAAQAAAAEAAAEgAAAAAAg=</HashCode>
+      <FileName>Controllers\AdminController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_model" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="JobHiringAPI.Controllers.AreaController" Collapsed="true">
+    <Position X="17.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAgAAAIAAAAAAAAAABAAAEAAgAAA=</HashCode>
+      <FileName>Controllers\AreaController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Controllers.CompanyController" Collapsed="true">
+    <Position X="19.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAIAAAAAAAAAAAAgAAAACAAACAAIUAAAAEACAAAAA=</HashCode>
+      <FileName>Controllers\CompanyController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Controllers.CVController" Collapsed="true">
+    <Position X="16" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAASAAMAAgACAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Controllers\CVController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Controllers.JobController" Collapsed="true">
+    <Position X="17.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QACAAMAEBAAAAAQAAggAAAAQAAAAAgAAAAAAAAAAAIA=</HashCode>
+      <FileName>Controllers\JobController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Controllers.RequestController" Collapsed="true">
+    <Position X="19.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAEAQAAAAAAEAAgAgAGACAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\RequestController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Controllers.UserController" Collapsed="true">
+    <Position X="16" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAABCCAAIAEAgAAAAIAgAABBAAAAAEQAAAAAQA=</HashCode>
+      <FileName>Controllers\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Controllers.WeatherForecastController" Collapsed="true">
+    <Position X="17.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEBAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\WeatherForecastController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.String">
+    <Position X="21.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="JobHiringAPI.Model.AdminModel">
+    <Position X="27.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>OAAEAkAEAABABAAGQQgAAADAAAAAAIEAAAEgAAAAAAg=</HashCode>
+      <FileName>Model\AdminModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Persistence.JobDatabaseContext">
+    <Position X="34.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAEAAAAAAAACgAAAAIAAAABAAAAA=</HashCode>
+      <FileName>Persistence\JobDatabaseContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Persistence.User">
+    <Position X="30.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAAAEAEAAAAAgAAAAAgAACIQAAJQAAAAg=</HashCode>
+      <FileName>Persistence\JobDatabaseContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Persistence.CV" Collapsed="true">
+    <Position X="32.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACBAAAAAAAAAAAAAAAAAAgAAAAAAAAAIgAAAQAAAAA=</HashCode>
+      <FileName>Persistence\JobDatabaseContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Persistence.Area" Collapsed="true">
+    <Position X="30.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAIIAAAAAwAAAIAAAACIAAAAAAAAAA=</HashCode>
+      <FileName>Persistence\JobDatabaseContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Persistence.Company" Collapsed="true">
+    <Position X="32.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADQAAAAAIgCAAAAAIAAAAAAAAAAAAAIAAAAQAAAAA=</HashCode>
+      <FileName>Persistence\JobDatabaseContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Persistence.Job" Collapsed="true">
+    <Position X="30.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAIgEgAAAAAAAAAAAAgAgAAAIAAABQAAAAA=</HashCode>
+      <FileName>Persistence\JobDatabaseContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JobHiringAPI.Persistence.Request">
+    <Position X="32.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAEAABAEAQAAAAAAAgAAAACAAAAIgAAAAAAAAA=</HashCode>
+      <FileName>Persistence\JobDatabaseContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

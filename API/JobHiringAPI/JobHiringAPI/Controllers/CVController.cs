@@ -35,9 +35,9 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<DetailedCVDto>>> GetDetailedCV([FromQuery] int id)
+        public async Task<ActionResult<DetailedCVDto>> GetDetailedCV([FromQuery] int id)
         {
             try
             {

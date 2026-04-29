@@ -66,7 +66,6 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        // [Authorize]
         [HttpGet("admins")]
         public async Task<ActionResult<IEnumerable<BaseAdminsDto>>> GetAdmins([FromQuery] int skip = 0, [FromQuery] int take = 3)
         {
@@ -147,6 +146,21 @@ namespace JobHiringAPI.Controllers
             try
             {
                 await _model.UpdatePassword(dto);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [Authorize]
+        [HttpPut("update/about")]
+        public async Task<ActionResult> UpdateUserAbout([FromBody] UpdateUserAboutDto dto)
+        {
+            try
+            {
+                await _model.UpdateAbout(dto);
                 return Ok();
             }
             catch

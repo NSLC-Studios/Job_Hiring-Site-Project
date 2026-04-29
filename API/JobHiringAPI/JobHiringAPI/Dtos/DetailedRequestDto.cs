@@ -6,6 +6,7 @@
         public int CompanyID { get; set; }
         public int JobID { get; set; }
         public int CVID { get; set; }
+        public int ApplicantID { get; set; }
         public string Applicant { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }

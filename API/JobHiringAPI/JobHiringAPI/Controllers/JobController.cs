@@ -23,7 +23,7 @@ namespace JobHiringAPI.Controllers
             try
             {
                 if (skip < 0) skip = 0;
-                if (take < 0) take = 0;
+                if (take < 0) take = 12;
 
                 return Ok(await _model.GetJobs(skip, take));
             }
@@ -33,8 +33,6 @@ namespace JobHiringAPI.Controllers
             }
         }
 
-        /* 
-        // Reserved for Admin Model
         [HttpGet("jobs/company")]
         public async Task<ActionResult<IEnumerable<BaseJobDto>>> GetCompanyJobs([FromQuery] int id)
         {
@@ -47,7 +45,6 @@ namespace JobHiringAPI.Controllers
                 return BadRequest();
             }
         }
-        */
 
         [HttpGet("jobs/filter")]
         public async Task<ActionResult<IEnumerable<BaseJobDto>>> GetFilteredJobs([FromQuery] int pay = 0, [FromQuery] string language = "", [FromQuery] string country = "", [FromQuery] string county = "", [FromQuery] string city = "", [FromQuery] string work = "", [FromQuery] string company = "", [FromQuery] string description = "", [FromQuery] int skip = 0, [FromQuery] int take = 12)
@@ -56,7 +53,7 @@ namespace JobHiringAPI.Controllers
             {
                 if (pay < 0) pay = 0;
                 if (skip < 0) skip = 0;
-                if (take < 0) take = 0;
+                if (take < 0) take = 12;
 
                 return Ok(await _model.GetFilteredJobs(pay, language, country, county, city, work, company, description, skip, take));
             }
@@ -72,7 +69,7 @@ namespace JobHiringAPI.Controllers
             try
             {
                 if (skip < 0) skip = 0;
-                if (take < 0) take = 0;
+                if (take < 0) take = 12;
 
                 return Ok(await _model.GetSearchedJobs(description, skip, take));
             }
