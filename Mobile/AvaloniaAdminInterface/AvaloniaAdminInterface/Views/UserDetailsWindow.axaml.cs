@@ -1,13 +1,17 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using System;
+using System.Reactive.Linq;
 
 namespace AvaloniaAdminInterface;
 
-public partial class UserDetailsControl : UserControl
+public partial class UserDetailsWindow : Window
 {
-    public UserDetailsControl()
+
+    public UserDetailsWindow()
     {
         InitializeComponent();
     }
 }
+

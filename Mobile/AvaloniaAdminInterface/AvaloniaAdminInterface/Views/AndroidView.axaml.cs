@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace AvaloniaAdminInterface;
 
-public partial class AndroidMainView : Window
+public partial class AndroidView : UserControl
 {
-    public AndroidMainView()
+    public AndroidView()
     {
         InitializeComponent();
     }

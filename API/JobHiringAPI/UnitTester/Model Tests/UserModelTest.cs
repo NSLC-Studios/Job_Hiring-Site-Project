@@ -13,11 +13,14 @@ namespace UnitTester.Model_Tests
     {
         private readonly UserModel _model;
         private readonly JobDatabaseContext _context;
+        //depracated
+        /*
         private static string HashPassword(string password)
         {
             using System.Security.Cryptography.SHA256 sha = System.Security.Cryptography.SHA256.Create();
             return Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(password)));
         }
+        */
         public UserModelTest()
         {
             _context = DbContextFactory.Create();
@@ -65,6 +68,7 @@ namespace UnitTester.Model_Tests
             }
             _context.Database.EnsureDeleted();
         }
+
         [Fact]
         public void CheckRegistrationNAmeNull()
         {

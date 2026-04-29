@@ -21,7 +21,7 @@ namespace AvaloniaAdminInterface.ViewModels
         public string UserName => Model.UserName;
         public string Role => Model.Role.ToString();
 
-        public User.TheRoles RoleEnum => Model.Role;
+        //public User.TheRoles RoleEnum => Model.Role;
 
         public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
         public ReactiveCommand<Unit, Unit> ExpandCommand { get; }
@@ -34,11 +34,11 @@ namespace AvaloniaAdminInterface.ViewModels
 
 
             DeleteCommand = ReactiveCommand.CreateFromTask(
-                () => _parent.DeleteUserAsync(this)
+               async () => await _parent.DeleteUserAsync(this)
             );
 
-            ExpandCommand = ReactiveCommand.Create(
-                () => _parent.ExpandUser(this)
+            ExpandCommand = ReactiveCommand.CreateFromTask(
+               async () => await _parent.ExpandUser(this)
             );
         }
     }

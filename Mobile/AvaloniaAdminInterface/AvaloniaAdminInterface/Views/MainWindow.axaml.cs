@@ -7,15 +7,11 @@ namespace AvaloniaAdminInterface.Views;
 
 public partial class MainWindow : Window
 {
-    private readonly ApiSession session;
-    
+
     public MainWindow()
     {
         InitializeComponent();
-        
-        NavigationService navigation = new NavigationService(this);
-        TheModel _model = new TheModel(session);
-        DataContext = new MainViewModel(_model,navigation);
-
     }
 }
+
+
