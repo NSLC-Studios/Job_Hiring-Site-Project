@@ -69,20 +69,26 @@
     </header>
     
     <main>
-        <div class="content-box container dark">
-            <h1 class="fw-bold">Support!</h1>
-
-            <div>
-                <h2>No Admins available!</h2>
-                <div id="admin-container">
-                    <div class="card banner" id="admin-container">
-                    text
-                    </div>
-                    <div class="card banner" id="admin-container">
-                    test
+        <div class="dark container py-4">
+            <h2 class="fw-bold mb-4 text-center">Administrators</h2>
+    
+            <div id="admin-panel">
+                <div id="admins-container" class="admin-scroll"></div>
+            </div>
+    
+            <template id="admin-card-template">
+                <div class="admin-card banner">
+                    <div class="admin-card-inner text-light">
+                        <div class="admin-info">
+                            <strong class="admin-name fs-3">FirstName</strong>
+                            <span class="admin-username">username</span>
+                            <span class="admin-email">email</span>
+                        </div>
+    
+                        <a class="btn btn-success btn-sm admin-profile-btn">View Profile</a>
                     </div>
                 </div>
-            </div>
+            </template>
         </div>
     </main>
     

@@ -16,14 +16,14 @@ const ContentSuffixTable = {
 };
 
 function ReplyError(sender, error = "Not Specified"){
-    sender.writeHead(500, {"Content-Type": "text/html"}); // 521
+    sender.writeHead(500, {"Content-Type": "text/html"});
     sender.write(`There was a problem with requesting the content, this is an internal server problem. Please remain calm and try again later.\n\nIn the event that the problem persists longer than 15 minutes, please click here. > <a href="127.0.0.1:60/${Help_Requested_Domain}" target="_blank">Request aid<a/>`);
     sender.write(`<br>The thrown error was: ${error}`);
     sender.end();
 }
 
 function SendEmpty(sender){
-    sender.writeHead(404, {"Content-Type": "text/html"}); // 530
+    sender.writeHead(404, {"Content-Type": "text/html"});
             
     fs.readFile(`../Website/Empty.html`, (err, payload) =>{
         if(err){
@@ -39,9 +39,6 @@ function SendEmpty(sender){
 function SendResponse(sender, target, type){
     fs.readFile(`../Website/${target}${type}`, (err, payload) =>{
         if(err){
-            //throw err;
-            //console.log(err)
-            
             if (err.code === "ENOENT"){
                 SendEmpty(sender);
                 return;
@@ -51,9 +48,7 @@ function SendResponse(sender, target, type){
             }
         }
 
-        // const payload = data;
-        sender.writeHead(200, {"Content-Type": ContentSuffixTable[type]}); // "text/html"
-        //res.write();
+        sender.writeHead(200, {"Content-Type": ContentSuffixTable[type]})
         sender.end(payload);
     });
 }
@@ -79,7 +74,6 @@ http.createServer((req, res) => {
             type = ".html";
             break;
         case "condtact" :
-            // 404 purposes deprecated
             target = "Contdact";
             type = ".html";
             break;
@@ -158,6 +152,10 @@ http.createServer((req, res) => {
                 type = ".html";
             }
             break;
+        case "admin" :
+            target = "Admin";
+            type = ".html";
+            break;
         case "styles" :
             target = `Styles/${query[2].replace(".css", "")}`
             type = ".css";
@@ -204,15 +202,10 @@ http.createServer((req, res) => {
             }
     }
     try {
-        // throw new error;
         SendResponse(res, target, type);
     } catch (err) {
         console.log(err);
         ReplyError(res, JSON.stringify(err));
-        
-        //res.writeHead(500, {"Content-Type": "text/html"}); // 521
-        //res.write(`There was a problem with requesting the content, this is an internal server problem. Please remain calm and try again later.\n\nIn the event that the problem persists longer than 15 minutes, please click here. > <a href="127.0.0.1:60/${Help_Requested_Domain}" target="_blank">Request aid<a/>`)
-        //res.end();
         return;
     }
 }).listen(80);

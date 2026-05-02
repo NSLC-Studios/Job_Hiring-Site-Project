@@ -84,12 +84,10 @@ namespace JobHiringAPI.Model
             return Convert.ToBase64String(System.Security.Cryptography.SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(password)));
         }
 
-        public async Task<IEnumerable<BaseAdminsDto>> GetAdmins(int skip = 0, int take = 3)
+        public async Task<IEnumerable<BaseAdminsDto>> GetAdmins()
         {
             return _context.Users
                 .Where(x => x.Role == "Admin")
-                .Skip(skip)
-                .Take(take)
                 .Select(x => new BaseAdminsDto
                 {
                     ID = x.UserID,
